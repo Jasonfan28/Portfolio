@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jason Tianchi Fan — Urban Planner & Data Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Libre+Baskerville:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0d0d0b;
+    --paper: #f5f0e8;
+    --cream: #ede7d6;
+    --rust: #c4592a;
+    --rust-dim: #8a3d1e;
+    --gold: #b8975a;
+    --muted: #7a7468;
+    --grid-line: rgba(13,13,11,0.08);
+    --grid-line-dark: rgba(245,240,232,0.07);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Libre Baskerville', Georgia, serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--rust);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+    mix-blend-mode: normal;
+  }
+  .cursor.hovering {
+    width: 36px; height: 36px;
+    background: transparent;
+    border: 1.5px solid var(--rust);
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(196,89,42,0.35);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: transform 0.18s ease;
+  }
+
+  /* GRID OVERLAY */
+  .grid-bg {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      linear-gradient(var(--grid-line-dark) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line-dark) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.6rem 3rem;
+    mix-blend-mode: normal;
+    background: linear-gradient(to bottom, rgba(13,13,11,0.95), transparent);
+  }
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex; gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--paper);
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--rust); }
+
+  /* SECTIONS */
+  section { position: relative; z-index: 1; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    padding: 0 3rem 5rem;
+    gap: 4rem;
+  }
+  .hero-left { padding-bottom: 0.5rem; }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(4rem, 7vw, 7.5rem);
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.4s forwards;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--rust);
+  }
+  .hero-desc {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: rgba(245,240,232,0.65);
+    max-width: 38ch;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.65s forwards;
+  }
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 2.5rem;
+    padding-bottom: 0.5rem;
+  }
+  .hero-stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    border: 1px solid rgba(245,240,232,0.12);
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.85s forwards;
+  }
+  .hero-stat {
+    padding: 1.5rem;
+    border-right: 1px solid rgba(245,240,232,0.12);
+  }
+  .hero-stat:nth-child(2) { border-right: none; }
+  .hero-stat:nth-child(3),
+  .hero-stat:nth-child(4) { border-top: 1px solid rgba(245,240,232,0.12); }
+  .hero-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--rust);
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.5rem;
+  }
+  .hero-contact {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    opacity: 0;
+    animation: fadeUp 0.9s ease 1s forwards;
+  }
+  .hero-contact a { color: var(--gold); text-decoration: none; }
+  .hero-contact a:hover { color: var(--rust); }
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.3s forwards;
+  }
+  .scroll-line {
+    width: 1px; height: 48px;
+    background: linear-gradient(to bottom, var(--rust), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  /* DIVIDER */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0 3rem;
+    margin-bottom: 4rem;
+  }
+  .divider-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--rust);
+    white-space: nowrap;
+  }
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: rgba(245,240,232,0.12);
+  }
+  .divider-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* EXPERIENCE */
+  #experience { padding: 7rem 3rem; }
+  .exp-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 0;
+  }
+  .exp-item {
+    display: contents;
+  }
+  .exp-item:not(:last-child) .exp-meta,
+  .exp-item:not(:last-child) .exp-body {
+    border-bottom: 1px solid rgba(245,240,232,0.08);
+  }
+  .exp-meta {
+    padding: 2.5rem 2rem 2.5rem 0;
+    border-right: 1px solid rgba(245,240,232,0.08);
+  }
+  .exp-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: var(--rust);
+    margin-bottom: 0.6rem;
+  }
+  .exp-org {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.3rem;
+  }
+  .exp-location {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .exp-body {
+    padding: 2.5rem 0 2.5rem 2.5rem;
+  }
+  .exp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+  }
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .exp-bullets li {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: rgba(245,240,232,0.72);
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  .exp-bullets li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--rust);
+    font-size: 0.7rem;
+  }
+
+  /* PROJECTS */
+  #projects { padding: 7rem 3rem; }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(245,240,232,0.08);
+  }
+  .project-card {
+    background: var(--ink);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s ease;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: var(--rust);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .project-card:hover { background: rgba(245,240,232,0.03); }
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+  .project-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 1rem;
+  }
+  .project-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    color: var(--rust);
+    margin-bottom: 1rem;
+  }
+  .project-desc {
+    font-size: 0.83rem;
+    line-height: 1.7;
+    color: rgba(245,240,232,0.6);
+  }
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.65rem;
+    border: 1px solid rgba(196,89,42,0.35);
+    color: var(--rust);
+  }
+
+  /* SKILLS */
+  #skills { padding: 7rem 3rem; }
+  .skills-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: rgba(245,240,232,0.08);
+  }
+  .skill-group {
+    background: var(--ink);
+    padding: 2.5rem;
+  }
+  .skill-group-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(245,240,232,0.08);
+  }
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .skill-list li {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 0.87rem;
+    color: rgba(245,240,232,0.75);
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .skill-list li::before {
+    content: '';
+    width: 20px; height: 1px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* EDUCATION */
+  #education { padding: 7rem 3rem; }
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(245,240,232,0.08);
+  }
+  .edu-card {
+    background: var(--ink);
+    padding: 3rem;
+  }
+  .edu-degree {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  .edu-school {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+  }
+  .edu-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: var(--rust);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+  }
+  .edu-activities {
+    font-size: 0.83rem;
+    line-height: 1.75;
+    color: rgba(245,240,232,0.6);
+  }
+
+  /* CONTACT FOOTER */
+  #contact {
+    padding: 8rem 3rem;
+    text-align: center;
+    border-top: 1px solid rgba(245,240,232,0.08);
+  }
+  .contact-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 1.5rem;
+  }
+  .contact-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 2.5rem;
+  }
+  .contact-heading em {
+    font-style: italic;
+    color: var(--rust);
+  }
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+  .contact-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--paper);
+    transition: color 0.2s;
+  }
+  .contact-link:hover { color: var(--rust); }
+  .contact-link-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .contact-link-value {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 0.95rem;
+  }
+  .footer-bar {
+    margin-top: 6rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(245,240,232,0.06);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50%       { opacity: 1;   transform: scaleY(1.12); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    nav { padding: 1.4rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 4rem; gap: 3rem; min-height: unset; padding-top: 7rem; }
+    .hero-stat-row { grid-template-columns: 1fr 1fr; }
+    .section-divider { padding: 0 1.5rem; }
+    #experience, #projects, #skills, #education, #contact { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .exp-grid { grid-template-columns: 1fr; }
+    .exp-meta { border-right: none; border-bottom: 1px solid rgba(245,240,232,0.08) !important; padding: 1.5rem 0; }
+    .exp-body { padding: 1.5rem 0; }
+    .exp-item:not(:last-child) .exp-meta { border-bottom: none !important; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .skills-layout { grid-template-columns: 1fr; }
+    .edu-grid { grid-template-columns: 1fr; }
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="grid-bg"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">JTF</a>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Urban Planner · Data Analyst · Designer</p>
+    <h1 class="hero-name">Jason<br><em>Tianchi</em><br>Fan</h1>
+    <p class="hero-desc">Translating the complexity of cities into data-driven strategies — from geospatial modeling to public policy, from microdata pipelines to community design.</p>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat-row">
+      <div class="hero-stat">
+        <div class="hero-stat-num">245k+</div>
+        <div class="hero-stat-label">Individuals modeled</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">20km+</div>
+        <div class="hero-stat-label">Pedestrian infra. audited</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">50+</div>
+        <div class="hero-stat-label">Community leaders engaged</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">M.C.P.</div>
+        <div class="hero-stat-label">Penn · Class of 2026</div>
+      </div>
+    </div>
+    <div class="hero-contact">
+      <a href="mailto:jason.tc.fan@gmail.com">jason.tc.fan@gmail.com</a> &nbsp;·&nbsp;
+      (267) 767-1766 &nbsp;·&nbsp;
+      <a href="https://linkedin.com/in/jasontianchifan" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-divider reveal">
+    <span class="divider-label">Work Experience</span>
+    <div class="divider-line"></div>
+    <span class="divider-num">01</span>
+  </div>
+
+  <div class="exp-grid">
+
+    <div class="exp-item">
+      <div class="exp-meta reveal">
+        <div class="exp-date">Jan 2026 — Present</div>
+        <div class="exp-org">Penn Institute of Urban Research</div>
+        <div class="exp-location">Philadelphia, PA</div>
+      </div>
+      <div class="exp-body reveal">
+        <div class="exp-title">Research Assistant</div>
+        <ul class="exp-bullets">
+          <li>Designed and executed geospatial data workflows in ArcGIS and Python to quantify Penn's institutional footprint, integrating socio-economic datasets to model spatial influence across regional geographies.</li>
+          <li>Built data integration pipelines combining parcel-level, census, and administrative datasets to support multi-variable socioeconomic assessments informing university-wide development frameworks.</li>
+          <li>Translated modeling outputs into visualizations and reports for university stakeholders, communicating spatial patterns and analytical findings to both technical and non-technical audiences.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta reveal">
+        <div class="exp-date">Sept 2025 — Feb 2026</div>
+        <div class="exp-org">Wharton-Weitzman Future of Cities Conference</div>
+        <div class="exp-location">Philadelphia, PA</div>
+      </div>
+      <div class="exp-body reveal">
+        <div class="exp-title">Marketing Lead</div>
+        <ul class="exp-bullets">
+          <li>Spearheaded comprehensive marketing and social media campaigns for the Conference, driving attendance and engagement across multi-disciplinary audiences.</li>
+          <li>Developed targeted digital content, interactive media, and promotional materials to connect students, decision-makers, and urban planning professionals.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta reveal">
+        <div class="exp-date">May 2025 — Oct 2025</div>
+        <div class="exp-org">PennPraxis</div>
+        <div class="exp-location">Philadelphia, PA</div>
+      </div>
+      <div class="exp-body reveal">
+        <div class="exp-title">Design Fellow</div>
+        <ul class="exp-bullets">
+          <li>Built and maintained scalable data pipelines in R to ingest, clean, and integrate large-scale microdata for 245,000+ individuals from US Census PUMS and Data Axle, ensuring data quality for statewide economic modeling.</li>
+          <li>Applied descriptive and diagnostic statistical techniques to identify regional trends in self-employment, wage disparities, and industry growth for statewide economic development policy.</li>
+          <li>Operationalized analytical findings into a published report, designing data visualizations and media assets in Adobe InDesign and Illustrator for both technical and non-technical stakeholders.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta reveal">
+        <div class="exp-date">Jan 2024 — Dec 2024</div>
+        <div class="exp-org">Dept. of Gerontology, Simon Fraser University</div>
+        <div class="exp-location">Burnaby, BC</div>
+      </div>
+      <div class="exp-body reveal">
+        <div class="exp-title">Knowledge Mobilization Lead</div>
+        <ul class="exp-bullets">
+          <li>Collected and processed spatial audit data across 20km+ of pedestrian infrastructure in Vancouver using the SWAN tool, identifying critical accessibility gaps to support age-friendly urban design recommendations.</li>
+          <li>Utilized NVivo and photo-voice methodologies to analyze the spatial and social lived experiences of older adults, translating qualitative insights into actionable "aging-in-place" strategies.</li>
+          <li>Orchestrated civic education and knowledge mobilization by designing a board game, professional video content, and conference posters to communicate complex research to public audiences.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta reveal">
+        <div class="exp-date">Sept 2023 — June 2024</div>
+        <div class="exp-org">CityHive</div>
+        <div class="exp-location">Vancouver, BC</div>
+      </div>
+      <div class="exp-body reveal">
+        <div class="exp-title">Youth Facilitator</div>
+        <ul class="exp-bullets">
+          <li>Spearheaded weekly youth-centered civic education workshops, integrating principles of social equity and environmental stewardship to foster community engagement and urban literacy among youths.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta reveal">
+        <div class="exp-date">May 2023 — Aug 2023</div>
+        <div class="exp-org">U.S. Consulate Vancouver</div>
+        <div class="exp-location">Vancouver, BC</div>
+      </div>
+      <div class="exp-body reveal">
+        <div class="exp-title">Public Diplomacy Intern</div>
+        <ul class="exp-bullets">
+          <li>Coordinated logistics and provided critical operational support for the Chinatown Cultural Preservation & Revitalization Conference, ensuring seamless execution for attendees and stakeholders.</li>
+          <li>Facilitated multi-party collaborative processes by actively engaging 50+ community leaders to strengthen cross-sector partnerships and drive urban revitalization efforts.</li>
+          <li>Developed and managed public-facing media coverage for the conference, translating complex policy goals into accessible community narratives.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-divider reveal">
+    <span class="divider-label">Select Projects</span>
+    <div class="divider-line"></div>
+    <span class="divider-num">02</span>
+  </div>
+
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <div class="project-num">01 / Project</div>
+      <div class="project-date">Dec 2025</div>
+      <div class="project-title">Impact of Transportation Noise on Health Outcomes</div>
+      <div class="project-desc">Applied k-means clustering and multivariate regression in Python to investigate correlations between transit noise and public health outcomes across the U.S. Northeast; applied feature engineering and model validation on a multi-source integrated dataset.</div>
+      <div class="project-tags">
+        <span class="tag">Python</span>
+        <span class="tag">k-means</span>
+        <span class="tag">Public Health</span>
+        <span class="tag">GIS</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">02 / Project</div>
+      <div class="project-date">Dec 2025</div>
+      <div class="project-title">Market East Vision Plan</div>
+      <div class="project-desc">Built an end-to-end analytical workflow in Python to ingest, process, and model parcel-level foot traffic data from Advan Neighborhood Patterns, applying clustering and time-series analysis to generate data-driven recommendations for transit-oriented commercial development in Philadelphia.</div>
+      <div class="project-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Time-series</span>
+        <span class="tag">Urban Planning</span>
+        <span class="tag">TOD</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">03 / Publication</div>
+      <div class="project-date">Oct 2025</div>
+      <div class="project-title">Pennsylvania Creative Workforce Analysis</div>
+      <div class="project-desc">Designed a reproducible R-based pipeline to integrate and transform multi-year PUMS and commercial microdata, enabling cross-state benchmarking of creative sector employment trends. Results published by the Pennsylvania Council on the Arts.</div>
+      <div class="project-tags">
+        <span class="tag">R</span>
+        <span class="tag">Census PUMS</span>
+        <span class="tag">Published</span>
+        <span class="tag">Policy</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-divider reveal">
+    <span class="divider-label">Skills & Tools</span>
+    <div class="divider-line"></div>
+    <span class="divider-num">03</span>
+  </div>
+
+  <div class="skills-layout">
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Programming & Data</div>
+      <ul class="skill-list">
+        <li>Python</li>
+        <li>R</li>
+        <li>PostgreSQL</li>
+        <li>Pandas / NumPy</li>
+        <li>Scikit-learn</li>
+        <li>TensorFlow / PyTorch</li>
+        <li>Matplotlib / OSMnx</li>
+      </ul>
+    </div>
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Geospatial & Design</div>
+      <ul class="skill-list">
+        <li>ArcGIS</li>
+        <li>QGIS</li>
+        <li>Adobe InDesign</li>
+        <li>Adobe Illustrator</li>
+        <li>NVivo (Qualitative)</li>
+        <li>SWAN Audit Tool</li>
+      </ul>
+    </div>
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Languages</div>
+      <ul class="skill-list">
+        <li>English (Native)</li>
+        <li>Mandarin (Fluent)</li>
+      </ul>
+      <br>
+      <div class="skill-group-title" style="margin-top:1rem;">Certifications</div>
+      <ul class="skill-list">
+        <li>CASI Level 1 & 2</li>
+        <li>CASI Park 1</li>
+        <li>CSIA Level 1</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-divider reveal">
+    <span class="divider-label">Education</span>
+    <div class="divider-line"></div>
+    <span class="divider-num">04</span>
+  </div>
+
+  <div class="edu-grid">
+    <div class="edu-card reveal">
+      <div class="edu-degree">Master of City Planning</div>
+      <div class="edu-school">University of Pennsylvania</div>
+      <div class="edu-meta">Philadelphia, PA · Expected May 2026</div>
+      <div class="edu-activities">Marketing Lead — Student Planning Association & Wharton-Weitzman Future of Cities Conference. Student Admissions Ambassador. Teaching Assistant for CPLN 7900 MUSA/Smart City Practicum.</div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-degree">Bachelor of Arts, with Distinction</div>
+      <div class="edu-school">Simon Fraser University</div>
+      <div class="edu-meta">Burnaby, BC · Sept 2019 – May 2024</div>
+      <div class="edu-activities">Major in Political Science. Graduated with distinction, developing a foundation in civic policy, governance, and community engagement that now informs an interdisciplinary approach to urban planning and data analysis.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-eyebrow reveal">Let's Connect</div>
+  <h2 class="contact-heading reveal">Open to <em>opportunities</em><br>in urban data & planning.</h2>
+  <div class="contact-links reveal">
+    <a href="mailto:jason.tc.fan@gmail.com" class="contact-link">
+      <span class="contact-link-label">Email</span>
+      <span class="contact-link-value">jason.tc.fan@gmail.com</span>
+    </a>
+    <a href="tel:+12677671766" class="contact-link">
+      <span class="contact-link-label">Phone</span>
+      <span class="contact-link-value">(267) 767-1766</span>
+    </a>
+    <a href="https://linkedin.com/in/jasontianchifan" target="_blank" class="contact-link">
+      <span class="contact-link-label">LinkedIn</span>
+      <span class="contact-link-value">in/jasontianchifan</span>
+    </a>
+  </div>
+  <div class="footer-bar reveal">
+    <span>Jason Tianchi Fan — Portfolio</span>
+    <span>Philadelphia, PA · 2026</span>
+  </div>
+</section>
+
+<script>
+  // CURSOR
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = e.clientY + 'px';
+    rx += (e.clientX - rx) * 0.12;
+    ry += (e.clientY - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+  });
+  function lerp() {
+    rx += (parseFloat(cursor.style.left || 0) - rx) * 0.12;
+    ry += (parseFloat(cursor.style.top  || 0) - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(lerp);
+  }
+  lerp();
+  document.querySelectorAll('a, button, .project-card').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+  });
+
+  // SCROLL REVEAL
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        entry.target.style.transitionDelay = (i * 0.06) + 's';
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
