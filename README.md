@@ -1,7 +1,7 @@
 # Jason Fan — Portfolio Assets
 
 Master of City Planning, University of Pennsylvania
-Compiled: April 2026 (expanded with four additional pieces from the Studio 2, Weitzman published research, and Spatial Stats work)
+Compiled: April 2026 
 
 This folder holds ten curated portfolio pieces, each developed into a polished asset with its own case-study write-up, source deliverable, and supporting files. The ten pieces span three audiences: Senior Housing and Real Estate (SH), Urban Data Science and Analytics (DS), and Public Policy and Planning (PP).
 
