@@ -76,8 +76,8 @@ window.addEventListener('scroll',()=>{
 
 /* ──────────────── THREE.JS CITY — eco-brutalist ──────────────── */
 const canvas = document.getElementById('city-canvas');
-const renderer = new THREE.WebGLRenderer({canvas,antialias:true});
-renderer.setPixelRatio(Math.min(window.devicePixelRatio,1.5));
+const renderer = new THREE.WebGLRenderer({canvas,antialias:false,powerPreference:'high-performance'});
+renderer.setPixelRatio(1);
 renderer.setSize(VW,VH);
 // Soft overcast sky-blue
 const SKY_COL = 0x9bb7c9;
@@ -87,7 +87,7 @@ renderer.setClearColor(SKY_COL, 1);
 const scene = new THREE.Scene();
 scene.fog = new THREE.Fog(HORIZON_COL, 70, 210);
 
-const camera = new THREE.PerspectiveCamera(62, VW/VH, 0.1, 400);
+const camera = new THREE.PerspectiveCamera(62, VW/VH, 0.5, 400);
 
 const rng = (a,b) => a+Math.random()*(b-a);
 const ri  = (a,b) => Math.floor(rng(a,b+1));
@@ -421,25 +421,34 @@ ground.rotation.x=-Math.PI/2; ground.position.y=0;
 scene.add(ground);
 
 const roadGeo = new THREE.PlaneGeometry(STREET_HW*2,260);
-const roadMat = new THREE.MeshLambertMaterial({color:0x3a3835});
+const roadMat = new THREE.MeshLambertMaterial({
+  color:0x3a3835,
+  polygonOffset:true, polygonOffsetFactor:-1, polygonOffsetUnits:-1
+});
 const road = new THREE.Mesh(roadGeo,roadMat);
-road.rotation.x=-Math.PI/2; road.position.set(0,0.01,-100);
+road.rotation.x=-Math.PI/2; road.position.set(0,0.05,-100);
 scene.add(road);
 
 [-1,1].forEach(side=>{
   const swGeo=new THREE.PlaneGeometry(SIDEWALK_W,260);
-  const swMat=new THREE.MeshLambertMaterial({color:0x9e9a90});
+  const swMat=new THREE.MeshLambertMaterial({
+    color:0x9e9a90,
+    polygonOffset:true, polygonOffsetFactor:-2, polygonOffsetUnits:-2
+  });
   const sw=new THREE.Mesh(swGeo,swMat);
   sw.rotation.x=-Math.PI/2;
-  sw.position.set(side*(STREET_HW+SIDEWALK_W/2),0.02,-100);
+  sw.position.set(side*(STREET_HW+SIDEWALK_W/2),0.08,-100);
   scene.add(sw);
 });
 
 for(let z=10;z>-220;z-=6){
   const dg=new THREE.PlaneGeometry(0.1,3.5);
-  const dm=new THREE.MeshBasicMaterial({color:0xe8dfc8,transparent:true,opacity:0.75});
+  const dm=new THREE.MeshBasicMaterial({
+    color:0xe8dfc8,transparent:true,opacity:0.75,
+    polygonOffset:true, polygonOffsetFactor:-3, polygonOffsetUnits:-3
+  });
   const d=new THREE.Mesh(dg,dm);
-  d.rotation.x=-Math.PI/2; d.position.set(0,0.02,z);
+  d.rotation.x=-Math.PI/2; d.position.set(0,0.12,z);
   scene.add(d);
 }
 
@@ -476,13 +485,10 @@ for(let z=5;z>-210;z-=22){
     am.rotation.z=side>0?-Math.PI/2:Math.PI/2;
     am.position.set(side*(STREET_HW+0.5+side*0.9),5.5,z);
     scene.add(am);
-    const pl=new THREE.PointLight(0xfff0c8,0.25,18);
-    pl.position.set(side*(STREET_HW+0.5+side*1.8),5.5,z);
-    scene.add(pl);
-    const gg=new THREE.SphereGeometry(0.12,8,8);
-    const gm=new THREE.MeshBasicMaterial({color:0xfff4d0,transparent:true,opacity:0.9});
+    const gg=new THREE.SphereGeometry(0.12,6,6);
+    const gm=new THREE.MeshBasicMaterial({color:0xfff4d0});
     const globe=new THREE.Mesh(gg,gm);
-    globe.position.copy(pl.position);
+    globe.position.set(side*(STREET_HW+0.5+side*1.8),5.5,z);
     scene.add(globe);
   });
 }
@@ -499,15 +505,15 @@ rim.position.set(0, 30, -40); scene.add(rim);
 /* Camera path */
 const CAM_AERIAL_POS  = new THREE.Vector3(0, 90, 80);
 const CAM_AERIAL_LOOK = new THREE.Vector3(0, 0, -10);
-const CAM_ENTRY_POS  = new THREE.Vector3(0, 2.2, 20);
-const CAM_ENTRY_LOOK = new THREE.Vector3(0, 2.2, 8);
+const CAM_ENTRY_POS  = new THREE.Vector3(0, 3.0, 20);
+const CAM_ENTRY_LOOK = new THREE.Vector3(0, 3.0, 8);
 
 function getStopCamera(idx) {
   const stop = STOPS[idx];
-  const camX = -stop.side * 1.2;
-  const pos = new THREE.Vector3(camX, 2.2, stop.z + 5);
+  const camX = -stop.side * 2.5;
+  const pos = new THREE.Vector3(camX, 3.0, stop.z + 5);
   const lookX = stop.side * (STREET_HW * 0.7);
-  const look = new THREE.Vector3(lookX, 3.5, stop.z - 3);
+  const look = new THREE.Vector3(lookX, 4.0, stop.z - 3);
   return {pos, look};
 }
 
@@ -557,6 +563,20 @@ const PANELS = {
   skills:     document.getElementById('bp-skills'),
   contact:    document.getElementById('bp-contact'),
 };
+
+const workGallery = document.getElementById('work-gallery');
+const wgTrack     = workGallery ? workGallery.querySelector('.wg-track') : null;
+const WORK_IDX    = SECTIONS.indexOf('work');
+
+if(wgTrack){
+  wgTrack.addEventListener('wheel', (e) => {
+    if(!workGallery.classList.contains('active')) return;
+    if(Math.abs(e.deltaY) > Math.abs(e.deltaX)){
+      e.preventDefault();
+      wgTrack.scrollLeft += e.deltaY;
+    }
+  }, {passive: false});
+}
 
 let camPos  = CAM_AERIAL_POS.clone();
 let camLook = CAM_AERIAL_LOOK.clone();
@@ -612,6 +632,7 @@ function updateScene(sy){
     sectionNum.style.opacity   = '0';
     footerBar.classList.remove('show');
     Object.values(PANELS).forEach(p=>p.classList.remove('active'));
+    if(workGallery){ workGallery.classList.remove('active'); PANELS.work.classList.remove('gallery-mode'); }
 
   } else if(state.phase==='travel'){
     const fromIdx = state.sectionIdx - 1;
@@ -631,6 +652,7 @@ function updateScene(sy){
     sectionNum.style.opacity   = labelT.toString();
     setSectionLabel(state.sectionIdx);
     footerBar.classList.add('show');
+    if(workGallery){ workGallery.classList.remove('active'); PANELS.work.classList.remove('gallery-mode'); }
 
   } else {
     const cam = getStopCamera(state.sectionIdx);
@@ -656,6 +678,12 @@ function updateScene(sy){
         panel.classList.remove('active');
       }
     });
+
+    if(workGallery){
+      const workActive = (state.sectionIdx === WORK_IDX);
+      workGallery.classList.toggle('active', workActive);
+      PANELS.work.classList.toggle('gallery-mode', workActive);
+    }
   }
 }
 
@@ -704,18 +732,25 @@ function positionPanel(panel, name, idx){
 
 /* Animation loop */
 let buildStart = null;
+let buildDone = false;
 const BUILD_DUR = 2600;
 const SMOOTH = 0.06;
 
 function animate(ts){
   requestAnimationFrame(animate);
   if(!buildStart) buildStart = ts;
-  const bt = clamp((ts-buildStart)/BUILD_DUR,0,1);
-  const be = easeOut3(bt);
-  buildings.forEach(b=>{
-    b.scale.y = Math.max(0.001, be);
-    b.position.y = b.userData.finalY * be;
-  });
+  if(!buildDone){
+    const bt = clamp((ts-buildStart)/BUILD_DUR,0,1);
+    const be = easeOut3(bt);
+    buildings.forEach(b=>{
+      b.scale.y = Math.max(0.001, be);
+      b.position.y = b.userData.finalY * be;
+    });
+    if(bt >= 1){
+      buildings.forEach(b=>{ b.scale.y = 1; b.position.y = b.userData.finalY; });
+      buildDone = true;
+    }
+  }
 
   updateScene(window.scrollY);
 
