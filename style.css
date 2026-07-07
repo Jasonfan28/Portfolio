@@ -1165,6 +1165,43 @@ nav {
 .wg-card:hover .wg-accent { background: var(--terra); }
 .wg-card:hover .wg-arr { opacity: 1; transform: translateX(0); }
 
+/* Hover thumbnail reveal */
+.wg-thumb {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0;
+  transition: opacity .4s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.wg-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, #f7f1e6 40%, rgba(247,241,230,0.78) 64%, rgba(247,241,230,0.10) 100%);
+  opacity: 0;
+  transition: opacity .4s ease;
+  z-index: 2;
+  pointer-events: none;
+}
+.wg-card:hover::before { opacity: 1; }
+.wg-card:hover .wg-thumb { opacity: 1; }
+.wg-card:hover .wg-n { opacity: 0; }
+.wg-card > .wg-n,
+.wg-card > .wg-accent,
+.wg-card > .wg-body { position: relative; z-index: 3; }
+.wg-n { transition: opacity .3s ease; }
+.wg-arr { z-index: 3; }
+.wg-desc {
+  font-family: var(--serif);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--ink-2);
+  margin-top: 0.3rem;
+}
+
 .wg-n {
   font-family: var(--serif);
   font-size: 7rem; line-height: 1;

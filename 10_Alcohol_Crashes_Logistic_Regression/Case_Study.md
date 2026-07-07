@@ -1,6 +1,6 @@
 # Logistic Regression on Alcohol-Induced Car Crashes in Philadelphia
 
-**Team report | 29 pages | April 2025**
+**Team report | April 2025**
 
 **Role:** Co-author
 **Team:** Jason Fan, Neil Jean-Baptiste II, Jasmin Sung
@@ -9,30 +9,28 @@
 
 ## The question
 
-The US Department of Transportation reports that a person dies in an alcohol-impaired motor-vehicle crash every 51 minutes, and the direct economic impact is valued at roughly USD 59 billion annually. For a city-level transportation-safety team, the operational question is: given a reported crash, what combination of observable characteristics flags alcohol involvement? A model that separates alcohol-related crashes from the rest of the crash population can direct enforcement, education, and infrastructure investments to the settings where the marginal return is highest.
+The US Department of Transportation reports that someone dies in a motor-vehicle crash involving an alcohol-impaired driver every 51 minutes, with externalities valued at USD 59 billion in economic impact. In Philadelphia's crash dataset of 43,364 records, 5.73 percent of crashes (2,485) involved alcohol, roughly one in every 17. Given a reported crash, what observable characteristics flag alcohol involvement?
 
 ## The model
 
-The report fits a logistic regression on Philadelphia crash records with a binary outcome (alcohol-involved or not) against three predictor groups:
+The report fits a logistic regression on Philadelphia crash records with a binary alcohol-involvement outcome against three predictor groups.
 
-- **Crash-related:** fatality (FATAL_OR_M), rollover (OVERTURNED), cell-phone use (CELL_PHONE), speeding (SPEEDING), aggressive driving (AGGRESSIVE)
-- **Age-related:** driver aged 16-17 (DRIVER1617), driver aged 65 or older (DRIVER65PLUS)
-- **Census-tract-level:** share with at least a bachelor's degree (PCTBACHMOR), median household income (MEDHHINC)
+Crash-related predictors: fatality (FATAL_OR_M), rollover (OVERTURNED), cell-phone use (CELL_PHONE), speeding (SPEEDING), and aggressive driving (AGGRESSIVE).
 
-The paper grounds each feature choice in a behavioral or socioeconomic hypothesis, discusses the logit transformation and the interpretation of odds ratios, and assesses fit through AIC, pseudo-R-squared, and classification metrics (sensitivity, specificity, and ROC-curve analysis).
+Age-related predictors: driver aged 16 to 17 (DRIVER1617) and driver aged 65 or older (DRIVER65PLUS).
 
-## What it finds
+Census-tract predictors: share with at least a bachelor's degree (PCTBACHMOR) and median household income (MEDHHINC).
 
-The fitted model separates alcohol-induced crashes from the rest with substantively interpretable coefficients. Rollover and speeding carry the largest positive odds-ratio shifts, consistent with the loss of vehicle control associated with impairment. The two age bands (teen drivers and older drivers) move in opposite directions, with the teen band showing the elevated alcohol-crash probability described in the traffic-safety literature. Cell-phone use adds predictive value as a proxy for compounded risk-taking, and the census-tract predictors capture the socioeconomic geography of the crash set.
+The paper grounds each feature in a behavioral or socioeconomic hypothesis, works through the logit transformation and odds-ratio interpretation, and assesses fit through AIC, cross-tabulations with chi-square tests, sensitivity, specificity, and ROC-curve analysis.
 
 ## Why it matters for a portfolio
 
-This is a clean, end-to-end logistic regression case: feature engineering with theoretical justification, correct use of logit diagnostics, ROC and classification-threshold interpretation, and a policy-relevant dependent variable (alcohol involvement in crashes) that an urban-analytics or public-safety team would actually deploy.
+This is a clean end-to-end logistic regression case. It pairs feature choices that have theoretical justification with correct diagnostics and a policy-relevant outcome that a transportation-safety team could act on when directing enforcement and education resources.
 
 ## Deliverable
 
-[Philly_Alcohol_Crashes_Logistic_Regression.pdf](./Philly_Alcohol_Crashes_Logistic_Regression.pdf) (29 pages)
+[Philly_Alcohol_Crashes_Logistic_Regression.pdf](./Philly_Alcohol_Crashes_Logistic_Regression.pdf)
 
 ## Skills demonstrated
 
-Logistic regression, odds-ratio interpretation, AIC and pseudo-R-squared model selection, sensitivity/specificity/ROC diagnostics, binary-outcome feature engineering, crash-data cleaning, collaborative technical writing.
+Logistic regression, odds-ratio interpretation, AIC-based model selection, sensitivity and specificity analysis, ROC diagnostics, crash-data cleaning, collaborative technical writing.

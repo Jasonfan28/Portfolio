@@ -10,9 +10,9 @@ const DIVE_PX   = VH * 1.2;
 const STOP_PX   = VH * 0.7;
 const TRAVEL_PX = VH * 0.4;
 
-const SECTIONS = ['about','work','experience','skills','contact'];
-const LABELS   = ['About','Selected Work','Experience','Skills & Tools','Contact'];
-const LABEL_SHORT = ['About','Work','Experience','Skills','Contact'];
+const SECTIONS = ['about','work','experience','contact'];
+const LABELS   = ['About','Selected Work','Experience','Contact'];
+const LABEL_SHORT = ['About','Work','Experience','Contact'];
 
 const TOTAL_PX = DIVE_PX + SECTIONS.length*(STOP_PX+TRAVEL_PX) + VH;
 document.getElementById('spacer').style.height = TOTAL_PX + 'px';
@@ -138,8 +138,7 @@ const STOPS = [
   {z:-25,  yaw: 0.55, side:+1, label:'About'},
   {z:-58,  yaw:-0.50, side:-1, label:'Work'},
   {z:-92,  yaw: 0.48, side:+1, label:'Experience'},
-  {z:-128, yaw:-0.52, side:-1, label:'Skills'},
-  {z:-162, yaw: 0.45, side:+1, label:'Contact'},
+  {z:-128, yaw:-0.52, side:-1, label:'Contact'},
 ];
 
 const PANEL_ANCHORS = {};
@@ -560,7 +559,6 @@ const PANELS = {
   about:      document.getElementById('bp-about'),
   work:       document.getElementById('bp-work'),
   experience: document.getElementById('bp-exp'),
-  skills:     document.getElementById('bp-skills'),
   contact:    document.getElementById('bp-contact'),
 };
 

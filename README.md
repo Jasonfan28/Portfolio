@@ -1,43 +1,45 @@
-# Jason Fan — Portfolio Assets
+# Jason Fan Portfolio Assets
 
 Master of City Planning, University of Pennsylvania
-Compiled: April 2026 
+Updated: July 2026
 
-This folder holds ten curated portfolio pieces, each developed into a polished asset with its own case-study write-up, source deliverable, and supporting files. The ten pieces span three audiences: Senior Housing and Real Estate (SH), Urban Data Science and Analytics (DS), and Public Policy and Planning (PP).
+This repository holds the ten portfolio pieces featured on the site, each with a case-study write-up and its deliverable. Two projects link out to live pages instead of hosting a file here.
 
 ## The ten pieces
 
-| # | Project | Format | Audience | Folder |
-|---|---|---|---|---|
-| 1 | Beyond Borrowing: Land Value Capture for HCMC | 8-page policy brief | PP, SH | [01_HCMC_Land_Value_Capture](./01_HCMC_Land_Value_Capture/) |
-| 2 | Bristol Borough Climate Resilience Plan | 25-page studio plan book | PP, SH | [02_Bristol_Climate_Resilience](./02_Bristol_Climate_Resilience/) |
-| 3 | Urban Growth Forecast: Tampa Metro 2021-2031 | Logistic regression + scenario write-up | DS, PP, SH | [03_Tampa_Urban_Growth_Model](./03_Tampa_Urban_Growth_Model/) |
-| 4 | MTA Subway Passenger Flow: Weekday Rush Hours | Python pipeline + dashboard | DS | [04_MTA_Rush_Hour](./04_MTA_Rush_Hour/) |
-| 5 | Transportation Noise and Self-Reported Health | Jupyter notebook + HTML | DS, PP | [05_Transportation_Noise_Health](./05_Transportation_Noise_Health/) |
-| 6 | The Penntrification of Spruce Hill | 29-page neighborhood portrait | PP, SH | [06_Penntrification_Spruce_Hill](./06_Penntrification_Spruce_Hill/) |
-| 7 | A Vision for Market East (Studio 2) | 119-slide vision plan + 11-page overview | PP, SH | [07_Market_East_Studio2](./07_Market_East_Studio2/) |
-| 8 | Understanding Pennsylvania's Creative Workforce (PCA Report) | 88-page published research study | PP, DS, SH | [08_PA_Creative_Workforce](./08_PA_Creative_Workforce/) |
-| 9 | Philadelphia Housing: OLS to Spatial Regression | Two-report methodological sequence, ~50 pp | SH, DS | [09_Philly_Housing_Spatial_Regression](./09_Philly_Housing_Spatial_Regression/) |
-| 10 | Logistic Regression on Alcohol-Induced Car Crashes | 29-page team report | DS, PP | [10_Alcohol_Crashes_Logistic_Regression](./10_Alcohol_Crashes_Logistic_Regression/) |
+| # | Project | Format | Folder / Link |
+|---|---|---|---|
+| 1 | PhillyStat360: Vacant Property Indicator | Live site | [11_PhillyStat360_Vacant_Property](./11_PhillyStat360_Vacant_Property/) · [Live page](https://jasonfan28.github.io/Philly_vacant_property_indicator/Vacancy%20Risk%20Landing%20Page.html) |
+| 2 | Understanding Pennsylvania's Creative Workforce | 88-page published research study | [08_PA_Creative_Workforce](./08_PA_Creative_Workforce/) |
+| 3 | Reimagining Market East | Vision plan book | [07_Market_East_Studio2](./07_Market_East_Studio2/) |
+| 4 | Bristol 2050 Plan | Studio plan book | [02_Bristol_Climate_Resilience](./02_Bristol_Climate_Resilience/) |
+| 5 | Transportation Noise and its Impact on Health Outcomes in the Northeast | Live site + notebook | [05_Transportation_Noise_Health](./05_Transportation_Noise_Health/) · [Live page](https://jasonfan28.github.io/MUSA550-Final-Noise_on_health/) |
+| 6 | Beyond Borrowing: Land Value Capture for HCMC | 8-page policy brief | [01_HCMC_Land_Value_Capture](./01_HCMC_Land_Value_Capture/) |
+| 7 | Philadelphia Housing: OLS to Spatial Regression | Two-report methodological sequence | [09_Philly_Housing_Spatial_Regression](./09_Philly_Housing_Spatial_Regression/) |
+| 8 | The Penntrification of Spruce Hill | Neighborhood portrait | [06_Penntrification_Spruce_Hill](./06_Penntrification_Spruce_Hill/) |
+| 9 | Logistic Regression on Alcohol-Induced Car Crashes | Team report | [10_Alcohol_Crashes_Logistic_Regression](./10_Alcohol_Crashes_Logistic_Regression/) |
+| 10 | 35 Years of Arctic Sea Ice Melt | Map poster | [12_Arctic_Sea_Ice_Map](./12_Arctic_Sea_Ice_Map/) |
+
+Folders `03_Tampa_Urban_Growth_Model` and `04_MTA_Rush_Hour` are retained as archive and are not featured on the site.
 
 ## One-paragraph blurbs
 
-**1. Land Value Capture for HCMC.** An 8-page policy brief prepared for the Ho Chi Minh City People's Committee making the case for Resilience-Linked Betterment Levies as a way to finance climate-adaptation infrastructure. The brief frames HCMC's USD 50 billion decade-long investment gap against the limits of ODA and land-use fees, and draws on Freetown's property tax reform to show how capacity-constrained cities can implement land value capture at speed.
+**1. PhillyStat360: Vacant Property Indicator.** A parcel-level vacancy risk model across Philadelphia's 520,000+ residential parcels, built to find vacant properties that enforcement records miss. The final model blends calibrated logistic regression and random forest into a 50/50 ensemble validated with ZIP- and tract-grouped spatial cross-validation, using 34 features from six city data systems. It reaches an AUC of 0.940 with 84.0 percent sensitivity and 89.8 percent specificity, and pairs the scores with an equity audit across poverty quintiles before deployment. The output is a prioritized list that helps the city target structural inspections.
 
-**2. Bristol Climate Resilience Plan.** A 25-page climate resilience plan for Bristol Borough, Pennsylvania, produced in the first-year Master of City Planning studio. The book diagnoses flood, heat, and ecological risk across the Delaware River South watershed and translates findings into a focal plan with three strategies covering watershed repair, marsh protection, and heat mitigation. My contributions concentrated on environmental analysis, watershed mapping, and the focal-plan cartography.
+**2. Understanding Pennsylvania's Creative Workforce.** An 88-page research study by a Weitzman School of Design team (Michael Fichman, Jamaal Green, Dyan Castro, Xiaxin Tang, Jason Fan), published October 2025 by Pennsylvania Creative Industries, powered by the Pennsylvania Council on the Arts. The report combines Census occupational analysis, Data Axle industrial analysis, a statewide survey, and seven subject interviews to size the roughly 245,000-person creative workforce, describe its geography and precarity, and identify focus areas for state policy.
 
-**3. Tampa Urban Growth Model.** A logistic-regression urban growth forecast for the Tampa metropolitan statistical area through 2031, co-authored with Grace Nelson. The model uses 2011 land cover, census population, and existing highway proximity to predict development probability under a proposed St. Petersburg to Ruskin bridge scenario, showing where new infrastructure would accelerate suburban conversion.
+**3. Reimagining Market East.** A Studio 2 vision plan for Philadelphia's Market East corridor (Census Tract 5), organized around existing conditions, alternatives, four guiding values (Human-Centered, Diverse, Central, Connected), and nine strategies. My contribution centered on existing-conditions data work, including Advan foot-traffic analysis via Dewey Data and the demographic baseline. The full book is included, compressed for web.
 
-**4. MTA Subway Passenger Flow.** A Python data pipeline that queries the MTA origin-destination API, filters weekday morning and evening rush hours, and visualizes passenger flow across the subway system. The script batches 50,000-row requests against the NY Open Data SODA API and produces a five-panel rush-hour dashboard ready for stakeholder reporting.
+**4. Bristol 2050 Plan.** A long-range plan for Bristol Borough, Pennsylvania, produced by a six-person team in the first-year studio. Building on the borough's 2006 Comprehensive Plan, the book diagnoses existing conditions across demographics, land use, housing, transportation, and environment, then lays out four pillars (Resilient, Accessible, Vibrant, Equitable), five goals, and ten strategies with twelve sub-strategies. My contributions concentrated on environmental analysis and cartography.
 
-**5. Transportation Noise and Health.** A Python spatial-regression study linking DOT transportation noise rasters (road, rail, aviation) to self-reported health outcomes from CDC PLACES data across the US Northeast. The notebook uses zonal statistics on county-level decibel exposure and multiple logistic regression with controls for income, race, age, education, and health-risk behaviors, then surfaces a notable "diminishing returns" interaction between education and noise exposure on depression.
+**5. Transportation Noise and its Impact on Health Outcomes in the Northeast.** A Python geospatial study linking DOT transportation noise rasters to CDC PLACES self-reported health outcomes across Northeast counties, with Census socioeconomic controls. Zonal statistics reduce road, rail, and aviation noise to county-level exposure, and regression and cluster analysis surface three patterns in how depression and cholesterol prevalence track noise, income, and education. Published as a live project site.
 
-**6. The Penntrification of Spruce Hill.** A 29-page neighborhood portrait of Spruce Hill, West Philadelphia, produced with Maggie Bai, Tyler Maynard, and Chuwen Zhong. The report combines ACS and LEHD data, historical research, and local fieldwork to document how university expansion is reshaping housing, demographics, and the small-business base. I led the employment trends analysis and contributed to the housing market section.
+**6. Land Value Capture for HCMC.** An 8-page policy brief prepared for the Ho Chi Minh City People's Committee recommending Resilience-Linked Betterment Levies to finance climate-adaptation infrastructure. The brief frames HCMC's USD 50 billion decade-long investment gap against the limits of ODA and one-off land-use fees, and draws on Freetown's points-based property tax reform to show how capacity-constrained cities can implement land value capture quickly.
 
-**7. A Vision for Market East (Studio 2).** A 119-slide Studio 2 vision plan for Philadelphia's Market East corridor (Census Tract 5) structured around existing conditions, guiding values (human-centered, diverse, central, connected), and ten site-specific strategies. My contribution centered on existing-conditions data work (Dewey visitation, OSM building footprints, Census demographics) that underpinned the diagnostic and corridor-connection chapters. An 11-page overview accompanies the full 752 MB Canva deck.
+**7. Philadelphia Housing: OLS to Spatial Regression.** A two-report sequence (with Neil Jean-Baptiste II and Jasmin Sung) predicting median house values across Philadelphia census block groups. Report 1 establishes an OLS baseline with classical diagnostics on 1,720 cleaned block groups. Report 2 tests the residuals with Moran's I against a 999-permutation reference distribution and rebuilds the model with spatial lag, spatial error, and geographically weighted regression.
 
-**8. Understanding Pennsylvania's Creative Workforce.** An 88-page published research study prepared by a Weitzman School of Design team (Michael Fichman, Jamaal Green, Dyan Castro, Xiaxin Tang, Jason Fan) for Pennsylvania Creative Industries, powered by the Pennsylvania Council on the Arts. The report combines US Census occupational analysis, proprietary Data Axle industrial analysis, a statewide survey, and seven subject interviews to size the ~245,000-person creative workforce, describe its geography and precarity, and identify focus areas for state policy intervention.
+**8. The Penntrification of Spruce Hill.** A neighborhood portrait of Spruce Hill, West Philadelphia, produced with Maggie Bai, Tyler Maynard, and Chuwen Zhong. The report combines ACS data, historical research, and fieldwork to document how university expansion is reshaping housing, demographics, and the local job base. I led the employment and industries chapter, which tracks a 13.5 percent employment gain from 2012 to 2022 driven by warehousing growth.
 
-**9. Philadelphia Housing: OLS to Spatial Regression.** A two-report methodological sequence (co-authored with Neil Jean-Baptiste II and Jasmin Sung) predicting median house values across Philadelphia census block groups. Report 1 establishes an OLS baseline with the classical diagnostics. Report 2 tests for spatial autocorrelation via Moran's I with a 999-permutation reference distribution and upgrades to spatial lag, spatial error, and geographically weighted regression, demonstrating the core spatial-statistics curriculum end-to-end.
+**9. Logistic Regression on Alcohol-Induced Car Crashes.** A team report (with Neil Jean-Baptiste II and Jasmin Sung) fitting a logistic regression on 43,364 Philadelphia crash records to separate the 5.73 percent of crashes involving alcohol from the rest, using behavioral, age, and census-tract predictors. The paper works through odds-ratio interpretation, AIC-based model selection, and ROC diagnostics, and ties the result to transportation-safety policy.
 
-**10. Logistic Regression on Alcohol-Induced Car Crashes.** A 29-page team report (co-authored with Neil Jean-Baptiste II and Jasmin Sung) fitting a logistic regression on Philadelphia crash records to separate alcohol-involved crashes from the rest using behavioral, age, and census-tract predictors. The paper works through odds-ratio interpretation, AIC and pseudo-R-squared model selection, and ROC diagnostics, and ties the result to transportation-safety policy.
+**10. 35 Years of Arctic Sea Ice Melt.** A single-sheet polar-projection map poster showing July Arctic sea-ice observations at five-year intervals from 1980 to 2015. Hatched fills step through the historical extents and the 2015 extent reads in solid white, making the 35-year retreat legible at a glance.

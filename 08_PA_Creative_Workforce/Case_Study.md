@@ -4,34 +4,34 @@
 
 **Role:** Co-author
 **Authors:** Michael Fichman, Jamaal Green, Dyan Castro, Xiaxin Tang, Jason Fan
-**Client:** Pennsylvania Creative Industries (Pennsylvania Council on the Arts)
-**Host institution:** University of Pennsylvania Stuart Weitzman School of Design, Department of City and Regional Planning, with support from PennPraxis
+**Client:** Pennsylvania Creative Industries, powered by the Pennsylvania Council on the Arts
+**Host institution:** University of Pennsylvania Stuart Weitzman School of Design, with support from PennPraxis
 **IRB:** University of Pennsylvania Protocol #858052
-**Audience fit:** Public policy, data science, housing & real estate (workforce economic geography)
+**Audience fit:** Public policy, data science, workforce and economic development
 
 ## The commission
 
-The Pennsylvania Council on the Arts awarded the Weitzman School of Design a research grant to investigate the composition, geography, and needs of Pennsylvania's creative workforce. The question the agency needed answered was practical: who are the creative workers, how many are there, where do they live, what kind of work do they do, and what do they say they need to succeed? The resulting report is the published deliverable.
+The Pennsylvania Council on the Arts commissioned the Weitzman School of Design to investigate the composition, geography, and needs of Pennsylvania's creative workforce. Who are the creative workers, how many are there, where do they live, what work do they do, and what do they need to succeed? The published report, released October 21, 2025, is the deliverable.
 
 ## What is inside
 
-The 88-page study combines four methodological approaches.
+The study combines four methods.
 
-**Occupational analysis** uses US Census microdata to size and describe the workforce: roughly 245,000 creative workers across Pennsylvania, or 4.2 percent of the state labor force, one of the largest creative workforces in the country by count though below the national average by share. The analysis breaks the workforce down across 38 occupational classes and 47 industries and maps its geography.
+Occupational analysis uses US Census microdata to size and describe the workforce. Approximately 245,000 Pennsylvanians, 4.2 percent of the state labor force, are creative workers, one of the largest such workforces in the country by count. Creative workers report working across at least 38 occupational classes and 47 industries.
 
-**Industrial analysis** uses proprietary Data Axle business records to count creative and creative-adjacent firms (~13,500 statewide) and track their earnings, with growth in museums and live arts, and decline in traditional media.
+Industrial analysis uses proprietary Data Axle business records to count over 13,500 creativity-related firms statewide and track earnings across industries, with growth in museums and live arts and decline in traditional media.
 
-**A statewide survey** captures qualitative and quantitative detail on self-employment rates, earnings distribution, perceived barriers, mental health and retention risk, and access to capital.
+A statewide survey captures self-employment rates, earnings, perceived barriers, mental health, and retention risk.
 
-**Seven subject interviews** with creative-industry leaders triangulate the survey findings and inform the focus-area synthesis.
+A synthesis of seven subject interviews with organizational leaders and creative-industry thinkers triangulates the survey findings.
 
 ## Key findings
 
-Creative work in Pennsylvania is heterogeneous and precarious. About 45 percent of creative workers are self-employed; roughly 60 percent of full-time self-employed creatives earn under USD 40,000 annually. Earnings are stratified by occupation (designers and architects above, independent artists below), by gender (women earn less on average), and by education level. Mental health and financial stress are widespread, and about one in five surveyed workers is considering leaving Pennsylvania for higher wages or perceived opportunity elsewhere, rising to nearly one in three in the urban centers.
+Creative work in Pennsylvania is heterogeneous and precarious. Approximately 45 percent of creative workers are self-employed, and roughly 60 percent of full-time self-employed creatives earn under USD 40,000 annually. Roughly 20 percent of surveyed workers are considering leaving Pennsylvania, rising to nearly one in three in urban centers, motivated by higher wages and perceived opportunity in competing states.
 
 ## Why it matters for a portfolio
 
-This is a published, client-commissioned research study produced under a university IRB, with policy-relevant findings now sitting with a Pennsylvania state agency. It demonstrates the ability to contribute to a multi-method, multi-author research team, work across US Census, proprietary business data, survey design, and qualitative interviewing, and ship a production-quality report to a government client.
+This is a published, client-commissioned research study produced under a university IRB, with findings now in use by a Pennsylvania state agency. It demonstrates multi-method research on a team, spanning Census microdata, proprietary business data, survey work, and qualitative synthesis, shipped as a production-quality report to a government client.
 
 ## Deliverable
 
@@ -39,4 +39,4 @@ This is a published, client-commissioned research study produced under a univers
 
 ## Skills demonstrated
 
-Occupational and industrial analysis with Census microdata, proprietary business-data integration (Data Axle), survey methodology contributions, interview synthesis, multi-author research production, publication-quality report writing for a government client.
+Occupational and industrial analysis with Census microdata, Data Axle business-data integration, survey methodology contributions, interview synthesis, multi-author research production, report writing for a government client.
