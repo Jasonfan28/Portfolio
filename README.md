@@ -3,9 +3,9 @@
 Master of City Planning, University of Pennsylvania
 Updated: July 2026
 
-This repository holds the eleven portfolio pieces featured on the site, each with a case-study write-up and its deliverable. Three projects link out to live pages instead of hosting a file here.
+This repository holds the twelve portfolio pieces featured on the site, each with a case-study write-up and its deliverable. Three projects link out to live pages instead of hosting a file here.
 
-## The eleven pieces
+## The twelve pieces
 
 | # | Project | Format | Folder / Link |
 |---|---|---|---|
@@ -20,6 +20,7 @@ This repository holds the eleven portfolio pieces featured on the site, each wit
 | 9 | The Penntrification of Spruce Hill | Neighborhood portrait | [06_Penntrification_Spruce_Hill](./06_Penntrification_Spruce_Hill/) |
 | 10 | Logistic Regression on Alcohol-Induced Car Crashes | Team report | [10_Alcohol_Crashes_Logistic_Regression](./10_Alcohol_Crashes_Logistic_Regression/) |
 | 11 | 35 Years of Arctic Sea Ice Melt | Map poster | [12_Arctic_Sea_Ice_Map](./12_Arctic_Sea_Ice_Map/) |
+| 12 | Carson River Relative Elevation Model | Map poster | [14_Carson_River_REM](./14_Carson_River_REM/) |
 
 Folders `03_Tampa_Urban_Growth_Model` and `04_MTA_Rush_Hour` are retained as archive and are not featured on the site.
 
@@ -46,3 +47,5 @@ Folders `03_Tampa_Urban_Growth_Model` and `04_MTA_Rush_Hour` are retained as arc
 **10. Logistic Regression on Alcohol-Induced Car Crashes.** A team report (with Neil Jean-Baptiste II and Jasmin Sung) fitting a logistic regression on 43,364 Philadelphia crash records to separate the 5.73 percent of crashes involving alcohol from the rest, using behavioral, age, and census-tract predictors. The paper works through odds-ratio interpretation, AIC-based model selection, and ROC diagnostics, and ties the result to transportation-safety policy.
 
 **11. 35 Years of Arctic Sea Ice Melt.** A single-sheet polar-projection map poster showing July Arctic sea-ice observations at five-year intervals from 1980 to 2015. Hatched fills step through the historical extents and the 2015 extent reads in solid white, making the 35-year retreat legible at a glance.
+
+**12. Carson River Relative Elevation Model.** A single-sheet relative elevation model of the Carson River in Nevada, built in QGIS following Dan Coe's IDW-method REM tutorial. A water-surface raster interpolated from points sampled along the channel is subtracted from a lidar DEM, rendering the floodplain in whites and light blues against hillshaded slate and making meander scars and traces of former channels visible across the valley floor.
