@@ -1202,6 +1202,53 @@ nav {
   margin-top: 0.3rem;
 }
 
+/* Cards offering more than one deliverable */
+.wg-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+.wg-links a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-family: var(--cond);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: none;
+  color: var(--ink-1);
+  padding: 0.42rem 0.7rem;
+  border: 1px solid var(--rule-1);
+  background: rgba(255, 252, 245, 0.55);
+  transition: background .22s, border-color .22s, color .22s;
+}
+.wg-links a:hover {
+  color: var(--terra);
+  border-color: var(--terra);
+  background: rgba(255, 252, 245, 0.95);
+}
+.wg-links .wl-arr {
+  font-family: var(--serif);
+  font-style: italic;
+  transition: transform .22s;
+}
+.wg-links a:hover .wl-arr { transform: translateX(3px); }
+.wg-links + .wg-tags { margin-top: 0; padding-top: 0.7rem; }
+
+/* Whole card links to the primary deliverable; the buttons keep their own clicks */
+.wg-stretch {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  cursor: none;
+}
+.wg-card-multi > .wg-body { z-index: 5; pointer-events: none; }
+.wg-card-multi .wg-links a { pointer-events: auto; }
+
 .wg-n {
   font-family: var(--serif);
   font-size: 7rem; line-height: 1;
