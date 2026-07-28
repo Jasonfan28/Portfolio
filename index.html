@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Barlow+Condensed:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<link rel="stylesheet" href="style.css?v=20260727i">
+<link rel="stylesheet" href="style.css?v=20260727j">
 </head>
 <body>
 
@@ -38,6 +38,7 @@
     <li><a href="#" data-n="§02" onclick="jumpTo('work');return false">Work</a></li>
     <li><a href="#" data-n="§03" onclick="jumpTo('experience');return false">Experience</a></li>
     <li><a href="#" data-n="§04" onclick="jumpTo('contact');return false">Contact</a></li>
+    <li><a href="./work.html" data-n="§05" data-cur="Fast index">Index</a></li>
   </ul>
 </nav>
 
@@ -166,10 +167,10 @@
       <span>Selected Work</span>
       <span class="cat-rule"></span>
     </div>
-    <div class="bp-title">Index of<br><em>Projects</em><span class="cond">&nbsp;/ 13</span></div>
+    <div class="bp-title">Index of<br><em>Projects</em><span class="cond">&nbsp;/ 10</span></div>
     <div class="work-meta-row">
       <div class="wm-cell">Span <b>2024 – 2026</b></div>
-      <div class="wm-cell">Entries <b>13<em> works</em></b></div>
+      <div class="wm-cell">Entries <b>10<em> works</em></b></div>
       <div class="wm-cell">Format <b>PDF <em>·</em> Web</b></div>
     </div>
   </div>
@@ -179,7 +180,8 @@
 <div id="work-gallery" aria-label="Selected projects">
   <div class="wg-track">
 
-    <a class="wg-card" data-cur="Visit site" href="https://jasonfan28.github.io/Philly_vacant_property_indicator/Vacancy%20Risk%20Landing%20Page.html" target="_blank" rel="noopener">
+    <div class="wg-card wg-card-multi">
+      <a class="wg-stretch" href="./11_PhillyStat360_Vacant_Property/index.html" data-cur="Read case study" aria-label="PhillyStat360 vacant property indicator case study"></a>
       <img class="wg-thumb" src="./thumbs/phillystat.jpg" alt="" loading="lazy">
       <div class="wg-n">01</div>
       <div class="wg-accent"></div>
@@ -187,11 +189,14 @@
         <div class="wg-year">2026</div>
         <div class="wg-title">PhillyStat360: Vacant Property Indicator</div>
         <div class="wg-kind">Practicum · Machine Learning</div>
-        <div class="wg-desc">An ensemble model that scores Philadelphia's 520,000+ residential parcels for vacancy risk, helping the city find vacant homes missing from its records.</div>
+        <div class="wg-desc">An ensemble model that scores Philadelphia's 520,000 residential parcels for vacancy risk, helping the city find vacant homes missing from its records.</div>
+        <div class="wg-links">
+          <a href="./11_PhillyStat360_Vacant_Property/index.html" data-cur="Read case study">Case Study <span class="wl-arr">→</span></a>
+          <a href="https://jasonfan28.github.io/Philly_vacant_property_indicator/Vacancy%20Risk%20Landing%20Page.html" target="_blank" rel="noopener" data-cur="Visit site">Dashboard <span class="wl-arr">→</span></a>
+        </div>
         <div class="wg-tags"><span>Python</span><span>Ensemble ML</span><span>Open Data</span></div>
       </div>
-      <div class="wg-arr">→</div>
-    </a>
+    </div>
 
     <a class="wg-card" data-cur="Open PDF" href="./08_PA_Creative_Workforce/PA_Creative_Workforce_Research_Study.pdf" target="_blank" rel="noopener">
       <img class="wg-thumb" src="./thumbs/pca.jpg" alt="" loading="lazy">
@@ -295,51 +300,15 @@
       <div class="wg-arr">→</div>
     </a>
 
-    <a class="wg-card" data-cur="Open PDF" href="./09_Philly_Housing_Spatial_Regression/2_Spatial_Regression_GWR_Philly_Housing.pdf" target="_blank" rel="noopener">
-      <img class="wg-thumb" src="./thumbs/housing.jpg" alt="" loading="lazy">
-      <div class="wg-n">09</div>
-      <div class="wg-accent"></div>
-      <div class="wg-body">
-        <div class="wg-year">2025</div>
-        <div class="wg-title">Philadelphia Housing: OLS to Spatial Regression</div>
-        <div class="wg-kind">Spatial Statistics · Housing</div>
-        <div class="wg-desc">A two-report sequence predicting median house values across Philadelphia block groups, moving from OLS to spatial lag, spatial error, and GWR.</div>
-        <div class="wg-tags"><span>R</span><span>Moran's I</span><span>GWR</span></div>
-      </div>
-      <div class="wg-arr">→</div>
-    </a>
-
-    <a class="wg-card" data-cur="Open PDF" href="./06_Penntrification_Spruce_Hill/Penntrification_Spruce_Hill_Report.pdf" target="_blank" rel="noopener">
-      <img class="wg-thumb" src="./thumbs/penntrification.jpg" alt="" loading="lazy">
-      <div class="wg-n">10</div>
-      <div class="wg-accent"></div>
-      <div class="wg-body">
-        <div class="wg-year">2024</div>
-        <div class="wg-title">The Penntrification of Spruce Hill</div>
-        <div class="wg-kind">Neighborhood Portrait</div>
-        <div class="wg-desc">A neighborhood portrait documenting how Penn's expansion is reshaping housing and jobs in Spruce Hill, West Philadelphia.</div>
-        <div class="wg-tags"><span>ACS</span><span>Housing</span><span>Fieldwork</span></div>
-      </div>
-      <div class="wg-arr">→</div>
-    </a>
-
-    <a class="wg-card" data-cur="Open PDF" href="./10_Alcohol_Crashes_Logistic_Regression/Philly_Alcohol_Crashes_Logistic_Regression.pdf" target="_blank" rel="noopener">
-      <img class="wg-thumb" src="./thumbs/alcohol.jpg" alt="" loading="lazy">
-      <div class="wg-n">11</div>
-      <div class="wg-accent"></div>
-      <div class="wg-body">
-        <div class="wg-year">2025</div>
-        <div class="wg-title">Logistic Regression on Alcohol-Induced Crashes</div>
-        <div class="wg-kind">Transportation Safety · Logistic</div>
-        <div class="wg-desc">A logistic regression separating alcohol-involved crashes from 43,364 Philadelphia crash records using behavioral, age, and census-tract predictors.</div>
-        <div class="wg-tags"><span>Logistic</span><span>ROC</span><span>Odds Ratios</span></div>
-      </div>
-      <div class="wg-arr">→</div>
-    </a>
+    <div class="wg-divider" aria-hidden="true">
+      <span class="wg-divider-rule"></span>
+      <span class="wg-divider-label">Cartography</span>
+      <span class="wg-divider-rule"></span>
+    </div>
 
     <a class="wg-card" data-cur="Open PDF" href="./12_Arctic_Sea_Ice_Map/Arctic_Sea_Ice_Melt.pdf" target="_blank" rel="noopener">
       <img class="wg-thumb" src="./thumbs/arctic.jpg" alt="" loading="lazy">
-      <div class="wg-n">12</div>
+      <div class="wg-n">09</div>
       <div class="wg-accent"></div>
       <div class="wg-body">
         <div class="wg-year">2024</div>
@@ -353,7 +322,7 @@
 
     <a class="wg-card" data-cur="Open PDF" href="./14_Carson_River_REM/Carson_River_REM.pdf" target="_blank" rel="noopener">
       <img class="wg-thumb" src="./thumbs/carson_rem.jpg" alt="" loading="lazy">
-      <div class="wg-n">13</div>
+      <div class="wg-n">10</div>
       <div class="wg-accent"></div>
       <div class="wg-body">
         <div class="wg-year">2025</div>
@@ -541,6 +510,6 @@
   <span class="fb-time" id="footer-time">Philadelphia</span>
 </div>
 
-<script src="main.js?v=20260727i"></script>
+<script src="main.js?v=20260727j"></script>
 </body>
 </html>

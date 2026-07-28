@@ -681,6 +681,18 @@ nav {
   position: relative;
   flex-shrink: 0;
 }
+/* The portrait is shot on pure black, which reads as a hard rectangle against
+   the warm paper. Screening a brown over it lifts the blacks to a tone that
+   belongs to the palette, while leaving the lit face and shirt alone. */
+.photo-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #7a5230;
+  mix-blend-mode: screen;
+  opacity: 0.26;
+  pointer-events: none;
+}
 .about-photo {
   width: 170px;
   aspect-ratio: 3/4;
@@ -843,7 +855,7 @@ nav {
 .exp-list { display: flex; flex-direction: column; gap: 0; }
 .exp-item {
   border-top: 1px solid var(--rule-1);
-  padding: 1.15rem 0;
+  padding: 0.85rem 0;
   display: grid;
   grid-template-columns: 150px 1fr;
   gap: 1.4rem;
@@ -1332,6 +1344,34 @@ nav {
 }
 
 #bp-work { display: none !important; }
+
+/* Subsection marker inside the horizontal strip. Vertical so it reads as a
+   spine between groups rather than another card. */
+.wg-divider {
+  flex: 0 0 74px;
+  height: 460px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1rem;
+  scroll-snap-align: center;
+}
+.wg-divider-rule {
+  flex: 1 1 auto;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--rule-1) 22%, var(--rule-1) 78%, transparent);
+}
+.wg-divider-label {
+  font-family: var(--cond);
+  font-size: 0.62rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--terra);
+  writing-mode: vertical-rl;
+  white-space: nowrap;
+  font-weight: 500;
+}
 
 /* ═══ POLISH: accessibility, affordances, typographic rhythm ═══ */
 

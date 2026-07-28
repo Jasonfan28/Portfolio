@@ -172,14 +172,14 @@ const colorExpr = ['match',['get','ac'],
   '#cccccc'];
 
 map.on('load', async () => {
-  const ctx = await (await fetch('./context.geojson?v=2')).json();
+  const ctx = await (await fetch('./context.json?v=3')).json();
   map.addSource('context',{type:'geojson',data:ctx});
   map.addLayer({id:'context-fill',type:'fill',source:'context',
     paint:{'fill-color':'#c9cdc8','fill-opacity':0.5}});
   map.addLayer({id:'context-line',type:'line',source:'context',
     paint:{'line-color':'#b4b8b3','line-width':0.3,'line-opacity':0.7}});
 
-  const pc = await (await fetch('./parcels.geojson?v=2')).json();
+  const pc = await (await fetch('./parcels.json?v=3')).json();
   // suit tiers (sb) are baked with PRIORITY breaks: High(3)=top 10% | Med(2)=75th-90th | Low(1)=bottom 75%.
   PARCELS = pc.features.map(f => f.properties);
   map.addSource('parcels',{type:'geojson',data:pc,generateId:true});

@@ -4,8 +4,13 @@ An AI-enhanced, interactive web version of the Part 1 poster (`Missoula_GISMap.p
 
 ## Files
 - `index.html` — the app (MapLibre GL map, filters, popups, "Ask the map" panel)
-- `parcels.geojson` — 18,864 scored parcels (action + suitability + land value + preserve reason)
-- `context.geojson` — 8,121 in-city grey context parcels
+- `parcels.json` — 18,864 scored parcels (action + suitability + land value + preserve reason)
+- `context.json` — 8,121 in-city grey context parcels
+
+The two data files hold GeoJSON but carry a `.json` extension deliberately.
+Served as `.geojson` they get `application/octet-stream`, which most static
+hosts refuse to compress; as `.json` they are gzipped, taking the map's
+payload from about 6.3 MB to roughly 0.7 MB over the wire.
 
 ## Run / preview locally
 GeoJSON is fetched at runtime, so it needs a web server (opening the file directly with `file://` fails on CORS).

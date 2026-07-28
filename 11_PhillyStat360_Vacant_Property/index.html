@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhillyStat360: Vacant Property Indicator — Jason Tianchi Fan</title>
+<meta name="description" content="A parcel-level vacancy risk model across Philadelphia's 520,000 residential parcels, built to find vacant homes that enforcement records miss, with an equity audit before deployment.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Barlow+Condensed:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../page.css?v=20260727i">
+</head>
+<body>
+
+<header class="topbar">
+  <a class="home" href="../index.html">Jason T. Fan</a>
+  <nav>
+    <a href="../work.html">All work</a>
+    <a href="../Resume_2026.pdf" target="_blank" rel="noopener">Résumé</a>
+    <a href="mailto:jason.tc.fan@gmail.com">Email</a>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <div class="page-head">
+    <div class="eyebrow">Case Study 01</div>
+    <h1>Finding the vacant homes the city <em>hasn't found yet</em></h1>
+    <p class="standfirst">Philadelphia's official vacancy list is a record of enforcement, not a record of vacancy. This model scores every residential parcel in the city on how likely it is to be vacant, so inspectors can be sent by evidence rather than by complaint.</p>
+  </div>
+
+  <div class="meta-strip">
+    <div class="meta-cell">
+      <div class="meta-k">Role</div>
+      <div class="meta-v">Practicum team member</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-k">Context</div>
+      <div class="meta-v">City of Philadelphia, PhillyStat360</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-k">Year</div>
+      <div class="meta-v">2026</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-k">Stack</div>
+      <div class="meta-v">Python, scikit-learn, city open data</div>
+    </div>
+  </div>
+
+  <div class="measure">
+
+    <h2>The problem is the label, not the model</h2>
+    <p>Philadelphia already publishes a vacancy list. The trouble is how a property gets on it. A parcel enters the record when it generates enforcement activity, which means the list is a good description of where the city has already looked and a poor description of where vacancy actually is.</p>
+    <p>Three kinds of property fall straight through that gap. Absentee owners who keep the taxes current and the complaints quiet. Properties where utilities are still billed and paid, so the usual vacancy signal never fires. And blocks where neighbours do not file complaints, which are frequently the blocks with the least capacity to chase the city for a response.</p>
+    <p>That last one matters. If the input to a targeting system is complaint volume, the system inherits whoever is best at complaining. The point of building a model here was to find the properties the complaint channel never surfaces.</p>
+
+    <h2>Assembling a picture from six systems</h2>
+    <p>No single city dataset says whether a house is empty, but a lot of them say something adjacent. The feature set pulls <strong>34 predictors from six municipal systems</strong>, with a five-year lookback window on utility, permit, and complaint history so the model sees trajectory rather than a single snapshot.</p>
+    <ul class="body-list">
+      <li>Licenses and Inspections violations, which carry the enforcement history</li>
+      <li>Real estate transfers, which show whether a property is still moving through the market</li>
+      <li>OPA property records, for physical and assessment characteristics</li>
+      <li>Clean and seal actions, the city's direct intervention on open properties</li>
+      <li>Business licenses, which distinguish an active commercial use from a dormant one</li>
+      <li>Spatial lag measures, which let a parcel borrow evidence from its neighbours</li>
+    </ul>
+    <p>The spatial lag features do real work. Vacancy clusters, so the condition of the parcels around a property is genuinely informative about the property itself. It also creates the main methodological trap in the project, which is covered below.</p>
+
+    <h2>Choosing a model that can be trusted, not just one that scores well</h2>
+    <p>Four base learners were trained and compared: logistic regression, random forest, XGBoost, and LightGBM. The gradient boosted models are the ones that usually win a leaderboard, and on raw discrimination they were competitive.</p>
+    <p>The final model is a <strong>50/50 blend of a calibrated logistic regression and a random forest</strong>. That choice trades a small amount of headline performance for two things the city needs more.</p>
+
+    <h3>Calibration over ranking</h3>
+    <p>A ranking model tells you which parcel is more suspicious than another. A calibrated model tells you that a parcel scored 0.8 is vacant about eighty percent of the time. Those are different products. An inspection team planning a week of work needs the second one, because it lets them reason about how many doors they will knock on for nothing. Uncalibrated boosted trees are confidently wrong at the extremes, which is exactly where a targeting list gets used.</p>
+
+    <h3>An interpretable half</h3>
+    <p>Keeping logistic regression in the blend means half the model can be explained in a sentence to someone who has to defend the list in public. When a property owner asks why their house was flagged, "the model said so" is not an answer a city can give.</p>
+
+    <div class="stat-row">
+      <div class="stat"><div class="stat-n">0.940</div><div class="stat-l">AUC</div></div>
+      <div class="stat"><div class="stat-n">84.0%</div><div class="stat-l">Sensitivity</div></div>
+      <div class="stat"><div class="stat-n">89.8%</div><div class="stat-l">Specificity</div></div>
+      <div class="stat"><div class="stat-n">520K</div><div class="stat-l">Parcels scored</div></div>
+    </div>
+
+    <h2>Why the cross-validation is grouped by geography</h2>
+    <p>This is the part of the project most likely to have gone quietly wrong, and the part I would defend hardest.</p>
+    <p>With spatial lag features in the model, a random train and test split leaks. A parcel in the test set has neighbours in the training set, and those neighbours are literally an input to its prediction. The model gets to see the answer through the back door. Validation scores come back beautiful and the model falls apart the moment it is asked about a neighbourhood it has not memorised.</p>
+    <p>Validation is therefore <strong>grouped by ZIP code and by census tract</strong>, so whole geographies are held out at a time. The model is scored on its ability to generalise to places it has never seen, which is the only thing that matters if the city intends to run it citywide across 521 tracts. The reported AUC of 0.940 is under that harder test, not under a random split.</p>
+
+    <h2>The equity audit</h2>
+    <p>A vacancy model is not a neutral instrument. It is a device for deciding where the city sends people with clipboards and enforcement authority, and those visits have consequences for the people living nearby.</p>
+    <p>Before the scores went anywhere, flag rates were audited <strong>across poverty quintiles</strong>. The question was straightforward. Does the model concentrate attention on low-income neighbourhoods by more than the underlying vacancy actually justifies?</p>
+    <div class="callout">
+      <p>This check exists because the failure mode is invisible without it. A model trained on enforcement history will happily reproduce the geography of past enforcement and report excellent accuracy while doing so. Accuracy against a biased label is not evidence of fairness. The only way to know is to look at the flag distribution directly and be willing to change the model if the answer is bad.</p>
+    </div>
+    <p>Where a targeting tool sends inspectors is a policy question. Treating it as a technical detail is how analytically sound projects end up doing harm.</p>
+
+    <h2>What it is actually for</h2>
+    <p>The output is not a verdict. It is a prioritised list with a probability attached, which turns a reactive complaint queue into something a team can plan against. The city can direct structural inspections at the properties most likely to need them. Housing organisations, courts, and planners get a calibrated starting point rather than an anecdote.</p>
+    <p>The scores are published through a public dashboard so the reasoning is inspectable rather than locked in a model file.</p>
+
+    <div class="btn-row">
+      <a class="btn primary" href="https://jasonfan28.github.io/Philly_vacant_property_indicator/Vacancy%20Risk%20Landing%20Page.html" target="_blank" rel="noopener">Open the live dashboard <span>→</span></a>
+    </div>
+
+    <hr class="rule">
+
+    <h2>Limits, and what I would do differently</h2>
+    <p>The honest constraint on this project is the ground truth. The model is trained against the city's own vacancy determinations, which is the same enforcement-shaped record the project set out to improve on. It learns to find properties that look like the ones the city has already caught. That is genuinely useful and it is not the same as finding every vacant house.</p>
+    <p>Three things I would push on with more time.</p>
+    <ul class="body-list">
+      <li>Validate against an independent source rather than the enforcement record. A field-verified sample, even a small stratified one, would give a much better read on whether the model finds anything the existing process would have missed.</li>
+      <li>Report the equity audit as a standing output rather than a pre-deployment gate. Flag rates by quintile should ship next to the AUC every time the model is retrained, because drift in that number matters more than drift in accuracy.</li>
+      <li>Attach a confidence band to each score. A single probability invites false precision, and inspection teams would be better served by knowing which predictions the model is unsure about.</li>
+    </ul>
+
+    <div class="btn-row">
+      <a class="btn" href="../work.html">All work <span>→</span></a>
+      <a class="btn" href="mailto:jason.tc.fan@gmail.com">Get in touch <span>→</span></a>
+    </div>
+
+  </div>
+
+  <div class="page-foot">
+    <span>Jason Tianchi Fan · Philadelphia</span>
+    <span><a href="mailto:jason.tc.fan@gmail.com">jason.tc.fan@gmail.com</a></span>
+  </div>
+
+</div>
+
+</body>
+</html>
