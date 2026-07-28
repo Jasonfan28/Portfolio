@@ -693,6 +693,74 @@ if(wgTrack){
       wgTrack.scrollLeft += e.deltaY;
     }
   }, {passive: false});
+
+  const wgPrev = workGallery.querySelector('.wg-prev');
+  const wgNext = workGallery.querySelector('.wg-next');
+  const wgRail = workGallery.querySelector('.wg-rail-fill');
+
+  // Cards snap to their start edge, so each child's resting scrollLeft puts
+  // its left edge at the track's content edge. Measured rather than assumed,
+  // because the contents rail and section divider are narrower than a card.
+  function wgSnapTargets(){
+    const padLeft = parseFloat(getComputedStyle(wgTrack).paddingLeft) || 0;
+    const max = Math.max(0, wgTrack.scrollWidth - wgTrack.clientWidth);
+    return Array.from(wgTrack.children)
+      .map(el => clamp(el.offsetLeft - padLeft, 0, max));
+  }
+
+  // Own tween rather than scrollTo({behavior:'smooth'}), which Chrome
+  // cancels on this element. Direct scrollLeft assignment is reliable.
+  let wgAnim = null;
+  function wgGlide(dest){
+    if(wgAnim) cancelAnimationFrame(wgAnim);
+    const start = wgTrack.scrollLeft;
+    const delta = dest - start;
+    if(Math.abs(delta) < 1) return;
+    const dur = 420;
+    let t0 = null;
+    (function frame(ts){
+      if(t0 === null) t0 = ts;
+      const k = clamp((ts - t0) / dur, 0, 1);
+      wgTrack.scrollLeft = start + delta * (1 - Math.pow(1 - k, 3));
+      wgAnim = k < 1 ? requestAnimationFrame(frame) : null;
+    })(performance.now());
+  }
+
+  function wgStep(dir){
+    const cur = wgTrack.scrollLeft;
+    const max = Math.max(0, wgTrack.scrollWidth - wgTrack.clientWidth);
+    const targets = wgSnapTargets();
+    let dest;
+    if(dir > 0){
+      dest = targets.find(t => t > cur + 6);
+    } else {
+      const behind = targets.filter(t => t < cur - 6);
+      dest = behind[behind.length - 1];
+    }
+    if(dest === undefined) dest = dir > 0 ? max : 0;
+    wgGlide(clamp(dest, 0, max));
+  }
+
+  function wgSync(){
+    const max = wgTrack.scrollWidth - wgTrack.clientWidth;
+    const at  = wgTrack.scrollLeft;
+    if(wgPrev) wgPrev.disabled = at <= 2;
+    if(wgNext) wgNext.disabled = at >= max - 2;
+    if(wgRail) wgRail.style.transform = 'scaleX(' + (max > 0 ? clamp(at / max, 0, 1) : 0) + ')';
+  }
+
+  if(wgPrev) wgPrev.addEventListener('click', () => wgStep(-1));
+  if(wgNext) wgNext.addEventListener('click', () => wgStep(1));
+  wgTrack.addEventListener('scroll', wgSync, {passive: true});
+  window.addEventListener('resize', wgSync);
+  wgSync();
+
+  // Arrow keys drive the strip while it is the active section
+  window.addEventListener('keydown', (e) => {
+    if(!workGallery.classList.contains('active')) return;
+    if(e.key === 'ArrowRight'){ e.preventDefault(); wgStep(1); }
+    else if(e.key === 'ArrowLeft'){ e.preventDefault(); wgStep(-1); }
+  });
 }
 
 let camPos  = CAM_AERIAL_POS.clone();

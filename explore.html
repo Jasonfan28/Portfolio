@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Barlow+Condensed:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<link rel="stylesheet" href="style.css?v=20260727p">
+<link rel="stylesheet" href="style.css?v=20260727u">
 </head>
 <body>
 
@@ -128,6 +128,15 @@
 <!-- ───── WORK GALLERY (full-width horizontal strip) ───── -->
 <div id="work-gallery" aria-label="Selected projects">
   <div class="wg-track">
+
+    <a class="wg-card wg-card-index" href="./index.html" data-cur="See all eleven">
+      <div class="wg-index-inner">
+        <div class="wg-index-mark">§</div>
+        <div class="wg-index-title">All eleven,<br><em>as a list</em></div>
+        <div class="wg-index-desc">Every project on one page, straight to each deliverable.</div>
+        <div class="wg-index-cta">Open the index <span>→</span></div>
+      </div>
+    </a>
 
     <div class="wg-card wg-card-multi">
       <a class="wg-stretch" href="./11_PhillyStat360_Vacant_Property/index.html" data-cur="Read case study" aria-label="PhillyStat360 vacant property indicator case study"></a>
@@ -283,16 +292,11 @@
       <div class="wg-arr">→</div>
     </a>
 
-    <a class="wg-card wg-card-end" href="./index.html" data-cur="See all eleven">
-      <div class="wg-end-inner">
-        <div class="wg-end-mark">§</div>
-        <div class="wg-end-title">All of it, <em>as a list</em></div>
-        <div class="wg-end-desc">Every project on one page with the images, straight to each deliverable. Quicker than scrolling.</div>
-        <div class="wg-end-cta">Open the index <span>→</span></div>
-      </div>
-    </a>
-
   </div>
+
+  <button class="wg-nav wg-prev" type="button" aria-label="Scroll to previous project" aria-controls="work-gallery" data-cur="Back">←</button>
+  <button class="wg-nav wg-next" type="button" aria-label="Scroll to next project" aria-controls="work-gallery" data-cur="Forward">→</button>
+  <div class="wg-rail" aria-hidden="true"><span class="wg-rail-fill"></span></div>
 </div>
 
 <!-- ───── PANEL: EXPERIENCE ───── -->
@@ -501,6 +505,6 @@
   <span class="fb-time" id="footer-time">Philadelphia</span>
 </div>
 
-<script src="main.js?v=20260727p"></script>
+<script src="main.js?v=20260727u"></script>
 </body>
 </html>

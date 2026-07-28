@@ -1166,8 +1166,12 @@ nav {
   height: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
+  /* Proximity rather than mandatory so a long strip does not fight the
+     reader, and scroll-behavior stays auto because the arrow controls
+     animate scrollLeft themselves. Native smooth scrolling gets cancelled
+     on this element, and CSS smooth would also compound each assignment. */
+  scroll-snap-type: x proximity;
+  scroll-behavior: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -1177,7 +1181,10 @@ nav {
 .wg-card {
   flex: 0 0 380px;
   height: 460px;
-  scroll-snap-align: center;
+  /* Start-aligned so one arrow click advances exactly one card. Centring
+     made the first step a 100px nudge, because the opening cards cannot
+     reach their centred position at scrollLeft 0. */
+  scroll-snap-align: start;
   position: relative;
   display: grid;
   grid-template-rows: auto 3px 1fr auto;
@@ -1355,7 +1362,7 @@ nav {
   align-items: center;
   justify-content: center;
   gap: 1.1rem;
-  scroll-snap-align: center;
+  scroll-snap-align: start;
 }
 .wg-divider-rule {
   flex: 1 1 auto;
@@ -1373,8 +1380,11 @@ nav {
   font-weight: 500;
 }
 
-/* Terminal card: the natural place to look after scrolling all ten */
-.wg-card-end {
+/* Contents rail. Sits first so the escape hatch is visible without
+   scrolling, but deliberately narrower than a project card so it reads as
+   front matter and does not displace project 01 from the opening view. */
+.wg-card-index {
+  flex: 0 0 236px;
   background: transparent;
   border-style: dashed;
   border-color: var(--rule-1);
@@ -1382,33 +1392,86 @@ nav {
   display: flex;
   align-items: center;
   text-align: left;
+  padding: 28px 22px;
 }
-.wg-card-end:hover {
+.wg-card-index:hover {
   background: rgba(255, 252, 245, 0.62);
   border-style: solid;
   border-color: var(--terra);
 }
-.wg-end-inner { display: flex; flex-direction: column; gap: 0.75rem; }
-.wg-end-mark {
+.wg-index-inner { display: flex; flex-direction: column; gap: 0.7rem; }
+.wg-index-mark {
   font-family: var(--serif); font-style: italic;
-  font-size: 2.6rem; line-height: 1; color: var(--terra); opacity: 0.5;
+  font-size: 2.3rem; line-height: 1; color: var(--terra); opacity: 0.5;
 }
-.wg-end-title {
-  font-family: var(--serif); font-size: 1.75rem; line-height: 1.15;
+.wg-index-title {
+  font-family: var(--serif); font-size: 1.5rem; line-height: 1.15;
   font-weight: 400; letter-spacing: -0.01em;
 }
-.wg-end-title em { font-style: italic; color: var(--terra); }
-.wg-end-desc {
-  font-family: var(--serif); font-size: 0.92rem;
+.wg-index-title em { font-style: italic; color: var(--terra); }
+.wg-index-desc {
+  font-family: var(--serif); font-size: 0.88rem;
   line-height: 1.5; color: var(--ink-3);
 }
-.wg-end-cta {
-  margin-top: 0.4rem;
-  font-family: var(--cond); font-size: 0.6rem;
+.wg-index-cta {
+  margin-top: 0.3rem;
+  font-family: var(--cond); font-size: 0.58rem;
   letter-spacing: 0.2em; text-transform: uppercase;
   font-weight: 500; color: var(--terra);
 }
-.wg-card-end:hover .wg-end-cta span { display: inline-block; transform: translateX(4px); transition: transform .25s; }
+.wg-card-index:hover .wg-index-cta span { display: inline-block; transform: translateX(4px); transition: transform .25s; }
+
+/* ── Horizontal scroll controls ──
+   The strip previously relied on an undiscoverable wheel mapping. These sit
+   in the gutter beside the cards so they never cover content. */
+.wg-nav {
+  position: absolute;
+  top: calc(50% - 10px);
+  transform: translateY(-50%);
+  width: 46px; height: 46px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 1.4rem; line-height: 1;
+  color: var(--ink-1);
+  /* Near-solid with a lift: the strip scrolls under these, so they have to
+     read as controls floating above the cards rather than sitting in a gap. */
+  background: #fbf5e9;
+  border: 1px solid var(--rule-1);
+  box-shadow: 0 6px 20px -8px rgba(60,40,20,0.45);
+  cursor: none;
+  padding: 0;
+  transition: color .22s, border-color .22s, background .22s, opacity .3s, box-shadow .22s;
+  z-index: 4;
+}
+.wg-nav:hover:not(:disabled) {
+  color: var(--terra);
+  border-color: var(--terra);
+  box-shadow: 0 10px 26px -8px rgba(60,40,20,0.55);
+}
+.wg-nav:focus-visible { outline: 2px solid var(--terra); outline-offset: 3px; }
+.wg-nav:disabled { opacity: 0.22; pointer-events: none; }
+.wg-prev { left: max(14px, calc(10vw - 62px)); }
+.wg-next { right: max(14px, calc(10vw - 62px)); }
+
+/* Position readout for a strip too long to see at once */
+.wg-rail {
+  position: absolute;
+  left: 10vw; right: 10vw; bottom: 30px;
+  height: 2px;
+  background: var(--rule-2);
+  overflow: hidden;
+}
+.wg-rail-fill {
+  display: block; height: 100%; width: 100%;
+  background: var(--terra);
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform .18s linear;
+}
+
+@media (max-width: 700px) {
+  .wg-nav { display: none; }
+  .wg-rail { left: 6vw; right: 6vw; }
+}
 
 /* Nav entry to the flat index, weighted so it reads as an action */
 .nav-links a.nav-cta {
