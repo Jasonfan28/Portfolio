@@ -686,17 +686,10 @@ const wgTrack     = workGallery ? workGallery.querySelector('.wg-track') : null;
 const WORK_IDX    = SECTIONS.indexOf('work');
 
 if(wgTrack){
-  wgTrack.addEventListener('wheel', (e) => {
-    if(!workGallery.classList.contains('active')) return;
-    if(Math.abs(e.deltaY) > Math.abs(e.deltaX)){
-      e.preventDefault();
-      wgTrack.scrollLeft += e.deltaY;
-    }
-  }, {passive: false});
-
   const wgPrev = workGallery.querySelector('.wg-prev');
   const wgNext = workGallery.querySelector('.wg-next');
   const wgRail = workGallery.querySelector('.wg-rail-fill');
+  const wgMax  = () => Math.max(0, wgTrack.scrollWidth - wgTrack.clientWidth);
 
   // Cards snap to their start edge, so each child's resting scrollLeft puts
   // its left edge at the track's content edge. Measured rather than assumed,
@@ -711,8 +704,11 @@ if(wgTrack){
   // Own tween rather than scrollTo({behavior:'smooth'}), which Chrome
   // cancels on this element. Direct scrollLeft assignment is reliable.
   let wgAnim = null;
+  function wgStopGlide(){
+    if(wgAnim){ cancelAnimationFrame(wgAnim); wgAnim = null; }
+  }
   function wgGlide(dest){
-    if(wgAnim) cancelAnimationFrame(wgAnim);
+    wgStopGlide();
     const start = wgTrack.scrollLeft;
     const delta = dest - start;
     if(Math.abs(delta) < 1) return;
@@ -749,8 +745,73 @@ if(wgTrack){
     if(wgRail) wgRail.style.transform = 'scaleX(' + (max > 0 ? clamp(at / max, 0, 1) : 0) + ')';
   }
 
-  if(wgPrev) wgPrev.addEventListener('click', () => wgStep(-1));
-  if(wgNext) wgNext.addEventListener('click', () => wgStep(1));
+  // Fade the hint once the reader has moved the strip by any means
+  let wgTouched = false;
+  function wgUsed(){
+    if(wgTouched) return;
+    wgTouched = true;
+    workGallery.classList.add('touched');
+  }
+
+  /* Ordinary vertical scrolling drives the strip while the work section is
+     up, and hands control back to the page once it reaches either end.
+     This previously listened on the strip itself, so it only responded when
+     the pointer happened to sit over the bottom of the window. Anywhere
+     else, which is most of the screen, a scroll skipped past the work
+     entirely. Reading it at the window means any wheel, trackpad, or
+     scrollbar drag moves through the projects with no aiming required. */
+  window.addEventListener('wheel', (e) => {
+    if(!workGallery.classList.contains('active')) return;
+    const max = wgMax();
+    if(max <= 0) return;
+    const d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    if(!d) return;
+    const at = wgTrack.scrollLeft;
+    const room = d > 0 ? at < max - 0.5 : at > 0.5;
+    if(!room) return;   // at the end: let the page carry on to the next section
+    e.preventDefault();
+    wgStopGlide();
+    wgTrack.scrollLeft = clamp(at + d, 0, max);
+    wgUsed();
+  }, {passive: false});
+
+  /* Drag to pan, the same gesture as panning a map. */
+  let dragOn = false, dragMoved = false, dragX = 0, dragFrom = 0, swallowClick = false;
+  wgTrack.addEventListener('pointerdown', (e) => {
+    // Mouse only. Touch already gets native momentum panning, and handling
+    // both would move the strip twice as far as the finger.
+    if(e.pointerType !== 'mouse' || e.button !== 0) return;
+    dragOn = true; dragMoved = false; swallowClick = false;
+    dragX = e.clientX; dragFrom = wgTrack.scrollLeft;
+    wgStopGlide();
+  });
+  window.addEventListener('pointermove', (e) => {
+    if(!dragOn) return;
+    const dx = e.clientX - dragX;
+    if(!dragMoved && Math.abs(dx) > 4){
+      dragMoved = true;
+      workGallery.classList.add('dragging');
+      wgUsed();
+    }
+    if(dragMoved) wgTrack.scrollLeft = clamp(dragFrom - dx, 0, wgMax());
+  });
+  window.addEventListener('pointerup', () => {
+    if(!dragOn) return;
+    dragOn = false;
+    workGallery.classList.remove('dragging');
+    swallowClick = dragMoved;
+    dragMoved = false;
+  });
+  // A drag that finishes on top of a card must not also open it
+  wgTrack.addEventListener('click', (e) => {
+    if(!swallowClick) return;
+    swallowClick = false;
+    e.preventDefault();
+    e.stopPropagation();
+  }, true);
+
+  if(wgPrev) wgPrev.addEventListener('click', () => { wgStep(-1); wgUsed(); });
+  if(wgNext) wgNext.addEventListener('click', () => { wgStep(1); wgUsed(); });
   wgTrack.addEventListener('scroll', wgSync, {passive: true});
   window.addEventListener('resize', wgSync);
   wgSync();
@@ -758,8 +819,8 @@ if(wgTrack){
   // Arrow keys drive the strip while it is the active section
   window.addEventListener('keydown', (e) => {
     if(!workGallery.classList.contains('active')) return;
-    if(e.key === 'ArrowRight'){ e.preventDefault(); wgStep(1); }
-    else if(e.key === 'ArrowLeft'){ e.preventDefault(); wgStep(-1); }
+    if(e.key === 'ArrowRight'){ e.preventDefault(); wgStep(1); wgUsed(); }
+    else if(e.key === 'ArrowLeft'){ e.preventDefault(); wgStep(-1); wgUsed(); }
   });
 }
 

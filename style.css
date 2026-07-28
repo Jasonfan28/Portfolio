@@ -1166,11 +1166,14 @@ nav {
   height: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  /* Proximity rather than mandatory so a long strip does not fight the
-     reader, and scroll-behavior stays auto because the arrow controls
-     animate scrollLeft themselves. Native smooth scrolling gets cancelled
-     on this element, and CSS smooth would also compound each assignment. */
-  scroll-snap-type: x proximity;
+  /* No snapping. Chrome measures start-alignment from the border box while
+     the card positions are computed from the padding box, so its snap points
+     sat one padding-width away from the arrow targets and tugged the strip
+     after every step. Panning is continuous now, like dragging a map, and
+     the arrows land exactly where they are told.
+     scroll-behavior stays auto because the arrows animate scrollLeft
+     themselves; native smooth scrolling gets cancelled on this element. */
+  scroll-snap-type: none;
   scroll-behavior: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
@@ -1428,7 +1431,9 @@ nav {
   position: absolute;
   top: calc(50% - 10px);
   transform: translateY(-50%);
-  width: 46px; height: 46px;
+  /* Generous for a 46px glyph: the custom cursor eases toward the pointer,
+     so it lags slightly and small targets get missed. */
+  width: 56px; height: 56px;
   display: flex; align-items: center; justify-content: center;
   font-family: var(--serif); font-size: 1.4rem; line-height: 1;
   color: var(--ink-1);
@@ -1451,6 +1456,37 @@ nav {
 .wg-nav:disabled { opacity: 0.22; pointer-events: none; }
 .wg-prev { left: max(14px, calc(10vw - 62px)); }
 .wg-next { right: max(14px, calc(10vw - 62px)); }
+
+/* Tells the reader the strip responds to an ordinary scroll, then gets out
+   of the way for good once they have moved it by any means. */
+.wg-hint {
+  position: absolute;
+  left: 10vw; bottom: 44px;
+  display: flex; align-items: center; gap: 0.55rem;
+  font-family: var(--cond); font-size: 0.58rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ink-3);
+  pointer-events: none;
+  transition: opacity .5s ease;
+}
+.wg-hint-arr {
+  font-family: var(--serif); font-style: italic;
+  color: var(--terra);
+  animation: wgNudge 1.9s ease-in-out infinite;
+}
+@keyframes wgNudge {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(5px); }
+}
+#work-gallery.touched .wg-hint { opacity: 0; }
+
+/* Direct manipulation: the strip pans like a map */
+#work-gallery.dragging .wg-track { scroll-snap-type: none; }
+#work-gallery.dragging .wg-card { transition: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wg-hint-arr { animation: none; }
+}
 
 /* Position readout for a strip too long to see at once */
 .wg-rail {
