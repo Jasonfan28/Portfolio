@@ -4,19 +4,32 @@
    + refined micro-interactions
    ───────────────────────────────────────────────────────────── */
 
-const VH = window.innerHeight, VW = window.innerWidth;
-
-const DIVE_PX   = VH * 1.2;
-const STOP_PX   = VH * 0.7;
-const TRAVEL_PX = VH * 0.4;
+let VH = window.innerHeight, VW = window.innerWidth;
 
 const SECTIONS = ['about','work','experience','contact'];
 const LABELS   = ['About','Selected Work','Experience','Contact'];
 const LABEL_SHORT = ['About','Work','Experience','Contact'];
 
-const TOTAL_PX = DIVE_PX + SECTIONS.length*(STOP_PX+TRAVEL_PX) + VH;
-document.getElementById('spacer').style.height = TOTAL_PX + 'px';
-document.body.style.minHeight = TOTAL_PX + 'px';
+// Scroll geometry is derived from viewport height, so it has to be rebuilt
+// whenever the window resizes or a mobile browser chrome bar slides away.
+let DIVE_PX, STOP_PX, TRAVEL_PX, TOTAL_PX;
+const spacerEl = document.getElementById('spacer');
+
+function recomputeLayout(){
+  VH = window.innerHeight;
+  VW = window.innerWidth;
+  DIVE_PX   = VH * 1.2;
+  STOP_PX   = VH * 0.7;
+  TRAVEL_PX = VH * 0.4;
+  TOTAL_PX  = DIVE_PX + SECTIONS.length*(STOP_PX+TRAVEL_PX) + VH;
+  spacerEl.style.height = TOTAL_PX + 'px';
+  document.body.style.minHeight = TOTAL_PX + 'px';
+}
+recomputeLayout();
+
+// Honour a reduced-motion preference: the scroll-driven camera still works,
+// but the smoothing and intro animation are effectively instant.
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 window.jumpTo = function(name){
   const idx = SECTIONS.indexOf(name);
@@ -55,11 +68,15 @@ document.querySelectorAll('a,.btn,.contact-link,.proj-item').forEach(el=>{
 /* ── Progress + readout ── */
 const progressEl=document.getElementById('progress');
 const progressReadout=document.getElementById('progress-readout');
+let lastPctText = '';
 window.addEventListener('scroll',()=>{
-  const pct = window.scrollY/TOTAL_PX;
-  progressEl.style.width=(pct*100)+'%';
+  const pct = clamp(window.scrollY/TOTAL_PX, 0, 1);
+  // scaleX instead of width: the bar animates on the compositor and never
+  // triggers layout on a handler that fires on every scroll tick.
+  progressEl.style.transform = 'scaleX(' + pct + ')';
   if(progressReadout){
-    progressReadout.textContent = String(Math.round(pct*100)).padStart(3,'0') + ' / 100';
+    const txt = String(Math.round(pct*100)).padStart(3,'0') + ' / 100';
+    if(txt !== lastPctText){ progressReadout.textContent = txt; lastPctText = txt; }
   }
 },{passive:true});
 
@@ -76,8 +93,10 @@ window.addEventListener('scroll',()=>{
 
 /* ──────────────── THREE.JS CITY — eco-brutalist ──────────────── */
 const canvas = document.getElementById('city-canvas');
-const renderer = new THREE.WebGLRenderer({canvas,antialias:false,powerPreference:'high-performance'});
-renderer.setPixelRatio(1);
+// Batching the city freed enough headroom to afford real antialiasing and a
+// retina-resolution buffer, which the hard-edged architecture needs badly.
+const renderer = new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 renderer.setSize(VW,VH);
 // Soft overcast sky-blue
 const SKY_COL = 0x9bb7c9;
@@ -107,6 +126,7 @@ const ri  = (a,b) => Math.floor(rng(a,b+1));
   const skyGeo = new THREE.SphereGeometry(260, 24, 16);
   const skyMat = new THREE.MeshBasicMaterial({map:tex, side:THREE.BackSide, fog:false, depthWrite:false});
   const sky = new THREE.Mesh(skyGeo, skyMat);
+  sky.name = 'sky';
   scene.add(sky);
 })();
 
@@ -492,6 +512,105 @@ for(let z=5;z>-210;z-=22){
   });
 }
 
+/* ── Static geometry batching ──────────────────────────────────
+   The city is ~3,400 small meshes spread over ~450 materials, which
+   costs ~2,600 draw calls a frame. Nothing in it moves on its own —
+   the intro is one uniform rise — so every mesh is baked into merged
+   buffers grouped by material signature, with the per-material colour
+   carried as a vertex attribute. Draw calls drop to roughly a dozen. */
+
+function materialKey(m){
+  return [
+    m.type,
+    m.transparent ? 1 : 0,
+    m.opacity,
+    m.side,
+    m.depthWrite ? 1 : 0,
+    m.fog ? 1 : 0,
+    m.wireframe ? 1 : 0,
+    m.polygonOffset ? m.polygonOffsetFactor + ':' + m.polygonOffsetUnits : 'n'
+  ].join('|');
+}
+
+function mergeMeshes(meshList){
+  const buckets = new Map();
+  meshList.forEach(mesh => {
+    const mat = mesh.material;
+    if(!mat || Array.isArray(mat) || mat.map) return;
+    const key = materialKey(mat);
+    let b = buckets.get(key);
+    if(!b){ b = {source: mat, pos: [], norm: [], col: []}; buckets.set(key, b); }
+
+    const src = mesh.geometry;
+    const geo = src.index ? src.toNonIndexed() : src.clone();
+    geo.applyMatrix4(mesh.matrixWorld);
+
+    const p = geo.attributes.position.array;
+    const n = geo.attributes.normal ? geo.attributes.normal.array : null;
+    const r = mat.color.r, g = mat.color.g, bl = mat.color.b;
+    for(let i = 0; i < p.length; i += 3){
+      b.pos.push(p[i], p[i+1], p[i+2]);
+      if(n) b.norm.push(n[i], n[i+1], n[i+2]); else b.norm.push(0, 1, 0);
+      b.col.push(r, g, bl);
+    }
+    geo.dispose();
+  });
+
+  const merged = [];
+  buckets.forEach(b => {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.Float32BufferAttribute(b.pos, 3));
+    g.setAttribute('normal',   new THREE.Float32BufferAttribute(b.norm, 3));
+    g.setAttribute('color',    new THREE.Float32BufferAttribute(b.col, 3));
+    g.computeBoundingSphere();
+    const m = b.source.clone();
+    m.vertexColors = true;
+    m.color.setRGB(1, 1, 1);
+    merged.push(new THREE.Mesh(g, m));
+  });
+  return merged;
+}
+
+// Group holding the merged city. Scaling it on Y reproduces the original
+// per-building rise exactly, because every building shared one scale factor.
+const cityGroup = new THREE.Group();
+cityGroup.scale.y = 0.001;
+scene.add(cityGroup);
+
+(function batchScene(){
+  try {
+    const buildingSet = new Set(buildings);
+    // Put the buildings at their final transform so the bake captures full height.
+    buildings.forEach(b => { b.scale.y = 1; b.position.y = b.userData.finalY; });
+    scene.updateMatrixWorld(true);
+
+    const cityMeshes = [], propMeshes = [], originals = [];
+    scene.children.forEach(child => {
+      if(child === cityGroup || child.name === 'sky' || child.isLight) return;
+      const target = buildingSet.has(child) ? cityMeshes : propMeshes;
+      child.traverse(o => { if(o.isMesh) target.push(o); });
+      originals.push(child);
+    });
+
+    const mergedCity  = mergeMeshes(cityMeshes);
+    const mergedProps = mergeMeshes(propMeshes);
+    if(!mergedCity.length && !mergedProps.length) throw new Error('nothing merged');
+
+    originals.forEach(o => {
+      o.traverse(n => { if(n.isMesh && n.geometry) n.geometry.dispose(); });
+      scene.remove(o);
+    });
+
+    mergedCity.forEach(m => cityGroup.add(m));
+    mergedProps.forEach(m => scene.add(m));
+    buildings.length = 0;
+  } catch(err){
+    // Fall back to the unbatched scene rather than shipping a blank canvas.
+    console.warn('Scene batching skipped:', err);
+    buildings.forEach(b => { b.scale.y = 0.001; b.position.y = 0; });
+  }
+})();
+
 // Lighting — clean overcast / afternoon blue-sky daylight
 scene.add(new THREE.AmbientLight(0xbccadb, 1.4));
 const key=new THREE.DirectionalLight(0xfff4d8, 1.25);
@@ -604,7 +723,10 @@ function parseScroll(sy){
   }
 }
 
+let lastLabelIdx = -1;
 function setSectionLabel(idx){
+  if(idx === lastLabelIdx) return;   // called every frame; only touch the DOM on change
+  lastLabelIdx = idx;
   if(sectionLabelText) sectionLabelText.textContent = LABELS[idx];
   if(sectionLabelNum)  sectionLabelNum.textContent  = '§ '+String(idx+1).padStart(2,'0');
   if(sectionNumText)   sectionNumText.textContent   = String(idx+1).padStart(2,'0')+' / '+String(SECTIONS.length).padStart(2,'0');
@@ -701,6 +823,18 @@ function projectToScreen(v3){
 function positionPanel(panel, name, idx){
   const anch = PANEL_ANCHORS[name];
   if(!anch) return;
+
+  // Below tablet width the projected building face is far too narrow to read
+  // in (roughly 195px on a phone), so the panel becomes a plain centred card.
+  if(VW <= 768){
+    panel.style.left   = '4vw';
+    panel.style.width  = '92vw';
+    panel.style.top    = '9vh';
+    panel.style.height = '78vh';
+    flagScrollable(panel);
+    return;
+  }
+
   const tl = projectToScreen(anch.tl);
   const tr = projectToScreen(anch.tr);
   const bl = projectToScreen(anch.bl);
@@ -714,7 +848,9 @@ function positionPanel(panel, name, idx){
   const screenH = maxY - minY;
   const margin = 16;
   const panW  = clamp(screenW, VW*0.34, VW*0.52);
-  const panH  = clamp(screenH, VH*0.48, VH*0.82);
+  // Floor raised so the denser panels show most of their content without
+  // relying on a scroll the hidden scrollbars never advertise.
+  const panH  = clamp(screenH, VH*0.72, VH*0.86);
   let panelLeft, panelTop;
   if(anch.side > 0){
     panelLeft = clamp(minX - 10, VW/2 - 40, VW - panW - margin);
@@ -726,6 +862,20 @@ function positionPanel(panel, name, idx){
   panel.style.top    = panelTop  + 'px';
   panel.style.width  = panW + 'px';
   panel.style.height = panH + 'px';
+
+  flagScrollable(panel);
+}
+
+// Scrollbars are hidden by design, so flag panels whose content runs past the
+// fold and let CSS draw a fade cue.
+function flagScrollable(panel){
+  const inner = panel.querySelector('.bp-inner');
+  if(!inner) return;
+  const overflowing = inner.scrollHeight - inner.clientHeight > 8;
+  if(overflowing !== (panel.dataset.scrollable === '1')){
+    panel.dataset.scrollable = overflowing ? '1' : '0';
+    panel.classList.toggle('is-scrollable', overflowing);
+  }
 }
 
 /* Animation loop */
@@ -734,30 +884,52 @@ let buildDone = false;
 const BUILD_DUR = 2600;
 const SMOOTH = 0.06;
 
+// Once the camera has settled and the intro is over, nothing in the scene
+// changes until the next scroll or pointer move. Tracking that lets the loop
+// idle instead of re-rendering an identical frame sixty times a second.
+const SETTLE_EPS = 0.0015;
+let lastSy = -1, lastMx = 0, lastMy = 0;
+let needsRender = true;
+
 function animate(ts){
   requestAnimationFrame(animate);
+
   if(!buildStart) buildStart = ts;
   if(!buildDone){
-    const bt = clamp((ts-buildStart)/BUILD_DUR,0,1);
+    const bt = prefersReducedMotion ? 1 : clamp((ts-buildStart)/BUILD_DUR,0,1);
     const be = easeOut3(bt);
+    cityGroup.scale.y = Math.max(0.001, be);
     buildings.forEach(b=>{
       b.scale.y = Math.max(0.001, be);
       b.position.y = b.userData.finalY * be;
     });
     if(bt >= 1){
+      cityGroup.scale.y = 1;
       buildings.forEach(b=>{ b.scale.y = 1; b.position.y = b.userData.finalY; });
       buildDone = true;
+      cityGroup.updateMatrixWorld(true);
+      cityGroup.matrixAutoUpdate = false;
     }
+    needsRender = true;
   }
 
-  updateScene(window.scrollY);
+  const sy = window.scrollY;
+  if(sy !== lastSy || mouseNX !== lastMx || mouseNY !== lastMy){
+    lastSy = sy; lastMx = mouseNX; lastMy = mouseNY;
+    needsRender = true;
+  }
 
-  camPos.x  += (targetPos.x  - camPos.x)  * SMOOTH;
-  camPos.y  += (targetPos.y  - camPos.y)  * SMOOTH;
-  camPos.z  += (targetPos.z  - camPos.z)  * SMOOTH;
-  camLook.x += (targetLook.x - camLook.x) * SMOOTH;
-  camLook.y += (targetLook.y - camLook.y) * SMOOTH;
-  camLook.z += (targetLook.z - camLook.z) * SMOOTH;
+  if(!needsRender) return;
+
+  updateScene(sy);
+
+  const smooth = prefersReducedMotion ? 1 : SMOOTH;
+  camPos.x  += (targetPos.x  - camPos.x)  * smooth;
+  camPos.y  += (targetPos.y  - camPos.y)  * smooth;
+  camPos.z  += (targetPos.z  - camPos.z)  * smooth;
+  camLook.x += (targetLook.x - camLook.x) * smooth;
+  camLook.y += (targetLook.y - camLook.y) * smooth;
+  camLook.z += (targetLook.z - camLook.z) * smooth;
 
   camera.position.copy(camPos);
   camera.lookAt(camLook);
@@ -765,17 +937,35 @@ function animate(ts){
 
   renderer.render(scene, camera);
 
-  const sy = window.scrollY;
   const state = parseScroll(sy);
   if(state.phase==='dwell' && state.sectionIdx>=0){
     const name = SECTIONS[state.sectionIdx];
     positionPanel(PANELS[name], name, state.sectionIdx);
   }
+
+  // Keep rendering only while the camera is still easing toward its target.
+  const settled =
+    Math.abs(targetPos.x - camPos.x) + Math.abs(targetPos.y - camPos.y) +
+    Math.abs(targetPos.z - camPos.z) + Math.abs(targetLook.x - camLook.x) +
+    Math.abs(targetLook.y - camLook.y) + Math.abs(targetLook.z - camLook.z) < SETTLE_EPS;
+  needsRender = !(settled && buildDone);
 }
 requestAnimationFrame(animate);
 
+let resizeRaf = 0;
 window.addEventListener('resize',()=>{
-  const w=window.innerWidth,h=window.innerHeight;
-  renderer.setSize(w,h);
-  camera.aspect=w/h;camera.updateProjectionMatrix();
+  cancelAnimationFrame(resizeRaf);
+  resizeRaf = requestAnimationFrame(()=>{
+    // Preserve the reader's place in the narrative rather than snapping
+    // them to a different section when the viewport height changes.
+    const frac = TOTAL_PX ? window.scrollY / TOTAL_PX : 0;
+    recomputeLayout();
+    renderer.setSize(VW, VH);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    camera.aspect = VW/VH;
+    camera.updateProjectionMatrix();
+    window.scrollTo(0, frac * TOTAL_PX);
+    lastSy = -1;
+    needsRender = true;
+  });
 });
