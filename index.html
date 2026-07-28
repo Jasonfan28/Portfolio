@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Barlow+Condensed:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<link rel="stylesheet" href="style.css?v=20260727j">
+<link rel="stylesheet" href="style.css?v=20260727k">
 </head>
 <body>
 
@@ -38,7 +38,7 @@
     <li><a href="#" data-n="§02" onclick="jumpTo('work');return false">Work</a></li>
     <li><a href="#" data-n="§03" onclick="jumpTo('experience');return false">Experience</a></li>
     <li><a href="#" data-n="§04" onclick="jumpTo('contact');return false">Contact</a></li>
-    <li><a href="./work.html" data-n="§05" data-cur="Fast index">Index</a></li>
+    <li><a class="nav-cta" href="./work.html" data-cur="See all ten">All Work</a></li>
   </ul>
 </nav>
 
@@ -78,6 +78,7 @@
     <p class="hero-tagline">Geospatial analysis for public agencies, built for the people who <em>do not write code.</em></p>
     <div class="hero-ctas">
       <a href="#" class="btn btn-fill" data-cur="View work" onclick="jumpTo('work');return false">View Work <span class="arr">→</span></a>
+      <a href="./work.html" class="btn" data-cur="See all ten">All Work as a List <span class="arr">→</span></a>
       <a href="#" class="btn" data-cur="Contact" onclick="jumpTo('contact');return false">Get in Touch <span class="arr">↗</span></a>
     </div>
   </div>
@@ -334,6 +335,15 @@
       <div class="wg-arr">→</div>
     </a>
 
+    <a class="wg-card wg-card-end" href="./work.html" data-cur="See all ten">
+      <div class="wg-end-inner">
+        <div class="wg-end-mark">§</div>
+        <div class="wg-end-title">All ten, <em>as a list</em></div>
+        <div class="wg-end-desc">Every project on one page with the images, straight to each deliverable. Quicker than scrolling.</div>
+        <div class="wg-end-cta">Open the index <span>→</span></div>
+      </div>
+    </a>
+
   </div>
 </div>
 
@@ -510,6 +520,6 @@
   <span class="fb-time" id="footer-time">Philadelphia</span>
 </div>
 
-<script src="main.js?v=20260727j"></script>
+<script src="main.js?v=20260727k"></script>
 </body>
 </html>

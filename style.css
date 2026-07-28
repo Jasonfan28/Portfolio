@@ -1373,6 +1373,52 @@ nav {
   font-weight: 500;
 }
 
+/* Terminal card: the natural place to look after scrolling all ten */
+.wg-card-end {
+  background: transparent;
+  border-style: dashed;
+  border-color: var(--rule-1);
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+.wg-card-end:hover {
+  background: rgba(255, 252, 245, 0.62);
+  border-style: solid;
+  border-color: var(--terra);
+}
+.wg-end-inner { display: flex; flex-direction: column; gap: 0.75rem; }
+.wg-end-mark {
+  font-family: var(--serif); font-style: italic;
+  font-size: 2.6rem; line-height: 1; color: var(--terra); opacity: 0.5;
+}
+.wg-end-title {
+  font-family: var(--serif); font-size: 1.75rem; line-height: 1.15;
+  font-weight: 400; letter-spacing: -0.01em;
+}
+.wg-end-title em { font-style: italic; color: var(--terra); }
+.wg-end-desc {
+  font-family: var(--serif); font-size: 0.92rem;
+  line-height: 1.5; color: var(--ink-3);
+}
+.wg-end-cta {
+  margin-top: 0.4rem;
+  font-family: var(--cond); font-size: 0.6rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  font-weight: 500; color: var(--terra);
+}
+.wg-card-end:hover .wg-end-cta span { display: inline-block; transform: translateX(4px); transition: transform .25s; }
+
+/* Nav entry to the flat index, weighted so it reads as an action */
+.nav-links a.nav-cta {
+  color: var(--terra);
+  border: 1px solid var(--rule-1);
+  padding: 0.3rem 0.7rem;
+  transition: border-color .2s, background .2s;
+}
+.nav-links a.nav-cta:hover { border-color: var(--terra); background: rgba(255,252,245,0.6); }
+
 /* ═══ POLISH: accessibility, affordances, typographic rhythm ═══ */
 
 /* The site hides the system cursor, so keyboard users get no pointer to
