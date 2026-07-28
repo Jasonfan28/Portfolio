@@ -3,523 +3,315 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jason Tianchi Fan — Urban Planner & Data Analyst</title>
+<title>Jason Tianchi Fan — Urban Planner &amp; Data Analyst</title>
 <meta name="description" content="Jason Tianchi Fan is an urban planner and data analyst in Philadelphia. Geospatial modelling, reproducible data pipelines, and maps and reports built for public agencies.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Barlow+Condensed:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<link rel="stylesheet" href="style.css?v=20260727k">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Barlow+Condensed:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="page.css?v=20260727o">
 </head>
 <body>
 
-<!-- Progress ruler -->
-<div id="progress-wrap">
-  <div id="progress"></div>
-  <div id="progress-ticks"></div>
-</div>
-<div id="progress-readout">000 / 100</div>
+<header class="topbar">
+  <a class="home" href="./index.html">Jason T. Fan</a>
+  <nav>
+    <a href="./explore.html">Explore in 3D</a>
+    <a href="./Resume_2026.pdf" target="_blank" rel="noopener">Résumé</a>
+    <a href="mailto:jason.tc.fan@gmail.com">Email</a>
+  </nav>
+</header>
 
-<!-- Cursor -->
-<div id="cur"><div id="cur-ring"></div></div>
-<div id="cur-dot"></div>
-<div id="cur-label"></div>
+<div class="wrap">
 
-<!-- Nav -->
-<nav>
-  <a href="#" class="nav-logo" data-cur="Home">
-    <span>Jason T. Fan</span>
-    <span class="sep"></span>
-    <span><em class="mark" style="font-style:italic">—</em></span>
-    <span>Portfolio / 2026</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#" data-n="§01" onclick="jumpTo('about');return false">About</a></li>
-    <li><a href="#" data-n="§02" onclick="jumpTo('work');return false">Work</a></li>
-    <li><a href="#" data-n="§03" onclick="jumpTo('experience');return false">Experience</a></li>
-    <li><a href="#" data-n="§04" onclick="jumpTo('contact');return false">Contact</a></li>
-    <li><a class="nav-cta" href="./work.html" data-cur="See all ten">All Work</a></li>
-  </ul>
-</nav>
+  <div class="page-head">
+    <div class="eyebrow">Jason Tianchi Fan <span style="color:var(--ink-4)">·</span> Urban Planner &amp; Data Analyst</div>
+    <h1>Geospatial analysis for public agencies, built for the people who <em>do not write code</em></h1>
+    <p class="standfirst">I build reproducible pipelines over messy public data, then turn what comes out into maps, reports, and tools that people without a technical background can act on. Everything is below, with links straight to each deliverable, strongest first. There is also <a href="./explore.html">a version you walk through</a>, which is entry eleven.</p>
 
-<!-- 3D canvas -->
-<canvas id="city-canvas"></canvas>
-<div id="spacer"></div>
-
-<!-- Hero overlay -->
-<div id="hero-overlay">
-  <div class="hero-corner tl"></div>
-  <div class="hero-corner tr"></div>
-  <div class="hero-corner bl"></div>
-  <div class="hero-corner br"></div>
-
-  <div class="hero-grid">
-    <div class="hero-left">
-      <div class="hero-eyebrow-row">
-        <span class="hero-eyebrow-rule"></span>
-        <span class="hero-eyebrow">Portfolio · MMXXVI</span>
-        <span class="hero-coords">39.9526° N · 75.1652° W</span>
-      </div>
-      <h1 class="hero-name">
-        <span class="line"><span class="inner">Jason <em>Tianchi</em></span></span>
-        <span class="line"><span class="inner">Fan</span></span>
-      </h1>
-    </div>
-    <div class="hero-meta">
-      <div>Sheet 00 / 04</div>
-      <div class="hm-big">Vol. I</div>
-      <div>Selected Works</div>
-      <div>2024 – 2026</div>
+    <div class="idx-meta">
+      <div class="idx-meta-cell">Works<b>11</b></div>
+      <div class="idx-meta-cell">Span<b>2024 – 2026</b></div>
+      <div class="idx-meta-cell">Built for<b>Cities and agencies</b></div>
+      <div class="idx-meta-cell">Formats<b>Models, plans, maps</b></div>
     </div>
   </div>
 
-  <div class="hero-footer">
-    <p class="hero-sub">M.C.P. <em>·</em> University of Pennsylvania <em>·</em> Class of 2026</p>
-    <p class="hero-tagline">Geospatial analysis for public agencies, built for the people who <em>do not write code.</em></p>
-    <div class="hero-ctas">
-      <a href="#" class="btn btn-fill" data-cur="View work" onclick="jumpTo('work');return false">View Work <span class="arr">→</span></a>
-      <a href="./work.html" class="btn" data-cur="See all ten">All Work as a List <span class="arr">→</span></a>
-      <a href="#" class="btn" data-cur="Contact" onclick="jumpTo('contact');return false">Get in Touch <span class="arr">↗</span></a>
-    </div>
+  <!-- ───── DATA & ANALYSIS ───── -->
+  <div class="sec-head">
+    <span class="sec-n">§ 01</span>
+    <span>Data &amp; Analysis</span>
+    <span class="sec-rule"></span>
+    <span class="sec-count">01 — 08</span>
   </div>
-</div>
 
-<div id="scroll-hint">
-  <div class="scroll-bar"></div>
-  Scroll to enter
-</div>
-
-<!-- Section label overlays -->
-<div id="section-label">
-  <span class="label-num" id="section-label-num">§ 01</span>
-  <span class="label-dash"></span>
-  <span id="section-label-text">About</span>
-</div>
-<div id="section-num">
-  <span id="section-num-text">01 / 04</span>
-  <span class="nav-dots">
-    <span class="nav-dot on"></span><span class="nav-dot"></span><span class="nav-dot"></span><span class="nav-dot"></span>
-  </span>
-</div>
-
-<!-- ───── PANEL: ABOUT ───── -->
-<div id="bp-about" class="bpanel">
-  <span class="bcorner tl"></span><span class="bcorner tr"></span>
-  <span class="bcorner bl"></span><span class="bcorner br"></span>
-  <div class="bp-stamp">
-    <span class="stamp-n">№ 01</span>
-    <span class="stamp-sheet">About</span>
-  </div>
-  <div class="bp-inner">
-    <div class="bp-cat">
-      <span class="cat-n">§ 01</span>
-      <span>Profile</span>
-      <span class="cat-rule"></span>
-    </div>
-    <div class="about-grid">
-      <div>
-        <div class="photo-wrap">
-          <img class="about-photo" src="photo.jpg" alt="Jason Tianchi Fan">
-          <div class="photo-mark pm-tl"></div>
-          <div class="photo-mark pm-tr"></div>
-          <div class="photo-mark pm-bl"></div>
-          <div class="photo-mark pm-br"></div>
-        </div>
-        <div class="photo-caption">
-          <span>Fig. 01</span>
-          <span>Fan, J.T.</span>
-        </div>
-        <div class="bp-stats">
-          <div class="bp-stat"><div class="bp-stat-n">245K</div><div class="bp-stat-l">Individuals in a published statewide study</div></div>
-          <div class="bp-stat"><div class="bp-stat-n">520K</div><div class="bp-stat-l">Parcels scored for vacancy risk</div></div>
-          <div class="bp-stat"><div class="bp-stat-n">20 km</div><div class="bp-stat-l">Pedestrian infrastructure audited</div></div>
-          <div class="bp-stat"><div class="bp-stat-n">50+</div><div class="bp-stat-l">Community leaders engaged</div></div>
-        </div>
-      </div>
-      <div>
-        <div class="bp-title">Urban<br><em>Planner,</em><br><span class="cond">&amp; Data Analyst</span></div>
-        <div class="bp-sub">M.C.P. Penn 2026 <em>·</em> B.A. Pol. Sci. SFU 2024</div>
-        <div class="bp-body">
-          <p class="dropcap">I am an urban planner and data analyst. I build reproducible pipelines over messy public data, then turn what comes out into maps, reports, and tools that people without a technical background can act on. Most of my work has been for city and state government.</p>
-          <p>That has meant R pipelines integrating microdata for 245,000 individuals in a report published by the Pennsylvania Council on the Arts, and a model scoring Philadelphia's 520,000 residential parcels for vacancy risk. On that one I checked flag rates across poverty quintiles before it shipped, because where a targeting tool sends inspectors is a policy question.</p>
-        </div>
-      </div>
-    </div>
-    <div class="bp-ticker-wrap">
-      <div class="bp-ticker">
-        <b>Urban Planning</b><span class="dot">◆</span><span>Data Science</span><span class="dot">◆</span><b>GIS</b><span class="dot">◆</span><span>Python</span><span class="dot">◆</span><b>R</b><span class="dot">◆</span><span>ArcGIS</span><span class="dot">◆</span><b>Machine Learning</b><span class="dot">◆</span><span>Spatial Analysis</span><span class="dot">◆</span><b>Public Policy</b><span class="dot">◆</span><span>Census PUMS</span><span class="dot">◆</span>
-        <b>Urban Planning</b><span class="dot">◆</span><span>Data Science</span><span class="dot">◆</span><b>GIS</b><span class="dot">◆</span><span>Python</span><span class="dot">◆</span><b>R</b><span class="dot">◆</span><span>ArcGIS</span><span class="dot">◆</span><b>Machine Learning</b><span class="dot">◆</span><span>Spatial Analysis</span><span class="dot">◆</span><b>Public Policy</b><span class="dot">◆</span><span>Census PUMS</span><span class="dot">◆</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ───── PANEL: WORK ───── -->
-<div id="bp-work" class="bpanel">
-  <span class="bcorner tl"></span><span class="bcorner tr"></span>
-  <span class="bcorner bl"></span><span class="bcorner br"></span>
-  <div class="bp-stamp">
-    <span class="stamp-n">№ 02</span>
-    <span class="stamp-sheet">Work</span>
-  </div>
-  <div class="bp-inner">
-    <div class="bp-cat">
-      <span class="cat-n">§ 02</span>
-      <span>Selected Work</span>
-      <span class="cat-rule"></span>
-    </div>
-    <div class="bp-title">Index of<br><em>Projects</em><span class="cond">&nbsp;/ 10</span></div>
-    <div class="work-meta-row">
-      <div class="wm-cell">Span <b>2024 – 2026</b></div>
-      <div class="wm-cell">Entries <b>10<em> works</em></b></div>
-      <div class="wm-cell">Format <b>PDF <em>·</em> Web</b></div>
-    </div>
-  </div>
-</div>
-
-<!-- ───── WORK GALLERY (full-width horizontal strip) ───── -->
-<div id="work-gallery" aria-label="Selected projects">
-  <div class="wg-track">
-
-    <div class="wg-card wg-card-multi">
-      <a class="wg-stretch" href="./11_PhillyStat360_Vacant_Property/index.html" data-cur="Read case study" aria-label="PhillyStat360 vacant property indicator case study"></a>
-      <img class="wg-thumb" src="./thumbs/phillystat.jpg" alt="" loading="lazy">
-      <div class="wg-n">01</div>
-      <div class="wg-accent"></div>
-      <div class="wg-body">
-        <div class="wg-year">2026</div>
-        <div class="wg-title">PhillyStat360: Vacant Property Indicator</div>
-        <div class="wg-kind">Practicum · Machine Learning</div>
-        <div class="wg-desc">An ensemble model that scores Philadelphia's 520,000 residential parcels for vacancy risk, helping the city find vacant homes missing from its records.</div>
-        <div class="wg-links">
-          <a href="./11_PhillyStat360_Vacant_Property/index.html" data-cur="Read case study">Case Study <span class="wl-arr">→</span></a>
-          <a href="https://jasonfan28.github.io/Philly_vacant_property_indicator/Vacancy%20Risk%20Landing%20Page.html" target="_blank" rel="noopener" data-cur="Visit site">Dashboard <span class="wl-arr">→</span></a>
-        </div>
-        <div class="wg-tags"><span>Python</span><span>Ensemble ML</span><span>Open Data</span></div>
-      </div>
-    </div>
-
-    <a class="wg-card" data-cur="Open PDF" href="./08_PA_Creative_Workforce/PA_Creative_Workforce_Research_Study.pdf" target="_blank" rel="noopener">
-      <img class="wg-thumb" src="./thumbs/pca.jpg" alt="" loading="lazy">
-      <div class="wg-n">02</div>
-      <div class="wg-accent"></div>
-      <div class="wg-body">
-        <div class="wg-year">2025</div>
-        <div class="wg-title">Understanding Pennsylvania's Creative Workforce</div>
-        <div class="wg-kind">Published Research · PCA</div>
-        <div class="wg-desc">A published statewide study sizing Pennsylvania's 245,000-person creative workforce with Census microdata, business records, a survey, and interviews.</div>
-        <div class="wg-tags"><span>R</span><span>Census PUMS</span><span>Policy</span></div>
-      </div>
-      <div class="wg-arr">→</div>
+  <!-- 01 featured -->
+  <article class="feature">
+    <a class="feature-media media" href="./11_PhillyStat360_Vacant_Property/index.html" aria-label="PhillyStat360 case study">
+      <img src="./thumbs/phillystat.jpg" alt="Philadelphia rowhouses seen from above, from the vacancy risk dashboard" loading="lazy">
     </a>
-
-    <a class="wg-card" data-cur="Visit site" href="https://weitzman-musa-geocloud.github.io/s26-team3-cama/reviewer/" target="_blank" rel="noopener">
-      <img class="wg-thumb" src="./thumbs/cama.jpg" alt="" loading="lazy">
-      <div class="wg-n">03</div>
-      <div class="wg-accent"></div>
-      <div class="wg-body">
-        <div class="wg-year">2026</div>
-        <div class="wg-title">Philadelphia CAMA Reviewer</div>
-        <div class="wg-kind">Course Project · Mass Appraisal</div>
-        <div class="wg-desc">A public dashboard for reviewing parcel-level assessed values across Philadelphia's tax base, backed by a cloud-native mass appraisal pipeline on Google Cloud.</div>
-        <div class="wg-tags"><span>Google Cloud</span><span>BigQuery</span><span>OPA Data</span></div>
+    <div class="feature-body">
+      <span class="feature-tag">Case study</span>
+      <div class="feature-head">
+        <span class="num">01</span>
+        <div class="kicker">2026 <span class="dot">◆</span> City of Philadelphia</div>
       </div>
-      <div class="wg-arr">→</div>
-    </a>
-
-    <a class="wg-card" data-cur="Open PDF" href="./07_Market_East_Studio2/Market_East_Vision_Plan.pdf" target="_blank" rel="noopener">
-      <img class="wg-thumb" src="./thumbs/market_east.jpg" alt="" loading="lazy">
-      <div class="wg-n">04</div>
-      <div class="wg-accent"></div>
-      <div class="wg-body">
-        <div class="wg-year">2025</div>
-        <div class="wg-title">Reimagining Market East</div>
-        <div class="wg-kind">Studio 2 · Vision Plan</div>
-        <div class="wg-desc">A studio vision plan for Philadelphia's Market East corridor, built on four guiding values and nine strategies for 2050.</div>
-        <div class="wg-tags"><span>Dewey Data</span><span>Census</span><span>Urban Design</span></div>
-      </div>
-      <div class="wg-arr">→</div>
-    </a>
-
-    <div class="wg-card wg-card-multi">
-      <a class="wg-stretch" href="./15_Missoula_Infill/web_map/index.html" target="_blank" rel="noopener" data-cur="Open map" aria-label="Missoula Infill Suitability interactive map"></a>
-      <img class="wg-thumb" src="./thumbs/missoula.jpg" alt="" loading="lazy">
-      <div class="wg-n">05</div>
-      <div class="wg-accent"></div>
-      <div class="wg-body">
-        <div class="wg-year">2026</div>
-        <div class="wg-title">Missoula Infill Suitability: Where to Build, Where to Preserve</div>
-        <div class="wg-kind">Taxlot Analysis · Interactive Map</div>
-        <div class="wg-desc">A parcel-level analysis scoring 18,864 Missoula taxlots for infill housing suitability, with an interactive web map for exploring which parcels to build on and which to preserve.</div>
-        <div class="wg-links">
-          <a href="./15_Missoula_Infill/web_map/index.html" target="_blank" rel="noopener" data-cur="Open map">Interactive Map <span class="wl-arr">→</span></a>
-          <a href="./15_Missoula_Infill/Missoula_Infill_Suitability.pdf" target="_blank" rel="noopener" data-cur="Open PDF">Poster PDF <span class="wl-arr">→</span></a>
-        </div>
-        <div class="wg-tags"><span>GIS</span><span>MapLibre</span><span>Housing</span></div>
+      <h2 class="item-title"><a href="./11_PhillyStat360_Vacant_Property/index.html">PhillyStat360: Vacant Property Indicator</a></h2>
+      <p class="item-desc">A parcel-level model scoring Philadelphia's 520,000 residential parcels for vacancy risk, built to find the vacant homes enforcement records never catch. Calibrated logistic regression and random forest blended into a 50/50 ensemble, validated with spatially grouped cross-validation, and audited for flag rates across poverty quintiles before deployment.</p>
+      <div class="item-links">
+        <a class="lead" href="./11_PhillyStat360_Vacant_Property/index.html">Read the case study <span>→</span></a>
+        <a href="https://jasonfan28.github.io/Philly_vacant_property_indicator/Vacancy%20Risk%20Landing%20Page.html" target="_blank" rel="noopener">Live dashboard <span>↗</span></a>
       </div>
     </div>
+  </article>
 
-    <a class="wg-card" data-cur="Open PDF" href="./02_Bristol_Climate_Resilience/Bristol_2050_Plan.pdf" target="_blank" rel="noopener">
-      <img class="wg-thumb" src="./thumbs/bristol.jpg" alt="" loading="lazy">
-      <div class="wg-n">06</div>
-      <div class="wg-accent"></div>
-      <div class="wg-body">
-        <div class="wg-year">2025</div>
-        <div class="wg-title">Bristol 2050 Plan</div>
-        <div class="wg-kind">Studio 1 · Comprehensive Plan</div>
-        <div class="wg-desc">A long-range plan for Bristol Borough built on four pillars, five goals, and ten strategies, updating the borough's 2006 comprehensive plan.</div>
-        <div class="wg-tags"><span>ArcGIS</span><span>Land Use</span><span>Resilience</span></div>
-      </div>
-      <div class="wg-arr">→</div>
+  <!-- 02 featured, flipped -->
+  <article class="feature feature--flip">
+    <a class="feature-media media" href="./08_PA_Creative_Workforce/PA_Creative_Workforce_Research_Study.pdf" target="_blank" rel="noopener" aria-label="Pennsylvania Creative Workforce study">
+      <img src="./thumbs/pca.jpg" alt="Cover spread of the Pennsylvania creative workforce research study" loading="lazy">
     </a>
-
-    <a class="wg-card" data-cur="Visit site" href="https://jasonfan28.github.io/MUSA550-Final-Noise_on_health/" target="_blank" rel="noopener">
-      <img class="wg-thumb" src="./thumbs/noise.jpg" alt="" loading="lazy">
-      <div class="wg-n">07</div>
-      <div class="wg-accent"></div>
-      <div class="wg-body">
-        <div class="wg-year">2025</div>
-        <div class="wg-title">Transportation Noise and its Impact on Health Outcomes in the Northeast</div>
-        <div class="wg-kind">Geospatial Data Science</div>
-        <div class="wg-desc">A county-level analysis linking DOT transportation noise to CDC PLACES health outcomes across the Northeast.</div>
-        <div class="wg-tags"><span>Python</span><span>Zonal Stats</span><span>Regression</span></div>
+    <div class="feature-body">
+      <span class="feature-tag">Published</span>
+      <div class="feature-head">
+        <span class="num">02</span>
+        <div class="kicker">2025 <span class="dot">◆</span> PA Council on the Arts</div>
       </div>
-      <div class="wg-arr">→</div>
-    </a>
-
-    <a class="wg-card" data-cur="Open PDF" href="./01_HCMC_Land_Value_Capture/HCMC_Land_Value_Capture_Brief.pdf" target="_blank" rel="noopener">
-      <img class="wg-thumb" src="./thumbs/hcmc.jpg" alt="" loading="lazy">
-      <div class="wg-n">08</div>
-      <div class="wg-accent"></div>
-      <div class="wg-body">
-        <div class="wg-year">2025</div>
-        <div class="wg-title">Beyond Borrowing: Land Value Capture for HCMC</div>
-        <div class="wg-kind">Policy Brief · Municipal Finance</div>
-        <div class="wg-desc">A policy brief recommending Resilience-Linked Betterment Levies to help Ho Chi Minh City finance climate-adaptation infrastructure.</div>
-        <div class="wg-tags"><span>Public Finance</span><span>LVC</span><span>Climate</span></div>
-      </div>
-      <div class="wg-arr">→</div>
-    </a>
-
-    <div class="wg-divider" aria-hidden="true">
-      <span class="wg-divider-rule"></span>
-      <span class="wg-divider-label">Cartography</span>
-      <span class="wg-divider-rule"></span>
-    </div>
-
-    <a class="wg-card" data-cur="Open PDF" href="./12_Arctic_Sea_Ice_Map/Arctic_Sea_Ice_Melt.pdf" target="_blank" rel="noopener">
-      <img class="wg-thumb" src="./thumbs/arctic.jpg" alt="" loading="lazy">
-      <div class="wg-n">09</div>
-      <div class="wg-accent"></div>
-      <div class="wg-body">
-        <div class="wg-year">2024</div>
-        <div class="wg-title">35 Years of Arctic Sea Ice Melt</div>
-        <div class="wg-kind">Map Poster · Cartography</div>
-        <div class="wg-desc">A polar-projection poster mapping July Arctic sea-ice extents at five-year intervals from 1980 to 2015.</div>
-        <div class="wg-tags"><span>Cartography</span><span>Time Series</span><span>Polar Projection</span></div>
-      </div>
-      <div class="wg-arr">→</div>
-    </a>
-
-    <a class="wg-card" data-cur="Open PDF" href="./14_Carson_River_REM/Carson_River_REM.pdf" target="_blank" rel="noopener">
-      <img class="wg-thumb" src="./thumbs/carson_rem.jpg" alt="" loading="lazy">
-      <div class="wg-n">10</div>
-      <div class="wg-accent"></div>
-      <div class="wg-body">
-        <div class="wg-year">2025</div>
-        <div class="wg-title">Carson River Relative Elevation Model</div>
-        <div class="wg-kind">Map Poster · Cartography</div>
-        <div class="wg-desc">A relative elevation model of the Carson River in Nevada, detrending lidar terrain to the river's surface so the floodplain and traces of former channels stand out.</div>
-        <div class="wg-tags"><span>REM</span><span>QGIS</span><span>Lidar</span></div>
-      </div>
-      <div class="wg-arr">→</div>
-    </a>
-
-    <a class="wg-card wg-card-end" href="./work.html" data-cur="See all ten">
-      <div class="wg-end-inner">
-        <div class="wg-end-mark">§</div>
-        <div class="wg-end-title">All ten, <em>as a list</em></div>
-        <div class="wg-end-desc">Every project on one page with the images, straight to each deliverable. Quicker than scrolling.</div>
-        <div class="wg-end-cta">Open the index <span>→</span></div>
-      </div>
-    </a>
-
-  </div>
-</div>
-
-<!-- ───── PANEL: EXPERIENCE ───── -->
-<div id="bp-exp" class="bpanel">
-  <span class="bcorner tl"></span><span class="bcorner tr"></span>
-  <span class="bcorner bl"></span><span class="bcorner br"></span>
-  <div class="bp-stamp">
-    <span class="stamp-n">№ 03</span>
-    <span class="stamp-sheet">Experience</span>
-  </div>
-  <div class="bp-inner">
-    <div class="bp-cat">
-      <span class="cat-n">§ 03</span>
-      <span>Experience</span>
-      <span class="cat-rule"></span>
-    </div>
-    <div class="bp-title">Work <em>Experience</em></div>
-    <hr class="bp-rule">
-    <div class="exp-list">
-      <div class="exp-item">
-        <div>
-          <div class="exp-date-s">Jan 2026 – May 2026</div>
-          <div class="exp-org-s">Penn Institute<br>of Urban Research</div>
-          <div class="exp-loc-s">Philadelphia, PA</div>
-        </div>
-        <div>
-          <div class="exp-role-s">Geospatial Researcher</div>
-          <ul class="exp-bul">
-            <li>ArcGIS and Python analysis of Penn's cultural programming reach and equity, integrating parcel, census, and administrative data into maps and briefings for leadership.</li>
-            <li>Benchmarking cultural asset mapping methods from peer anchor institutions and municipal cultural plans.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="exp-item">
-        <div>
-          <div class="exp-date-s">May 2025 – Oct 2025</div>
-          <div class="exp-org-s">PennPraxis</div>
-          <div class="exp-loc-s">Philadelphia, PA</div>
-        </div>
-        <div>
-          <div class="exp-role-s">Design Fellow</div>
-          <ul class="exp-bul">
-            <li>Built scalable R pipelines to ingest, clean, and integrate microdata for 245,000+ individuals from US Census PUMS and Data Axle.</li>
-            <li>Produced a benchmarking report for the Pennsylvania Council on the Arts, designed in InDesign with documented assumptions and quality checks.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="exp-item">
-        <div>
-          <div class="exp-date-s">Jan 2024 – Dec 2024</div>
-          <div class="exp-org-s">Dept. of<br>Gerontology, SFU</div>
-          <div class="exp-loc-s">Burnaby, BC</div>
-        </div>
-        <div>
-          <div class="exp-role-s">Knowledge Mobilization Lead</div>
-          <ul class="exp-bul">
-            <li>Collected and processed spatial audit data across 20 km of pedestrian infrastructure with the SWAN tool to identify accessibility gaps.</li>
-            <li>Analyzed older adults' experiences of housing precarity using photo-voice and NVivo for aging-in-place recommendations.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="exp-item">
-        <div>
-          <div class="exp-date-s">Sept 2023 – Jun 2024</div>
-          <div class="exp-org-s">CityHive</div>
-          <div class="exp-loc-s">Vancouver, BC</div>
-        </div>
-        <div>
-          <div class="exp-role-s">Youth Facilitator</div>
-          <ul class="exp-bul">
-            <li>Led weekly civic-education workshops in high schools and community centers on urban planning, equity, and environmental issues.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="exp-item">
-        <div>
-          <div class="exp-date-s">May 2023 – Aug 2023</div>
-          <div class="exp-org-s">U.S. Consulate<br>Vancouver</div>
-          <div class="exp-loc-s">Vancouver, BC</div>
-        </div>
-        <div>
-          <div class="exp-role-s">Public Diplomacy Intern</div>
-          <ul class="exp-bul">
-            <li>Engaged 50+ community leaders through the Chinatown Cultural Preservation and Revitalization Conference.</li>
-            <li>Published a Mandarin-language article on ShareAmerica supporting civic engagement with Chinese-speaking communities.</li>
-          </ul>
-        </div>
+      <h2 class="item-title"><a href="./08_PA_Creative_Workforce/PA_Creative_Workforce_Research_Study.pdf" target="_blank" rel="noopener">Understanding Pennsylvania's Creative Workforce</a></h2>
+      <p class="item-desc">An 88-page statewide study sizing Pennsylvania's 245,000-person creative workforce, combining Census microdata, proprietary business records, a statewide survey, and seven interviews. I built the reproducible R pipelines behind the occupational and industrial analysis.</p>
+      <div class="item-links">
+        <a class="lead" href="./08_PA_Creative_Workforce/PA_Creative_Workforce_Research_Study.pdf" target="_blank" rel="noopener">Read the report <span>↗</span></a>
       </div>
     </div>
+  </article>
 
-    <div class="exp-subhead">Education</div>
-    <div class="exp-list">
-      <div class="exp-item">
-        <div>
-          <div class="exp-date-s">May 2026</div>
-          <div class="exp-org-s">University of<br>Pennsylvania</div>
-          <div class="exp-loc-s">Philadelphia, PA</div>
-        </div>
-        <div>
-          <div class="exp-role-s">Master of City Planning</div>
-          <ul class="exp-bul">
-            <li>Marketing Lead for the Wharton-Weitzman Future of Cities Conference, directing a four-person team across task planning, scheduling, and vendor logistics.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="exp-item">
-        <div>
-          <div class="exp-date-s">May 2024</div>
-          <div class="exp-org-s">Simon Fraser<br>University</div>
-          <div class="exp-loc-s">Burnaby, BC</div>
-        </div>
-        <div>
-          <div class="exp-role-s">B.A. Political Science, with distinction</div>
-        </div>
-      </div>
-    </div>
+  <!-- 03 – 08 grid -->
+  <div class="grid-3">
 
-    <div class="exp-cta">
-      <a class="btn" href="./Resume_2026.pdf" target="_blank" rel="noopener" data-cur="Open PDF">
-        <span>Download Résumé</span>
-        <span class="arr">→</span>
+    <article class="card">
+      <a class="media" href="https://weitzman-musa-geocloud.github.io/s26-team3-cama/reviewer/" target="_blank" rel="noopener" aria-label="Philadelphia CAMA Reviewer">
+        <img src="./thumbs/cama.jpg" alt="Choropleth map of Philadelphia parcels by assessed value" loading="lazy">
       </a>
+      <div class="card-head">
+        <span class="num">03</span>
+        <div class="kicker">2026 <span class="dot">◆</span> Google Cloud</div>
+      </div>
+      <h3 class="item-title"><a href="https://weitzman-musa-geocloud.github.io/s26-team3-cama/reviewer/" target="_blank" rel="noopener">Philadelphia CAMA Reviewer</a></h3>
+      <p class="item-desc">A cloud-native mass appraisal pipeline that pulls OPA, PWD, transfer, and permit data into BigQuery, predicts parcel assessed values, and publishes them to a public review dashboard.</p>
+      <div class="item-links">
+        <a href="https://weitzman-musa-geocloud.github.io/s26-team3-cama/reviewer/" target="_blank" rel="noopener">Dashboard <span>↗</span></a>
+        <a href="https://github.com/weitzman-musa-geocloud/s26-team3-cama" target="_blank" rel="noopener">Source <span>↗</span></a>
+      </div>
+    </article>
+
+    <article class="card">
+      <a class="media" href="./15_Missoula_Infill/web_map/index.html" target="_blank" rel="noopener" aria-label="Missoula infill suitability map">
+        <img src="./thumbs/missoula.jpg" alt="Bivariate suitability map of Missoula taxlots" loading="lazy">
+      </a>
+      <div class="card-head">
+        <span class="num">04</span>
+        <div class="kicker">2026 <span class="dot">◆</span> City of Missoula</div>
+      </div>
+      <h3 class="item-title"><a href="./15_Missoula_Infill/web_map/index.html" target="_blank" rel="noopener">Missoula Infill Suitability</a></h3>
+      <p class="item-desc">Where to build and where to preserve, scored across 18,864 taxlots after screening floodway, steep slope, and 1,255 historic structures. Each parcel gets an action, and the map answers questions in plain language.</p>
+      <div class="item-links">
+        <a href="./15_Missoula_Infill/web_map/index.html" target="_blank" rel="noopener">Interactive map <span>↗</span></a>
+        <a href="./15_Missoula_Infill/Missoula_Infill_Suitability.pdf" target="_blank" rel="noopener">Poster <span>↗</span></a>
+      </div>
+    </article>
+
+    <article class="card">
+      <a class="media" href="./07_Market_East_Studio2/Market_East_Vision_Plan.pdf" target="_blank" rel="noopener" aria-label="Reimagining Market East vision plan">
+        <img src="./thumbs/market_east.jpg" alt="Cover of the Market East vision plan showing City Hall" loading="lazy">
+      </a>
+      <div class="card-head">
+        <span class="num">05</span>
+        <div class="kicker">2025 <span class="dot">◆</span> Studio 2</div>
+      </div>
+      <h3 class="item-title"><a href="./07_Market_East_Studio2/Market_East_Vision_Plan.pdf" target="_blank" rel="noopener">Reimagining Market East</a></h3>
+      <p class="item-desc">A 2050 vision plan for Philadelphia's Market East corridor on four guiding values and nine strategies. I worked the existing conditions, including foot-traffic analysis and the tract demographic baseline.</p>
+      <div class="item-links">
+        <a href="./07_Market_East_Studio2/Market_East_Vision_Plan.pdf" target="_blank" rel="noopener">Full plan <span>↗</span></a>
+        <a href="./07_Market_East_Studio2/Market_East_Vision_Plan_overview.pdf" target="_blank" rel="noopener">Overview <span>↗</span></a>
+      </div>
+    </article>
+
+    <article class="card">
+      <a class="media" href="./02_Bristol_Climate_Resilience/Bristol_2050_Plan.pdf" target="_blank" rel="noopener" aria-label="Bristol 2050 Plan">
+        <img src="./thumbs/bristol.jpg" alt="Cover of the Bristol 2050 comprehensive plan" loading="lazy">
+      </a>
+      <div class="card-head">
+        <span class="num">06</span>
+        <div class="kicker">2025 <span class="dot">◆</span> Studio 1</div>
+      </div>
+      <h3 class="item-title"><a href="./02_Bristol_Climate_Resilience/Bristol_2050_Plan.pdf" target="_blank" rel="noopener">Bristol 2050 Plan</a></h3>
+      <p class="item-desc">A long-range plan for Bristol Borough on four pillars, five goals, and ten strategies, updating the borough's 2006 comprehensive plan. I led the environmental analysis and cartography.</p>
+      <div class="item-links">
+        <a href="./02_Bristol_Climate_Resilience/Bristol_2050_Plan.pdf" target="_blank" rel="noopener">Read the plan <span>↗</span></a>
+      </div>
+    </article>
+
+    <article class="card">
+      <a class="media" href="https://jasonfan28.github.io/MUSA550-Final-Noise_on_health/" target="_blank" rel="noopener" aria-label="Transportation noise and health outcomes">
+        <img src="./thumbs/noise.jpg" alt="Map of transportation noise across the northeastern United States" loading="lazy">
+      </a>
+      <div class="card-head">
+        <span class="num">07</span>
+        <div class="kicker">2025 <span class="dot">◆</span> MUSA 5500</div>
+      </div>
+      <h3 class="item-title"><a href="https://jasonfan28.github.io/MUSA550-Final-Noise_on_health/" target="_blank" rel="noopener">Transportation Noise and Health Outcomes</a></h3>
+      <p class="item-desc">County-level analysis linking DOT noise rasters to CDC PLACES health outcomes with Census controls, using zonal statistics, regression, and cluster analysis across the Northeast.</p>
+      <div class="item-links">
+        <a href="https://jasonfan28.github.io/MUSA550-Final-Noise_on_health/" target="_blank" rel="noopener">Project site <span>↗</span></a>
+      </div>
+    </article>
+
+    <article class="card">
+      <a class="media" href="./01_HCMC_Land_Value_Capture/HCMC_Land_Value_Capture_Brief.pdf" target="_blank" rel="noopener" aria-label="Land value capture policy brief">
+        <img src="./thumbs/hcmc.jpg" alt="Cover of the Beyond Borrowing land value capture policy brief" loading="lazy">
+      </a>
+      <div class="card-head">
+        <span class="num">08</span>
+        <div class="kicker">2025 <span class="dot">◆</span> CPLN 5770</div>
+      </div>
+      <h3 class="item-title"><a href="./01_HCMC_Land_Value_Capture/HCMC_Land_Value_Capture_Brief.pdf" target="_blank" rel="noopener">Beyond Borrowing: Land Value Capture</a></h3>
+      <p class="item-desc">An eight-page brief for the Ho Chi Minh City People's Committee, arguing betterment levies against a USD 50 billion climate investment gap using Freetown's tax reform as precedent.</p>
+      <div class="item-links">
+        <a href="./01_HCMC_Land_Value_Capture/HCMC_Land_Value_Capture_Brief.pdf" target="_blank" rel="noopener">Read the brief <span>↗</span></a>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- ───── CARTOGRAPHY ───── -->
+  <div class="sec-head">
+    <span class="sec-n">§ 02</span>
+    <span>Cartography</span>
+    <span class="sec-rule"></span>
+    <span class="sec-count">09 — 10</span>
+  </div>
+  <p class="sec-note">Craft pieces rather than case studies. Both are single sheets, made to be read at a glance and hung on a wall.</p>
+
+  <div class="plates">
+
+    <article class="plate">
+      <a class="media" href="./12_Arctic_Sea_Ice_Map/Arctic_Sea_Ice_Melt.pdf" target="_blank" rel="noopener" aria-label="35 Years of Arctic Sea Ice Melt">
+        <img src="./thumbs/arctic.jpg" alt="Polar projection map of Arctic sea ice extents from 1980 to 2015" loading="lazy">
+      </a>
+      <div class="card-head">
+        <span class="num">09</span>
+        <div class="kicker">2024 <span class="dot">◆</span> Polar projection</div>
+      </div>
+      <h3 class="item-title"><a href="./12_Arctic_Sea_Ice_Map/Arctic_Sea_Ice_Melt.pdf" target="_blank" rel="noopener">35 Years of Arctic Sea Ice Melt</a></h3>
+      <p class="item-desc">July sea-ice extents at five-year intervals from 1980 to 2015, hatched so three decades of retreat read in a single glance.</p>
+      <div class="item-links">
+        <a href="./12_Arctic_Sea_Ice_Map/Arctic_Sea_Ice_Melt.pdf" target="_blank" rel="noopener">View the sheet <span>↗</span></a>
+      </div>
+    </article>
+
+    <article class="plate">
+      <a class="media" href="./14_Carson_River_REM/Carson_River_REM.pdf" target="_blank" rel="noopener" aria-label="Carson River Relative Elevation Model">
+        <img src="./thumbs/carson_rem.jpg" alt="Relative elevation model of the Carson River showing meander scars in blue" loading="lazy">
+      </a>
+      <div class="card-head">
+        <span class="num">10</span>
+        <div class="kicker">2025 <span class="dot">◆</span> Lidar REM</div>
+      </div>
+      <h3 class="item-title"><a href="./14_Carson_River_REM/Carson_River_REM.pdf" target="_blank" rel="noopener">Carson River Relative Elevation Model</a></h3>
+      <p class="item-desc">A lidar surface detrended to the river in QGIS, so meander scars and abandoned channels surface across the valley floor.</p>
+      <div class="item-links">
+        <a href="./14_Carson_River_REM/Carson_River_REM.pdf" target="_blank" rel="noopener">View the sheet <span>↗</span></a>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- ───── THE SITE ITSELF ───── -->
+  <div class="sec-head">
+    <span class="sec-n">§ 03</span>
+    <span>Built for this</span>
+    <span class="sec-rule"></span>
+    <span class="sec-count">11</span>
+  </div>
+
+  <article class="colophon">
+    <a class="colophon-art" href="./explore.html" aria-label="Explore the portfolio in 3D">
+      <svg viewBox="0 0 420 250" role="img" aria-hidden="true">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#9bb7c9"/>
+            <stop offset="1" stop-color="#dfe6e4"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="420" height="250" fill="url(#sky)"/>
+        <rect x="0" y="130" width="420" height="120" fill="#cfc7b5"/>
+
+        <!-- road receding to the vanishing point -->
+        <path d="M186 250 L206 133 L214 133 L234 250 Z" fill="#8f8b84"/>
+        <path d="M170 250 L202 133 L206 133 L186 250 Z" fill="#b4aea1"/>
+        <path d="M234 250 L214 133 L218 133 L250 250 Z" fill="#b4aea1"/>
+        <line x1="210" y1="250" x2="210" y2="138" stroke="#efe7d3" stroke-width="1.5" stroke-dasharray="8 11"/>
+
+        <!-- left street wall, one-point perspective -->
+        <path d="M0 60 L188 122.7 L188 142.6 L0 250 Z" fill="#b3afa6"/>
+        <path d="M0 52 L188 119 L188 122.7 L0 60 Z" fill="#6e8a46"/>
+        <g stroke="#6e3a1a" stroke-opacity="0.22" stroke-width="1" fill="none">
+          <line x1="46" y1="75.3" x2="46" y2="223.7"/>
+          <line x1="92" y1="90.7" x2="92" y2="197.4"/>
+          <line x1="130" y1="103.3" x2="130" y2="175.7"/>
+          <line x1="162" y1="114" x2="162" y2="157.4"/>
+          <line x1="0" y1="123" x2="188" y2="129.3"/>
+          <line x1="0" y1="186" x2="188" y2="136"/>
+        </g>
+
+        <!-- right street wall -->
+        <path d="M420 60 L232 122.7 L232 142.6 L420 250 Z" fill="#a8a59d"/>
+        <path d="M420 52 L232 119 L232 122.7 L420 60 Z" fill="#5c7a3c"/>
+        <g stroke="#6e3a1a" stroke-opacity="0.22" stroke-width="1" fill="none">
+          <line x1="374" y1="75.3" x2="374" y2="223.7"/>
+          <line x1="328" y1="90.7" x2="328" y2="197.4"/>
+          <line x1="290" y1="103.3" x2="290" y2="175.7"/>
+          <line x1="258" y1="114" x2="258" y2="157.4"/>
+          <line x1="420" y1="123" x2="232" y2="129.3"/>
+          <line x1="420" y1="186" x2="232" y2="136"/>
+        </g>
+
+        <!-- drafting marks: horizon and vanishing point -->
+        <line x1="0" y1="130" x2="420" y2="130" stroke="#b8651e" stroke-opacity="0.55" stroke-width="1"/>
+        <circle cx="210" cy="130" r="4" fill="none" stroke="#b8651e" stroke-width="1.4"/>
+        <line x1="204" y1="130" x2="216" y2="130" stroke="#b8651e" stroke-width="1.4"/>
+        <line x1="210" y1="124" x2="210" y2="136" stroke="#b8651e" stroke-width="1.4"/>
+      </svg>
+    </a>
+    <div class="colophon-body">
+      <span class="feature-tag">Interactive</span>
+      <div class="feature-head">
+        <span class="num">11</span>
+        <div class="kicker">2026 <span class="dot">◆</span> three.js <span class="dot">◆</span> WebGL</div>
+      </div>
+      <h2 class="item-title"><a href="./explore.html">The portfolio you walk through</a></h2>
+      <p class="item-desc">The other half of this site is a scroll-driven city rendered in three.js, where each section is pinned to the face of a building and the camera travels down the street as you read. The scene is batched down to about ten draw calls so it holds its frame rate on a laptop rather than a workstation.</p>
+      <div class="item-links">
+        <a class="lead" href="./explore.html">Explore it <span>→</span></a>
+      </div>
+    </div>
+  </article>
+
+  <!-- ───── CLOSING ───── -->
+  <div class="cta-band">
+    <h2>Looking for someone who does <em>this</em></h2>
+    <p>I graduated from Penn with my Master of City Planning in May 2026 and I am looking for full-time work in urban data, planning, and spatial analysis.</p>
+    <div class="btn-row">
+      <a class="btn primary" href="mailto:jason.tc.fan@gmail.com">Get in touch <span>→</span></a>
+      <a class="btn" href="./Resume_2026.pdf" target="_blank" rel="noopener">Download résumé <span>↗</span></a>
+      <a class="btn" href="./explore.html">Explore in 3D <span>→</span></a>
     </div>
   </div>
-</div>
 
-<!-- ───── PANEL: CONTACT ───── -->
-<div id="bp-contact" class="bpanel">
-  <span class="bcorner tl"></span><span class="bcorner tr"></span>
-  <span class="bcorner bl"></span><span class="bcorner br"></span>
-  <div class="bp-stamp">
-    <span class="stamp-n">№ 04</span>
-    <span class="stamp-sheet">Contact</span>
+  <div class="page-foot">
+    <span>Jason Tianchi Fan · Philadelphia</span>
+    <span><a href="mailto:jason.tc.fan@gmail.com">jason.tc.fan@gmail.com</a></span>
   </div>
-  <div class="bp-inner">
-    <div class="bp-cat">
-      <span class="cat-n">§ 04</span>
-      <span>Correspondence</span>
-      <span class="cat-rule"></span>
-    </div>
-    <div class="contact-large">Open<br>to <em>opportunities.</em></div>
-    <div class="bp-body" style="margin-bottom:1.5rem">
-      <p>I graduated from Penn with my <em>Master of City Planning</em> in May 2026 and I am looking for full-time work in urban data, planning, and spatial analysis. I am glad to talk about project-based work too.</p>
-    </div>
-    <div class="contact-links">
-      <a href="mailto:jason.tc.fan@gmail.com" class="contact-link" data-cur="Send mail">
-        <div class="c-label">Email</div>
-        <div class="c-val">jason.tc.fan@gmail.com</div>
-        <div class="c-arr">↗</div>
-      </a>
-      <a href="tel:+12677671766" class="contact-link" data-cur="Call">
-        <div class="c-label">Phone</div>
-        <div class="c-val">(267) 767-1766</div>
-        <div class="c-arr">↗</div>
-      </a>
-      <a href="https://linkedin.com/in/jasontianchifan" target="_blank" class="contact-link" data-cur="Open LinkedIn">
-        <div class="c-label">LinkedIn</div>
-        <div class="c-val">in/jasontianchifan</div>
-        <div class="c-arr">↗</div>
-      </a>
-    </div>
-    <div class="contact-sign">
-      <span>Philadelphia · 2026</span>
-      <span class="sig">— Jason T. Fan</span>
-    </div>
-  </div>
+
 </div>
 
-<!-- Footer bar -->
-<div id="footer-bar">
-  <span>Jason Tianchi Fan</span>
-  <span id="footer-mid">—</span>
-  <span class="fb-time" id="footer-time">Philadelphia</span>
-</div>
-
-<script src="main.js?v=20260727k"></script>
 </body>
 </html>

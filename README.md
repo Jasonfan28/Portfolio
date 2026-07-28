@@ -3,13 +3,18 @@
 Master of City Planning, University of Pennsylvania
 Updated: July 2026
 
-Source for [the portfolio site](https://jasonfan28.github.io/Portfolio/). Ten selected works, each with a case-study write-up and its deliverable.
+Source for [the portfolio site](https://jasonfan28.github.io/Portfolio/). Ten selected works plus the site itself, each with a case-study write-up and its deliverable.
 
-Three entry points:
+Pages:
 
-- `index.html` — the 3D scroll portfolio
-- `work.html` — a flat, fast index of every project for people in a hurry
+- `index.html` — the illustrated work index, and the URL to share
+- `explore.html` — the 3D scroll portfolio, listed on the index as entry 11
 - `11_PhillyStat360_Vacant_Property/index.html` — a long-form case study
+- `work.html` — a redirect stub left behind when the index moved to root
+
+The index is the front door because it puts every project in front of a reader
+immediately, which matters more for hiring than the 3D scene does. The 3D scene
+is credited on it as its own piece of work rather than treated as decoration.
 
 ## The ten pieces
 
@@ -32,6 +37,12 @@ Three entry points:
 |---|---|---|---|
 | 9 | 35 Years of Arctic Sea Ice Melt | Map poster | [12_Arctic_Sea_Ice_Map](./12_Arctic_Sea_Ice_Map/) |
 | 10 | Carson River Relative Elevation Model | Map poster | [14_Carson_River_REM](./14_Carson_River_REM/) |
+
+### Built for this
+
+| # | Project | Format | File |
+|---|---|---|---|
+| 11 | The portfolio you walk through | three.js / WebGL | [explore.html](./explore.html) |
 
 Folders `03_Tampa_Urban_Growth_Model`, `04_MTA_Rush_Hour`, `06_Penntrification_Spruce_Hill`, `09_Philly_Housing_Spatial_Regression`, and `10_Alcohol_Crashes_Logistic_Regression` are retained as archive and are not featured on the site.
 
@@ -56,3 +67,5 @@ Folders `03_Tampa_Urban_Growth_Model`, `04_MTA_Rush_Hour`, `06_Penntrification_S
 **9. 35 Years of Arctic Sea Ice Melt.** A single-sheet polar-projection map poster showing July Arctic sea-ice observations at five-year intervals from 1980 to 2015.
 
 **10. Carson River Relative Elevation Model.** A single-sheet relative elevation model of the Carson River in Nevada, built in QGIS following Dan Coe's IDW-method tutorial.
+
+**11. The portfolio you walk through.** A scroll-driven three.js city where each section is pinned to the face of a building and the camera travels down the street as you read. The scene is baked into merged per-material buffers with vertex colours, which takes it from roughly 2,600 draw calls a frame to about ten.
