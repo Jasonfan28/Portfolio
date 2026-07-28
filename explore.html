@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Barlow+Condensed:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<link rel="stylesheet" href="style.css?v=20260727k">
+<link rel="stylesheet" href="style.css?v=20260727p">
 </head>
 <body>
 
@@ -34,10 +34,9 @@
     <span>Portfolio / 2026</span>
   </a>
   <ul class="nav-links">
-    <li><a href="#" data-n="§01" onclick="jumpTo('about');return false">About</a></li>
-    <li><a href="#" data-n="§02" onclick="jumpTo('work');return false">Work</a></li>
-    <li><a href="#" data-n="§03" onclick="jumpTo('experience');return false">Experience</a></li>
-    <li><a href="#" data-n="§04" onclick="jumpTo('contact');return false">Contact</a></li>
+    <li><a href="#" data-n="§01" onclick="jumpTo('work');return false">Work</a></li>
+    <li><a href="#" data-n="§02" onclick="jumpTo('experience');return false">Experience</a></li>
+    <li><a href="#" data-n="§03" onclick="jumpTo('contact');return false">About</a></li>
     <li><a class="nav-cta" href="./index.html" data-cur="See all eleven">All Work</a></li>
   </ul>
 </nav>
@@ -66,7 +65,7 @@
       </h1>
     </div>
     <div class="hero-meta">
-      <div>Sheet 00 / 04</div>
+      <div>Sheet 00 / 03</div>
       <div class="hm-big">Vol. I</div>
       <div>Selected Works</div>
       <div>2024 – 2026</div>
@@ -75,7 +74,7 @@
 
   <div class="hero-footer">
     <p class="hero-sub">M.C.P. <em>·</em> University of Pennsylvania <em>·</em> Class of 2026</p>
-    <p class="hero-tagline">Geospatial analysis for public agencies, built for the people who <em>do not write code.</em></p>
+    <p class="hero-tagline">Spatial models for cities, and the tools that <em>put them to work.</em></p>
     <div class="hero-ctas">
       <a href="#" class="btn btn-fill" data-cur="View work" onclick="jumpTo('work');return false">View Work <span class="arr">→</span></a>
       <a href="./index.html" class="btn" data-cur="See all eleven">All Work as a List <span class="arr">→</span></a>
@@ -96,75 +95,24 @@
   <span id="section-label-text">About</span>
 </div>
 <div id="section-num">
-  <span id="section-num-text">01 / 04</span>
+  <span id="section-num-text">01 / 03</span>
   <span class="nav-dots">
-    <span class="nav-dot on"></span><span class="nav-dot"></span><span class="nav-dot"></span><span class="nav-dot"></span>
+    <span class="nav-dot on"></span><span class="nav-dot"></span><span class="nav-dot"></span>
   </span>
 </div>
 
 <!-- ───── PANEL: ABOUT ───── -->
-<div id="bp-about" class="bpanel">
-  <span class="bcorner tl"></span><span class="bcorner tr"></span>
-  <span class="bcorner bl"></span><span class="bcorner br"></span>
-  <div class="bp-stamp">
-    <span class="stamp-n">№ 01</span>
-    <span class="stamp-sheet">About</span>
-  </div>
-  <div class="bp-inner">
-    <div class="bp-cat">
-      <span class="cat-n">§ 01</span>
-      <span>Profile</span>
-      <span class="cat-rule"></span>
-    </div>
-    <div class="about-grid">
-      <div>
-        <div class="photo-wrap">
-          <img class="about-photo" src="photo.jpg" alt="Jason Tianchi Fan">
-          <div class="photo-mark pm-tl"></div>
-          <div class="photo-mark pm-tr"></div>
-          <div class="photo-mark pm-bl"></div>
-          <div class="photo-mark pm-br"></div>
-        </div>
-        <div class="photo-caption">
-          <span>Fig. 01</span>
-          <span>Fan, J.T.</span>
-        </div>
-        <div class="bp-stats">
-          <div class="bp-stat"><div class="bp-stat-n">245K</div><div class="bp-stat-l">Individuals in a published statewide study</div></div>
-          <div class="bp-stat"><div class="bp-stat-n">520K</div><div class="bp-stat-l">Parcels scored for vacancy risk</div></div>
-          <div class="bp-stat"><div class="bp-stat-n">20 km</div><div class="bp-stat-l">Pedestrian infrastructure audited</div></div>
-          <div class="bp-stat"><div class="bp-stat-n">50+</div><div class="bp-stat-l">Community leaders engaged</div></div>
-        </div>
-      </div>
-      <div>
-        <div class="bp-title">Urban<br><em>Planner,</em><br><span class="cond">&amp; Data Analyst</span></div>
-        <div class="bp-sub">M.C.P. Penn 2026 <em>·</em> B.A. Pol. Sci. SFU 2024</div>
-        <div class="bp-body">
-          <p class="dropcap">I am an urban planner and data analyst. I build reproducible pipelines over messy public data, then turn what comes out into maps, reports, and tools that people without a technical background can act on. Most of my work has been for city and state government.</p>
-          <p>That has meant R pipelines integrating microdata for 245,000 individuals in a report published by the Pennsylvania Council on the Arts, and a model scoring Philadelphia's 520,000 residential parcels for vacancy risk. On that one I checked flag rates across poverty quintiles before it shipped, because where a targeting tool sends inspectors is a policy question.</p>
-        </div>
-      </div>
-    </div>
-    <div class="bp-ticker-wrap">
-      <div class="bp-ticker">
-        <b>Urban Planning</b><span class="dot">◆</span><span>Data Science</span><span class="dot">◆</span><b>GIS</b><span class="dot">◆</span><span>Python</span><span class="dot">◆</span><b>R</b><span class="dot">◆</span><span>ArcGIS</span><span class="dot">◆</span><b>Machine Learning</b><span class="dot">◆</span><span>Spatial Analysis</span><span class="dot">◆</span><b>Public Policy</b><span class="dot">◆</span><span>Census PUMS</span><span class="dot">◆</span>
-        <b>Urban Planning</b><span class="dot">◆</span><span>Data Science</span><span class="dot">◆</span><b>GIS</b><span class="dot">◆</span><span>Python</span><span class="dot">◆</span><b>R</b><span class="dot">◆</span><span>ArcGIS</span><span class="dot">◆</span><b>Machine Learning</b><span class="dot">◆</span><span>Spatial Analysis</span><span class="dot">◆</span><b>Public Policy</b><span class="dot">◆</span><span>Census PUMS</span><span class="dot">◆</span>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- ───── PANEL: WORK ───── -->
 <div id="bp-work" class="bpanel">
   <span class="bcorner tl"></span><span class="bcorner tr"></span>
   <span class="bcorner bl"></span><span class="bcorner br"></span>
   <div class="bp-stamp">
-    <span class="stamp-n">№ 02</span>
+    <span class="stamp-n">№ 01</span>
     <span class="stamp-sheet">Work</span>
   </div>
   <div class="bp-inner">
     <div class="bp-cat">
-      <span class="cat-n">§ 02</span>
+      <span class="cat-n">§ 01</span>
       <span>Selected Work</span>
       <span class="cat-rule"></span>
     </div>
@@ -352,12 +300,12 @@
   <span class="bcorner tl"></span><span class="bcorner tr"></span>
   <span class="bcorner bl"></span><span class="bcorner br"></span>
   <div class="bp-stamp">
-    <span class="stamp-n">№ 03</span>
+    <span class="stamp-n">№ 02</span>
     <span class="stamp-sheet">Experience</span>
   </div>
   <div class="bp-inner">
     <div class="bp-cat">
-      <span class="cat-n">§ 03</span>
+      <span class="cat-n">§ 02</span>
       <span>Experience</span>
       <span class="cat-rule"></span>
     </div>
@@ -476,19 +424,46 @@
   <span class="bcorner tl"></span><span class="bcorner tr"></span>
   <span class="bcorner bl"></span><span class="bcorner br"></span>
   <div class="bp-stamp">
-    <span class="stamp-n">№ 04</span>
-    <span class="stamp-sheet">Contact</span>
+    <span class="stamp-n">№ 03</span>
+    <span class="stamp-sheet">About</span>
   </div>
   <div class="bp-inner">
     <div class="bp-cat">
-      <span class="cat-n">§ 04</span>
-      <span>Correspondence</span>
+      <span class="cat-n">§ 03</span>
+      <span>About &amp; Correspondence</span>
       <span class="cat-rule"></span>
     </div>
-    <div class="contact-large">Open<br>to <em>opportunities.</em></div>
-    <div class="bp-body" style="margin-bottom:1.5rem">
-      <p>I graduated from Penn with my <em>Master of City Planning</em> in May 2026 and I am looking for full-time work in urban data, planning, and spatial analysis. I am glad to talk about project-based work too.</p>
+    <div class="about-grid">
+      <div>
+        <div class="photo-wrap">
+          <img class="about-photo" src="photo.jpg" alt="Jason Tianchi Fan">
+          <div class="photo-mark pm-tl"></div>
+          <div class="photo-mark pm-tr"></div>
+          <div class="photo-mark pm-bl"></div>
+          <div class="photo-mark pm-br"></div>
+        </div>
+        <div class="photo-caption">
+          <span>Fig. 01</span>
+          <span>Fan, J.T.</span>
+        </div>
+        <div class="bp-stats">
+          <div class="bp-stat"><div class="bp-stat-n">245K</div><div class="bp-stat-l">Individuals in a published statewide study</div></div>
+          <div class="bp-stat"><div class="bp-stat-n">520K</div><div class="bp-stat-l">Parcels scored for vacancy risk</div></div>
+          <div class="bp-stat"><div class="bp-stat-n">20 km</div><div class="bp-stat-l">Pedestrian infrastructure audited</div></div>
+          <div class="bp-stat"><div class="bp-stat-n">50+</div><div class="bp-stat-l">Community leaders engaged</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="bp-title">Urban<br><em>Planner,</em><br><span class="cond">&amp; Data Analyst</span></div>
+        <div class="bp-sub">M.C.P. Penn 2026 <em>·</em> B.A. Pol. Sci. SFU 2024</div>
+        <div class="bp-body">
+          <p class="dropcap">I am an urban planner and data analyst. I build reproducible pipelines and models over messy public data, then turn the results into maps, reports, and dashboards that agencies actually run on. Most of my work has been for city and state government.</p>
+          <p>That has meant R pipelines integrating microdata for 245,000 individuals in a report published by the Pennsylvania Council on the Arts, and a model scoring Philadelphia's 520,000 residential parcels for vacancy risk. On that one I checked flag rates across poverty quintiles before it shipped, because where a targeting tool sends inspectors is a policy question.</p>
+          <p>I graduated from Penn with my <em>Master of City Planning</em> in May 2026 and I am looking for full-time work in urban data, planning, and spatial analysis. I am glad to talk about project-based work too.</p>
+        </div>
+      </div>
     </div>
+    <hr class="bp-rule">
     <div class="contact-links">
       <a href="mailto:jason.tc.fan@gmail.com" class="contact-link" data-cur="Send mail">
         <div class="c-label">Email</div>
@@ -506,6 +481,12 @@
         <div class="c-arr">↗</div>
       </a>
     </div>
+    <div class="bp-ticker-wrap">
+      <div class="bp-ticker">
+        <b>Urban Planning</b><span class="dot">◆</span><span>Data Science</span><span class="dot">◆</span><b>GIS</b><span class="dot">◆</span><span>Python</span><span class="dot">◆</span><b>R</b><span class="dot">◆</span><span>ArcGIS</span><span class="dot">◆</span><b>Machine Learning</b><span class="dot">◆</span><span>Spatial Analysis</span><span class="dot">◆</span><b>Public Policy</b><span class="dot">◆</span><span>Census PUMS</span><span class="dot">◆</span>
+        <b>Urban Planning</b><span class="dot">◆</span><span>Data Science</span><span class="dot">◆</span><b>GIS</b><span class="dot">◆</span><span>Python</span><span class="dot">◆</span><b>R</b><span class="dot">◆</span><span>ArcGIS</span><span class="dot">◆</span><b>Machine Learning</b><span class="dot">◆</span><span>Spatial Analysis</span><span class="dot">◆</span><b>Public Policy</b><span class="dot">◆</span><span>Census PUMS</span><span class="dot">◆</span>
+      </div>
+    </div>
     <div class="contact-sign">
       <span>Philadelphia · 2026</span>
       <span class="sig">— Jason T. Fan</span>
@@ -520,6 +501,6 @@
   <span class="fb-time" id="footer-time">Philadelphia</span>
 </div>
 
-<script src="main.js?v=20260727k"></script>
+<script src="main.js?v=20260727p"></script>
 </body>
 </html>

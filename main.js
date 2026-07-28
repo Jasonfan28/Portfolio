@@ -6,9 +6,9 @@
 
 let VH = window.innerHeight, VW = window.innerWidth;
 
-const SECTIONS = ['about','work','experience','contact'];
-const LABELS   = ['About','Selected Work','Experience','Contact'];
-const LABEL_SHORT = ['About','Work','Experience','Contact'];
+const SECTIONS = ['work','experience','contact'];
+const LABELS   = ['Selected Work','Experience','About & Contact'];
+const LABEL_SHORT = ['Work','Experience','About'];
 
 // Scroll geometry is derived from viewport height, so it has to be rebuilt
 // whenever the window resizes or a mobile browser chrome bar slides away.
@@ -154,11 +154,12 @@ const WIRE_MATS = [
 
 const buildings = [];
 
+// One stop per section, alternating sides of the street so the camera
+// swings back and forth as it travels. Must stay the same length as SECTIONS.
 const STOPS = [
-  {z:-25,  yaw: 0.55, side:+1, label:'About'},
-  {z:-58,  yaw:-0.50, side:-1, label:'Work'},
-  {z:-92,  yaw: 0.48, side:+1, label:'Experience'},
-  {z:-128, yaw:-0.52, side:-1, label:'Contact'},
+  {z:-32,  yaw:-0.50, side:-1, label:'Work'},
+  {z:-68,  yaw: 0.48, side:+1, label:'Experience'},
+  {z:-104, yaw:-0.52, side:-1, label:'Contact'},
 ];
 
 const PANEL_ANCHORS = {};
@@ -675,7 +676,6 @@ if(footerTime){
 }
 
 const PANELS = {
-  about:      document.getElementById('bp-about'),
   work:       document.getElementById('bp-work'),
   experience: document.getElementById('bp-exp'),
   contact:    document.getElementById('bp-contact'),
