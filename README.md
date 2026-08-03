@@ -18,17 +18,25 @@ is credited on it as its own piece of work rather than treated as decoration.
 
 ## The ten pieces
 
-### Data and analysis
+Numbered strongest first. The site groups them into the four sections below and
+the numbering runs across all of them, so a section holds a non-contiguous set.
+
+### Models and pipelines
 
 | # | Project | Format | Folder / Link |
 |---|---|---|---|
 | 1 | PhillyStat360: Vacant Property Indicator | Case study + live dashboard | [11_PhillyStat360_Vacant_Property](./11_PhillyStat360_Vacant_Property/) · [Live page](https://jasonfan28.github.io/Philly_vacant_property_indicator/Vacancy%20Risk%20Landing%20Page.html) |
-| 2 | Understanding Pennsylvania's Creative Workforce | 88-page published research study | [08_PA_Creative_Workforce](./08_PA_Creative_Workforce/) |
 | 3 | Philadelphia CAMA Reviewer | Live site | [13_Philly_CAMA_Reviewer](./13_Philly_CAMA_Reviewer/) · [Live page](https://weitzman-musa-geocloud.github.io/s26-team3-cama/reviewer/) |
-| 4 | Reimagining Market East | Vision plan book | [07_Market_East_Studio2](./07_Market_East_Studio2/) |
-| 5 | Missoula Infill Suitability | Poster + memo + interactive web map | [15_Missoula_Infill](./15_Missoula_Infill/) |
-| 6 | Bristol 2050 Plan | Studio plan book | [02_Bristol_Climate_Resilience](./02_Bristol_Climate_Resilience/) |
+| 4 | Missoula Infill Suitability | Poster + memo + interactive web map | [15_Missoula_Infill](./15_Missoula_Infill/) |
 | 7 | Transportation Noise and Health Outcomes in the Northeast | Live site + notebook | [05_Transportation_Noise_Health](./05_Transportation_Noise_Health/) · [Live page](https://jasonfan28.github.io/MUSA550-Final-Noise_on_health/) |
+
+### Plans and policy
+
+| # | Project | Format | Folder / Link |
+|---|---|---|---|
+| 2 | Understanding Pennsylvania's Creative Workforce | 88-page published research study | [08_PA_Creative_Workforce](./08_PA_Creative_Workforce/) |
+| 5 | Reimagining Market East | Vision plan book | [07_Market_East_Studio2](./07_Market_East_Studio2/) |
+| 6 | Bristol 2050 Plan | Studio plan book | [02_Bristol_Climate_Resilience](./02_Bristol_Climate_Resilience/) |
 | 8 | Beyond Borrowing: Land Value Capture for HCMC | 8-page policy brief | [01_HCMC_Land_Value_Capture](./01_HCMC_Land_Value_Capture/) |
 
 ### Cartography
@@ -54,9 +62,9 @@ Folders `03_Tampa_Urban_Growth_Model`, `04_MTA_Rush_Hour`, `06_Penntrification_S
 
 **3. Philadelphia CAMA Reviewer.** A cloud-native computer-assisted mass appraisal system built on Google Cloud Platform. Cloud Functions orchestrate a pipeline that pulls OPA assessments, PWD stormwater parcels, transfers, and permits from OpenDataPhilly into BigQuery, trains models predicting parcel-level assessed values, and publishes vector tiles and charts to a public review dashboard.
 
-**4. Reimagining Market East.** A Studio 2 vision plan for Philadelphia's Market East corridor (Census Tract 5), organized around four guiding values and nine strategies. My contribution centered on existing-conditions data work, including Advan foot-traffic analysis via Dewey Data and the demographic baseline.
+**4. Missoula Infill Suitability.** A three-part hiring exercise for the City of Missoula. A suitability model scores 18,864 taxlots for infill housing after screening floodway, steep slopes, and 1,255 historic structures, pairing each parcel with an action. A poster presents the bivariate results, a memo plans the countywide scaling pipeline, and an interactive MapLibre web map lets anyone filter and query the scored parcels.
 
-**5. Missoula Infill Suitability.** A three-part hiring exercise for the City of Missoula. A suitability model scores 18,864 taxlots for infill housing after screening floodway, steep slopes, and 1,255 historic structures, pairing each parcel with an action. A poster presents the bivariate results, a memo plans the countywide scaling pipeline, and an interactive MapLibre web map lets anyone filter and query the scored parcels.
+**5. Reimagining Market East.** A Studio 2 vision plan for Philadelphia's Market East corridor (Census Tract 5), organized around four guiding values and nine strategies. My contribution centered on existing-conditions data work, including Advan foot-traffic analysis via Dewey Data and the demographic baseline.
 
 **6. Bristol 2050 Plan.** A long-range plan for Bristol Borough, Pennsylvania, produced by a six-person team in the first-year studio. Building on the borough's 2006 Comprehensive Plan, it lays out four pillars, five goals, and ten strategies with twelve sub-strategies. My contributions concentrated on environmental analysis and cartography.
 
