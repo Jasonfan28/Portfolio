@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-03T17:31:28Z",
+  "title": "Design System: Jason Tianchi Fan Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "paper-1": {
+        "role": "neutral",
+        "displayName": "Aged Survey Paper",
+        "canonical": "oklch(93.5% 0.032 88)",
+        "tonalRamp": ["oklch(15% 0.032 88)", "oklch(26% 0.032 88)", "oklch(37% 0.032 88)", "oklch(48% 0.032 88)", "oklch(58% 0.032 88)", "oklch(69% 0.032 88)", "oklch(80% 0.032 88)", "oklch(93.5% 0.032 88)"]
+      },
+      "paper-2": {
+        "role": "neutral",
+        "displayName": "Matting Stock",
+        "canonical": "oklch(90.5% 0.038 88)",
+        "tonalRamp": ["oklch(15% 0.038 88)", "oklch(26% 0.038 88)", "oklch(37% 0.038 88)", "oklch(48% 0.038 88)", "oklch(58% 0.038 88)", "oklch(69% 0.038 88)", "oklch(80% 0.038 88)", "oklch(90.5% 0.038 88)"]
+      },
+      "ink-1": {
+        "role": "neutral",
+        "displayName": "Pressed Graphite",
+        "canonical": "oklch(21% 0.017 70)",
+        "tonalRamp": ["oklch(15% 0.017 70)", "oklch(21% 0.017 70)", "oklch(32% 0.017 70)", "oklch(45% 0.017 70)", "oklch(58% 0.017 70)", "oklch(70% 0.017 70)", "oklch(82% 0.017 70)", "oklch(93% 0.017 70)"]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Soft Graphite",
+        "canonical": "oklch(32% 0.024 76)",
+        "tonalRamp": ["oklch(15% 0.024 76)", "oklch(23% 0.024 76)", "oklch(32% 0.024 76)", "oklch(45% 0.024 76)", "oklch(57% 0.024 76)", "oklch(70% 0.024 76)", "oklch(82% 0.024 76)", "oklch(93% 0.024 76)"]
+      },
+      "terra": {
+        "role": "primary",
+        "displayName": "Iron Oxide",
+        "canonical": "oklch(58% 0.125 52)",
+        "tonalRamp": ["oklch(15% 0.125 52)", "oklch(26% 0.125 52)", "oklch(37% 0.125 52)", "oklch(45% 0.125 52)", "oklch(58% 0.125 52)", "oklch(69% 0.125 52)", "oklch(80% 0.09 52)", "oklch(92% 0.05 52)"]
+      },
+      "terra-text": {
+        "role": "primary",
+        "displayName": "Burnt Sienna",
+        "canonical": "oklch(45% 0.105 52)",
+        "tonalRamp": ["oklch(15% 0.105 52)", "oklch(24% 0.105 52)", "oklch(34% 0.105 52)", "oklch(45% 0.105 52)", "oklch(56% 0.105 52)", "oklch(68% 0.105 52)", "oklch(80% 0.08 52)", "oklch(92% 0.045 52)"]
+      },
+      "terra-pressed": {
+        "role": "primary",
+        "displayName": "Terra Pressed",
+        "canonical": "oklch(38% 0.095 52)",
+        "tonalRamp": ["oklch(15% 0.095 52)", "oklch(22% 0.095 52)", "oklch(30% 0.095 52)", "oklch(38% 0.095 52)", "oklch(50% 0.095 52)", "oklch(63% 0.095 52)", "oklch(77% 0.075 52)", "oklch(90% 0.04 52)"]
+      },
+      "matting-hover": {
+        "role": "neutral",
+        "displayName": "Warm Mat",
+        "canonical": "oklch(87.5% 0.045 88)",
+        "tonalRamp": ["oklch(15% 0.045 88)", "oklch(26% 0.045 88)", "oklch(37% 0.045 88)", "oklch(48% 0.045 88)", "oklch(58% 0.045 88)", "oklch(69% 0.045 88)", "oklch(80% 0.045 88)", "oklch(87.5% 0.045 88)"]
+      },
+      "surface-lift": {
+        "role": "neutral",
+        "displayName": "Lifted Paper",
+        "canonical": "rgba(255,252,245,0.5)",
+        "tonalRamp": []
+      },
+      "label-on-ink": {
+        "role": "neutral",
+        "displayName": "Label on Ink",
+        "canonical": "oklch(97.5% 0.014 85)",
+        "tonalRamp": ["oklch(20% 0.014 85)", "oklch(32% 0.014 85)", "oklch(45% 0.014 85)", "oklch(57% 0.014 85)", "oklch(69% 0.014 85)", "oklch(80% 0.014 85)", "oklch(90% 0.014 85)", "oklch(97.5% 0.014 85)"]
+      },
+      "rule-1": {
+        "role": "neutral",
+        "displayName": "Rust Rule",
+        "canonical": "rgba(110, 58, 26, 0.22)",
+        "tonalRamp": ["rgba(110, 58, 26, 0.06)", "rgba(110, 58, 26, 0.12)", "rgba(110, 58, 26, 0.18)", "rgba(110, 58, 26, 0.22)", "rgba(110, 58, 26, 0.3)", "rgba(110, 58, 26, 0.45)", "rgba(110, 58, 26, 0.65)", "rgba(110, 58, 26, 0.9)"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The page headline, once per page. One phrase inside it may be italic in the drawing ink." },
+      "headline": { "displayName": "Headline", "purpose": "Featured entry titles and the closing band." },
+      "title": { "displayName": "Title", "purpose": "Card and plate entry titles." },
+      "body": { "displayName": "Body", "purpose": "Descriptions and standfirsts. Capped at 54ch to 62ch." },
+      "label": { "displayName": "Label", "purpose": "Every chip, tag, kicker, section name, button, and nav item. Uppercase, wide tracking, never below 10.5px." },
+      "register": { "displayName": "Register", "purpose": "Monospace numerals only: sheet numbers, entry ranges, contents numbering." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "ease-drawn", "value": "cubic-bezier(.2,.8,.2,1)", "purpose": "The one authored move: a 0.7s contained scale on a photographic thumbnail. Never applied to a map sheet." },
+      { "name": "state-fast", "value": "0.18s ease", "purpose": "Skip link reveal and other instant affordances." },
+      { "name": "state-standard", "value": "0.22s ease", "purpose": "Default for background, border-color, and color on chips and buttons." },
+      { "name": "state-soft", "value": "0.3s ease", "purpose": "Registration bracket fade-in and mat tone shift on sheet hover." }
+    ],
+    "breakpoints": [
+      { "name": "grid-collapse", "value": "880px" },
+      { "name": "gutter-tighten", "value": "820px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single filled control on a page. Used for the one action that matters, currently the contact link.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Get in touch <span aria-hidden=\"true\">&rarr;</span></a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 0.55rem; min-height: 46px; font-family: 'Barlow Condensed', Oswald, sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; text-decoration: none; padding: 0.7rem 1.1rem; border-radius: 0; background: var(--terra-deep, #8a4a14); border: 1px solid var(--terra-deep, #8a4a14); color: #fdf7ec; transition: background .2s, border-color .2s, color .2s; } .ds-btn-primary:hover { background: #713c0f; border-color: #713c0f; color: #fff; } .ds-btn-primary:focus-visible { outline: 2px solid var(--terra-deep, #8a4a14); outline-offset: 3px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "The unfilled control. Sits beside the primary for the second-best action.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\">Download r&eacute;sum&eacute; <span aria-hidden=\"true\">&#8599;</span></a>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; gap: 0.55rem; min-height: 46px; font-family: 'Barlow Condensed', Oswald, sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; text-decoration: none; padding: 0.7rem 1.1rem; border-radius: 0; background: rgba(255,252,245,0.5); border: 1px solid rgba(110,58,26,0.22); color: var(--ink-1, #1d1710); transition: background .2s, border-color .2s, color .2s; } .ds-btn-secondary:hover { color: var(--terra-text, #8a4a14); border-color: var(--terra, #b8651e); background: rgba(255,252,245,0.95); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--terra-deep, #8a4a14); outline-offset: 3px; }"
+    },
+    {
+      "name": "Link Chip",
+      "kind": "chip",
+      "refersTo": "chip-link",
+      "description": "The workhorse. Every route out to a deliverable is one of these. The lead variant marks the single most important destination in a group.",
+      "html": "<span style=\"display:flex;gap:0.5rem;flex-wrap:wrap\"><a class=\"ds-chip ds-chip-lead\" href=\"#\">Read the case study <span aria-hidden=\"true\">&rarr;</span></a><a class=\"ds-chip\" href=\"#\">Live dashboard <span aria-hidden=\"true\">&#8599;</span></a><a class=\"ds-chip ds-chip-visited\" href=\"#\">Poster, PDF <span aria-hidden=\"true\">&#8599;</span></a></span>",
+      "css": ".ds-chip { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 40px; font-family: 'Barlow Condensed', Oswald, sans-serif; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; text-decoration: none; padding: 0.42rem 0.8rem; border-radius: 0; border: 1px solid rgba(110,58,26,0.22); background: rgba(255,252,245,0.55); color: var(--ink-1, #1d1710); transition: background .22s, border-color .22s, color .22s; } .ds-chip:hover { color: var(--terra-text, #8a4a14); border-color: var(--terra, #b8651e); background: rgba(255,252,245,0.95); } .ds-chip-lead { border-color: var(--terra, #b8651e); color: var(--terra-text, #8a4a14); } .ds-chip-lead:hover { background: var(--terra-deep, #8a4a14); border-color: var(--terra-deep, #8a4a14); color: #fdf7ec; } .ds-chip-visited { color: rgba(29,23,16,0.62); border-style: dashed; } .ds-chip:focus-visible { outline: 2px solid var(--terra-deep, #8a4a14); outline-offset: 3px; }"
+    },
+    {
+      "name": "Format Tag",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "Names the artifact format in two or three words so a non-specialist can tell a live tool from a plan book without reading the description. Sits at the end of an entry's head row.",
+      "html": "<span style=\"display:flex;gap:0.5rem\"><span class=\"ds-tag\">Live tool</span><span class=\"ds-tag\">Map sheet</span><span class=\"ds-tag\">Plan book</span></span>",
+      "css": ".ds-tag { display: inline-block; font-family: 'Barlow Condensed', Oswald, sans-serif; font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; color: var(--ink-2, #3a2f20); background: var(--paper-2, #ede2c9); border: 1px solid rgba(110,58,26,0.22); border-radius: 0; padding: 0.2rem 0.5rem; white-space: nowrap; }"
+    },
+    {
+      "name": "Section Register",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "The signature component. A drawing-set register that opens every section: mono sheet number, condensed section name, a hairline that fills the gap, and the entry list on the right. It is a real h2.",
+      "html": "<h2 class=\"ds-register\"><span class=\"ds-register-n\">&sect; 01</span><span>Models &amp; pipelines</span><span class=\"ds-register-rule\"></span><span class=\"ds-register-n\">01 &middot; 03 &middot; 04 &middot; 07</span></h2>",
+      "css": ".ds-register { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin: 0; font-family: 'Barlow Condensed', Oswald, sans-serif; font-size: 0.72rem; letter-spacing: 0.34em; text-transform: uppercase; font-weight: 500; color: var(--terra-text, #8a4a14); } .ds-register-n { font-family: 'DM Mono', 'IBM Plex Mono', monospace; font-size: 0.66rem; letter-spacing: 0.1em; color: rgba(29,23,16,0.62); } .ds-register-rule { flex: 1; min-width: 1.5rem; height: 1px; background: rgba(110,58,26,0.22); }"
+    },
+    {
+      "name": "Media Frame",
+      "kind": "card",
+      "refersTo": "media-frame",
+      "description": "The frame around a photographic thumbnail. Registration brackets fade in on hover and the image scales inside a contained box.",
+      "html": "<a class=\"ds-media\" href=\"#\"><img src=\"data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23b3afa6'/%3E%3Crect y='170' width='400' height='130' fill='%23cfc7b5'/%3E%3C/svg%3E\" alt=\"\"></a>",
+      "css": ".ds-media { position: relative; display: block; overflow: hidden; aspect-ratio: 4 / 3; width: 260px; background: var(--paper-2, #ede2c9); border: 1px solid rgba(110,58,26,0.22); border-radius: 0; } .ds-media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform .7s cubic-bezier(.2,.8,.2,1); } .ds-media:hover img { transform: scale(1.05); } .ds-media::before, .ds-media::after { content: ''; position: absolute; width: 15px; height: 15px; opacity: 0; transition: opacity .3s ease; z-index: 2; pointer-events: none; } .ds-media::before { top: 7px; left: 7px; border-top: 1.5px solid var(--terra, #b8651e); border-left: 1.5px solid var(--terra, #b8651e); } .ds-media::after { bottom: 7px; right: 7px; border-bottom: 1.5px solid var(--terra, #b8651e); border-right: 1.5px solid var(--terra, #b8651e); } .ds-media:hover::before, .ds-media:hover::after { opacity: 1; }"
+    },
+    {
+      "name": "Sheet Frame",
+      "kind": "card",
+      "refersTo": "media-frame-sheet",
+      "description": "The frame around a designed sheet: a poster, plan cover, or map. Matted on the darker paper and shown whole. It never scales on hover, it shifts its mat tone.",
+      "html": "<a class=\"ds-sheet\" href=\"#\"><img src=\"data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='240'%3E%3Crect width='420' height='240' fill='%23f7f5f0'/%3E%3Ctext x='20' y='44' font-family='Georgia' font-size='26' fill='%231d1710'%3EWHERE TO BUILD%3C/text%3E%3Crect x='20' y='70' width='280' height='140' fill='%23d9d3c6'/%3E%3C/svg%3E\" alt=\"\"></a>",
+      "css": ".ds-sheet { position: relative; display: block; overflow: hidden; aspect-ratio: 4 / 3; width: 260px; padding: 12px; background: var(--paper-2, #ede2c9); border: 1px solid rgba(110,58,26,0.22); border-radius: 0; transition: background .3s ease; } .ds-sheet img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center center; } .ds-sheet:hover { background: #e5d8ba; } .ds-sheet::before, .ds-sheet::after { content: ''; position: absolute; width: 15px; height: 15px; opacity: 0; transition: opacity .3s ease; } .ds-sheet::before { top: 7px; left: 7px; border-top: 1.5px solid var(--terra, #b8651e); border-left: 1.5px solid var(--terra, #b8651e); } .ds-sheet::after { bottom: 7px; right: 7px; border-bottom: 1.5px solid var(--terra, #b8651e); border-right: 1.5px solid var(--terra, #b8651e); } .ds-sheet:hover::before, .ds-sheet:hover::after { opacity: 1; }"
+    },
+    {
+      "name": "Figure Key",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "The title-block figure list beside the masthead standfirst. Every number is evidence from the work, never metadata about the page.",
+      "html": "<div class=\"ds-key\"><div class=\"ds-key-row\"><span class=\"ds-key-n\">520,000</span><span class=\"ds-key-l\">Parcels scored for vacancy risk</span></div><div class=\"ds-key-row\"><span class=\"ds-key-n\">18,864</span><span class=\"ds-key-l\">Taxlots ranked for infill housing</span></div><div class=\"ds-key-row\"><span class=\"ds-key-n\">4</span><span class=\"ds-key-l\">Tools running live, not just proposed</span></div></div>",
+      "css": ".ds-key { display: grid; grid-template-columns: 1fr; width: 300px; border-top: 1px solid rgba(110,58,26,0.22); border-bottom: 1px solid rgba(110,58,26,0.22); } .ds-key-row { position: relative; display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 0 0.9rem; padding: 0.5rem 0 0.55rem; border-bottom: 1px solid rgba(110,58,26,0.12); } .ds-key-row:last-child { border-bottom: none; } .ds-key-row::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 4px; border-top: 1px solid var(--terra, #b8651e); border-left: 1px solid var(--terra, #b8651e); } .ds-key-n { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.3rem; font-weight: 300; line-height: 1; color: var(--ink-1, #1d1710); font-feature-settings: 'lnum'; } .ds-key-l { font-family: 'Barlow Condensed', Oswald, sans-serif; font-size: 0.68rem; letter-spacing: 0.13em; text-transform: uppercase; line-height: 1.4; color: rgba(29,23,16,0.62); }"
+    },
+    {
+      "name": "Sticky Navigation",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "The one place in the system that overlaps content, so the one place a backdrop blur is allowed. Wraps rather than collapsing to a menu.",
+      "html": "<header class=\"ds-nav\"><a class=\"ds-nav-home\" href=\"#\">Jason T. Fan</a><nav class=\"ds-nav-links\"><a href=\"#\">Work</a><a href=\"#\">Explore in 3D</a><a href=\"#\">R&eacute;sum&eacute;</a><a href=\"#\">Email</a></nav></header>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; gap: 1.4rem; padding: 0.2rem 1.4rem; background: rgba(243,234,214,0.94); backdrop-filter: blur(6px); border-bottom: 1px solid rgba(110,58,26,0.12); font-family: 'Barlow Condensed', Oswald, sans-serif; font-size: 0.72rem; letter-spacing: 0.26em; text-transform: uppercase; } .ds-nav a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; color: var(--ink-2, #3a2f20); transition: color .2s; } .ds-nav a:hover { color: var(--terra-text, #8a4a14); } .ds-nav-home { font-weight: 500; letter-spacing: 0.3em; color: var(--ink-1, #1d1710) !important; } .ds-nav-links { display: flex; gap: 1.6rem; } .ds-nav a:focus-visible { outline: 2px solid var(--terra-deep, #8a4a14); outline-offset: 3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Survey Sheet",
+    "overview": "The system is a drafted plan set rendered as a web page. Every structural decision borrows from the vocabulary of measured drawing: the page sits on aged survey paper, sections open with a drawing register that carries a sheet number and a range, frames are marked with registration brackets at opposing corners, index numerals are set large and pale like sheet callouts, and the one illustration on the site is a one-point perspective with its horizon and vanishing point still drawn in. Nothing here is a generic portfolio chrome tinted beige. The chrome is the discipline the work comes from.\n\nThe density is editorial rather than decorative. A serif with real contrast carries every title and every sentence, a condensed sans carries every label, and a monospace carries anything that is a measurement or a register mark. Those three voices never trade jobs. The palette is a single warm paper with one iron-oxide accent, and the accent is rationed so hard that its appearance is always a signal.\n\nThe world is flat by construction. There is not one shadow and not one rounded corner in the stylesheet, and both absences are load-bearing. Depth comes from hairline rules, from tonal shifts between two paper tints, and from bracket corners that appear on hover. The anti-reference is the software-product landing page: gradient fills, soft-shadowed cards, pill buttons, and glass panels are all foreign to a sheet of paper and are refused on sight.",
+    "keyCharacteristics": [
+      "Aged survey paper (#f3ead6) as the ground, never white",
+      "One iron-oxide accent, split into a drawing ink and a reading ink",
+      "Zero border-radius and zero box-shadow, throughout",
+      "Hairline rules in a rust tint, never grey",
+      "Serif for prose, condensed sans for labels, mono for registers",
+      "Index numerals as sheet callouts, at ranking weight",
+      "Registration brackets as the hover affordance",
+      "The artwork is shown, not decorated"
+    ],
+    "rules": [
+      { "name": "The Two Inks Rule", "body": "Terra exists twice on purpose. #b8651e draws and #8a4a14 reads. If a terra value is applied to text of any size, it is the reading ink or it is a bug. This single split is what carries the page from seven contrast failures to none.", "section": "colors" },
+      { "name": "The No Grey Lines Rule", "body": "Every rule, border, and divider is a rust tint, never a neutral grey. The lines belong to the drawing, not to a UI kit.", "section": "colors" },
+      { "name": "The Rationed Accent Rule", "body": "Terra never fills a large area. It draws lines a pixel or two wide, marks corners, sets the author line and section names, and fills exactly one button. If an accent block would read as a panel, it is wrong.", "section": "colors" },
+      { "name": "The No Decorative Italic Rule", "body": "A serif italic in the accent colour is not emphasis, it is ornament, and it reads as generic even when everything around it is specific. Headings are set in one weight and one colour. Emphasis comes from size, position, and what the sentence actually says. The h1 em and h2 em rules survive only for the case study's headline and are not to be reused.", "section": "typography" },
+      { "name": "The Three Voices Rule", "body": "Serif speaks, condensed sans labels, mono measures. A voice never takes another's job. A section name is condensed sans, its sheet number is mono, and its entry titles are serif, always in that arrangement.", "section": "typography" },
+      { "name": "The 10.5px Floor Rule", "body": "No text renders below 10.5px, including tracked uppercase labels. The condensed face invites going smaller and it must be refused. Every label on the page currently sits at 10.88px or above.", "section": "typography" },
+      { "name": "The Numeral Rule", "body": "Index numerals are set in the serif at display weight and Callout Grey, and they carry the ranking, not the position. They never renumber to make a section contiguous.", "section": "typography" },
+      { "name": "The Fold Rule", "body": "The first entry's image and title both sit above 800px at a 1280px viewport. Any masthead addition that pushes them below it has to earn the space or be cut.", "section": "layout" },
+      { "name": "The Paper Doesn't Float Rule", "body": "If a surface needs to feel raised, change its tone or draw a rule around it. Never add a shadow, and never add a border-radius to soften the result.", "section": "elevation" },
+      { "name": "The Don't Zoom the Map Rule", "body": "Photographs may scale on hover. Designed sheets never do, because resampling a map degrades the exact craft being judged. Sheets shift their mat tone instead.", "section": "elevation" },
+      { "name": "The Sheet Is Never Cropped Rule", "body": "A poster, a plan cover, or a map sheet is matted on #ede2c9 at 12px to 14px and shown whole with object-fit: contain. Only photographs may be cropped to fill a frame with object-fit: cover. Cropping a designed sheet cuts its own headline, which is the one mistake this system exists to prevent.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do split terra by job. #b8651e draws, #8a4a14 reads. Text of any size takes the reading ink.",
+      "Do mat every designed sheet on #ede2c9 and show it whole. Reach for object-fit: cover only on a photograph.",
+      "Do draw every rule, border, and divider in a rust tint (rgba(110, 58, 26, 0.22) or 0.12).",
+      "Do keep the three type voices separate: serif for prose and titles, Barlow Condensed for uppercase labels, DM Mono for numerals and registers.",
+      "Do hold every label at 10.5px or above, however tempting the condensed face makes smaller.",
+      "Do give a new section a real h2 register with a sheet number, a name, a filling rule, and its entry list.",
+      "Do keep the first entry's image and title above 800px at desktop.",
+      "Do give interactive controls a 44px minimum hit area, using padding rather than font size.",
+      "Do provide a visited state for anything that leaves the page."
+    ],
+    "donts": [
+      "Don't add a box-shadow. There are none, and depth comes from tone, rules, and bracket corners.",
+      "Don't add a border-radius. Every corner in this system is square.",
+      "Don't scale a map, plan, or poster on hover. Shift its mat tone instead.",
+      "Don't set an eyebrow or kicker above the page headline. The headline carries itself.",
+      "Don't italicise a phrase inside a heading, in the accent colour or any other. It is ornament pretending to be emphasis.",
+      "Don't write a headline that asserts what the work is like. State a fact and let the eleven entries argue the rest.",
+      "Don't use a grey border anywhere.",
+      "Don't renumber entries so a section reads contiguously. The numeral is the ranking, and a non-contiguous section is the correct result.",
+      "Don't introduce a second accent hue. One iron oxide, rationed, is the whole colour argument.",
+      "Don't fill a large area with terra. It draws lines and marks corners, and fills exactly one button.",
+      "Don't let a stat, badge, or metadata strip take first-viewport space unless its numbers are evidence from the work."
+    ]
+  }
+}
