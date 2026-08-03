@@ -29,7 +29,7 @@ A planner who ships working tools. The models end as dashboards, maps, and pipel
 
 ## Operating Context
 
-- Hosted on GitHub Pages at https://jasonfan28.github.io/Portfolio/. That URL is what gets pasted into applications and emails.
+- Hosted on GitHub Pages at https://jasonfan28.github.io/portfolio/. That URL is what gets pasted into applications and emails, and it is what the resume prints. The address is lowercase: the repository was renamed and Pages paths are case-sensitive, so the older capitalised `/Portfolio/` form returns a 404.
 - Readers arrive cold from an application, a link in an email, or a resume line. There is no onboarding and no second visit to rely on.
 - Reading often happens in a hiring workflow with limited time and many candidates open at once.
 - Deliverables are heterogeneous by nature: PDFs, live dashboards on other domains, an interactive map, and a WebGL scene.

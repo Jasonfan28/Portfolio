@@ -3,7 +3,11 @@
 Master of City Planning, University of Pennsylvania
 Updated: July 2026
 
-Source for [the portfolio site](https://jasonfan28.github.io/Portfolio/). Ten selected works plus the site itself, each with a case-study write-up and its deliverable.
+Source for [the portfolio site](https://jasonfan28.github.io/portfolio/). Ten selected works plus the site itself, each with a case-study write-up and its deliverable.
+
+The published URL is lowercase. The repository was renamed and GitHub Pages
+paths are case-sensitive, so the old capitalised `/Portfolio/` address returns
+a 404 and must not be used in applications.
 
 Pages:
 
