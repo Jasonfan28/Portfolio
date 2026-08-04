@@ -47,7 +47,7 @@ A planner who ships working tools. The models end as dashboards, maps, and pipel
 
 - Name shown as Jason Tianchi Fan, or Jason T. Fan in navigation.
 - Voice is plain declarative prose. No em dashes and no semicolons. Claims are specific and quantified when a number exists.
-- Contact is jason.tc.fan@gmail.com. The resume is `Resume_2026.pdf`.
+- Contact is jason.tc.fan@gmail.com. The resume is `Jason_Fan_Resume.pdf`. `Resume_2026.pdf` is kept as a byte-identical copy at the old path so links already sent out do not break.
 
 ## Evidence on Hand
 
