@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where Missoula should build, and where it should not &mdash; Jason Tianchi Fan</title>
+<meta name="description" content="Scoring 18,864 Missoula taxlots for infill suitability and finding that the highest-scoring land is already carrying the city's unsubsidised affordable housing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Barlow+Condensed:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../page.css?v=20260809a">
+</head>
+<body>
+
+<header class="topbar">
+  <a class="home" href="../index.html">Jason T. Fan</a>
+  <nav aria-label="Primary">
+    <a href="../index.html">All work</a>
+    <a href="../explore.html">Explore in 3D</a>
+    <a href="../Jason_Fan_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+    <a href="mailto:jason.tc.fan@gmail.com">Email</a>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <div class="page-head">
+    <div class="eyebrow">Article · July 2026</div>
+    <h1>Where Missoula should build, and where it should not</h1>
+    <p class="role">By Jason Fan</p>
+    <nav class="article-nav" aria-label="This project">
+      <a href="./explainer.html" aria-current="page">Explainer</a>
+      <a href="./web_map/index.html" target="_blank" rel="noopener">Map tool <span aria-hidden="true">↗</span></a>
+      <a href="./Missoula_Infill_Suitability.pdf" target="_blank" rel="noopener">Poster and memo <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div>
+
+  <div class="article-body">
+
+    <p class="quicklook"><span class="quicklook-k">Quick look</span>Infill suitability and a recommended action for every taxlot in Missoula.</p>
+
+    <div class="measure">
+
+      <div class="skillset">
+        <span class="skillset-k">Skills demonstrated</span>
+        <p>Parcel-level suitability modelling, multi-criteria scoring, GIS screening and network analysis, bivariate cartography, MapLibre GL web mapping, client-side natural-language interfaces, schema crosswalk and pipeline planning, housing policy framing.</p>
+      </div>
+
+      <p class="standfirst">Upzoning debates usually rest on an assumption that nobody states out loud, which is that the land best suited for new housing is currently vacant or underbuilt and doing nothing useful. If that were true, the policy answer would be simple and the argument would be about politics rather than about land.</p>
+
+      <p>It does not hold in Missoula. The parcels that score highest for infill are disproportionately occupied by housing that is already affordable without a subsidy, by mobile home parks, and by contributing historic structures. That land is cheap rather than empty, and being cheap is what makes it both attractive to a developer and load-bearing for the people living on it.</p>
+
+      <p>That finding changes what a suitability model is for. A model that only answers where building is possible hands a developer a target list, whereas a model that also answers what would be lost is a planning instrument.</p>
+
+      <p>This article covers the scoring approach, what the results say, how to read the map tool, and what the model cannot see.</p>
+
+      <h2>What we are releasing</h2>
+
+      <p>Every taxlot inside Missoula's city limits, scored for infill suitability and paired with one of three actions.</p>
+
+      <p><strong>Preserve.</strong> The parcel carries something worth keeping, which is either naturally occurring affordable housing, a mobile home community, or a contributing or listed historic structure.</p>
+
+      <p><strong>Build + Protect.</strong> The parcel is suitable for redevelopment but sits in an area with high renter cost burden, so any upzoning should be paired with tenant protections.</p>
+
+      <p><strong>Build First.</strong> The parcel is suitable, carries no preservation flag, and faces no displacement pressure. This is where growth should go first.</p>
+
+      <div class="table-scroll">
+        <table class="data-table">
+          <tbody>
+            <tr><td>Taxlots scored</td><td>18,864</td></tr>
+            <tr><td>Context parcels shown</td><td>8,121</td></tr>
+            <tr><td>Preserve</td><td>5,063</td></tr>
+            <tr><td>Build + Protect</td><td>6,425</td></tr>
+            <tr><td>Build First</td><td>7,376</td></tr>
+            <tr><td>High suitability tier</td><td>1,887</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tabcap"><span class="tabcap-k">Table 1 /</span>Citywide action counts. The three actions are assigned independently of the suitability tier, so a Preserve parcel can score high and a Build First parcel can score low.</p>
+
+      <p>The map tool shows all of it. A reader can filter by any combination of action and suitability tier and watch the parcel count update live, and can click any parcel for its action, suitability percentile, land value per potential home, and preserve reason if it has one. A natural-language panel accepts typed questions, sets the filters, and answers with counts and medians computed from the parcels currently on screen.</p>
+
+      <p>That panel runs entirely client-side on rule-based intent matching, grounded in the live numbers, and it was built that way on purpose. It needs no API key, it cannot invent a statistic, and the whole tool embeds in an iframe on any static host.</p>
+
+      <h2>How the score is built</h2>
+
+      <p>Four factors combine into a suitability score for each taxlot.</p>
+
+      <p><strong>Under-utilisation.</strong> The gap between what a parcel currently holds and what its land value implies it could hold. Land value per potential home is the operative measure, and it is exposed in the map tool because it is the number a reader will want to argue with.</p>
+
+      <p><strong>Capacity.</strong> How much additional housing the parcel could physically accommodate.</p>
+
+      <p><strong>Growth Policy density.</strong> How well the parcel aligns with the density the city's adopted Growth Policy already calls for at that location, which keeps the model inside existing policy rather than proposing a parallel one.</p>
+
+      <p><strong>Network walk access.</strong> Walking distance along the actual street network to daily destinations, computed on OpenStreetMap rather than as a straight-line radius.</p>
+
+      <p>Three screens run before scoring. Floodway parcels are removed, steep slopes are removed, and 1,255 contributing or listed historic structures are identified from city historic preservation data. The inputs are Missoula's 2024 taxlot layer, city historic preservation data, Census ACS for tenure and cost burden, and OpenStreetMap for the network.</p>
+
+      <h2>What it shows</h2>
+
+      <p>About 1,900 parcels sit in the top suitability decile, and 62 percent of those carry a preservation flag. Only 717 are net build-ready, splitting into 471 Build First and 246 Build + Protect.</p>
+
+      <p>That 717 is the argument the whole analysis rests on. Missoula's most suitable infill land is overwhelmingly land that is already housing people affordably, so a blanket upzone there produces redevelopment pressure on naturally affordable stock rather than housing on empty lots, and the arithmetic of replacing a mobile home park with market-rate units rarely nets positive on affordable units in the first decade.</p>
+
+      <p>Across the whole city, the preservation flags break down as 4,004 parcels of naturally occurring affordable housing, 911 historic, and 148 mobile home. The affordability category dominates by a factor of four over the next largest, and it is the one with no legal protection attached to it.</p>
+
+      <p>The recommendation that follows is targeted growth plus preservation rather than a uniform policy. New capacity should go to the 471 Build First parcels. The 246 Build + Protect parcels should be paired with tenant protections before they are rezoned. The Preserve set is a preservation problem, which needs a different budget and a different tool.</p>
+
+      <h2>Limitations</h2>
+
+      <p><strong>Naturally occurring affordability is inferred, not observed.</strong> The flag comes from value and tenure patterns rather than from rent rolls, so some flagged parcels are not actually affordable and some unflagged ones are. Verifying it needs rent data the city does not publish.</p>
+
+      <p><strong>The score is a composite, and composites hide their weights.</strong> Four factors combining into one number means a parcel can score high for reasons a reader would not endorse. The map tool exposes the suitability percentile and land value per potential home for that reason, but it does not yet break the score into its four components at the parcel level, and it should.</p>
+
+      <p><strong>Capacity is physical, not legal.</strong> The model asks what a parcel could hold, informed by Growth Policy density. It does not run the full zoning envelope, setbacks, parking minimums, or lot coverage, so a parcel can be suitable in this model and infeasible under current code.</p>
+
+      <p><strong>The action assignment is a rule, not a fitted model.</strong> Preserve, Build + Protect, and Build First come from threshold rules applied to the preservation flags and cost-burden data, and different thresholds give different counts. The 717 figure follows from where those lines were drawn, so anyone using it should read the thresholds first.</p>
+
+      <p><strong>City limits only.</strong> Growth pressure does not stop at the boundary, and the parcels outside it are shown as grey context with no scores.</p>
+
+      <h2>What is next</h2>
+
+      <p>The interesting question is scaling, and it is a data engineering problem rather than a modelling one. Extending countywide means reconciling zoning, future land use, and servicing data that live in systems which do not align on schema, geometry, or update cadence.</p>
+
+      <p>The plan is a documented schema crosswalk feeding a scripted, version-controlled pipeline. It inventories every source layer, defines one target schema, and automates the harmonisation so that a monthly refresh re-runs without rework. Factors that do not travel would be recalibrated, because walk access and land value behave differently outside a city grid, and the scored layer would be published with per-jurisdiction filters.</p>
+
+      <p>The parcel-level component breakdown is the other near-term addition, because a composite score that cannot be decomposed is hard to defend in a public meeting.</p>
+
+      <div class="backmatter">
+        <h2>Credits</h2>
+        <p>Jason Fan built the analysis, poster, memo, and map tool as a three-part exercise for the City of Missoula, Montana, in July 2026.</p>
+
+        <h2>Terms</h2>
+        <p>Please cite as J Fan (2026) "Where Missoula should build, and where it should not." Taxlot data from the City of Missoula. Street network data from OpenStreetMap contributors under the Open Database License.</p>
+      </div>
+
+      <div class="btn-row">
+        <a class="btn primary" href="./web_map/index.html" target="_blank" rel="noopener">Open the map tool <span aria-hidden="true">↗</span></a>
+        <a class="btn" href="./Missoula_Infill_Suitability.pdf" target="_blank" rel="noopener">Poster and memo, PDF <span aria-hidden="true">↗</span></a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span>Jason Tianchi Fan · Philadelphia</span>
+    <span><a href="mailto:jason.tc.fan@gmail.com">jason.tc.fan@gmail.com</a></span>
+  </div>
+
+</div>
+
+</body>
+</html>

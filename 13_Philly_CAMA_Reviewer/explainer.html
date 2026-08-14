@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rebuilding mass appraisal on open data &mdash; Jason Tianchi Fan</title>
+<meta name="description" content="A cloud-native mass appraisal pipeline for Philadelphia built on open city data, ending in a public dashboard where anyone can check a parcel's assessed value against an independent estimate.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Barlow+Condensed:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../page.css?v=20260809a">
+</head>
+<body>
+
+<header class="topbar">
+  <a class="home" href="../index.html">Jason T. Fan</a>
+  <nav aria-label="Primary">
+    <a href="../index.html">All work</a>
+    <a href="../explore.html">Explore in 3D</a>
+    <a href="../Jason_Fan_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+    <a href="mailto:jason.tc.fan@gmail.com">Email</a>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <div class="page-head">
+    <div class="eyebrow">Article · May 2026</div>
+    <h1>Rebuilding mass appraisal on open data</h1>
+    <p class="role">By Jason Fan and Team 3, MUSA 5090</p>
+    <nav class="article-nav" aria-label="This project">
+      <a href="./explainer.html" aria-current="page">Explainer</a>
+      <a href="https://weitzman-musa-geocloud.github.io/s26-team3-cama/reviewer/" target="_blank" rel="noopener">Reviewer <span aria-hidden="true">↗</span></a>
+      <a href="https://github.com/weitzman-musa-geocloud/s26-team3-cama" target="_blank" rel="noopener">Repository <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div>
+
+  <div class="article-body">
+
+    <p class="quicklook"><span class="quicklook-k">Quick look</span>Model-predicted and assessed values for every Philadelphia parcel, side by side.</p>
+
+    <div class="measure">
+
+      <div class="skillset">
+        <span class="skillset-k">Skills demonstrated</span>
+        <p>Google Cloud Functions and Cloud Run deployment, BigQuery SQL transformation, Python cloud functions, dashboard chart implementation in JavaScript, CORS and public bucket configuration, linting across JavaScript, CSS, SQL, and Python, open data integration.</p>
+      </div>
+
+      <p class="standfirst">Every property tax bill starts with a number somebody had to estimate. A city cannot appraise half a million parcels individually each year, so it uses computer-assisted mass appraisal, a model that predicts market value from property characteristics and recent sales and then runs at scale.</p>
+
+      <p>The model decides how much a household owes, and it also decides how that burden is distributed. Mass appraisal has a documented tendency to over-assess low-value properties relative to high-value ones, which makes the effective tax rate regressive even where the nominal rate is flat.</p>
+
+      <p>Almost nobody outside an assessor's office can check any of this. The assessed value is published, but the model that produced it usually is not, and there is rarely a second opinion available to compare it against.</p>
+
+      <p>This project builds that second opinion. It is a cloud-native mass appraisal pipeline for Philadelphia running entirely on open city data, and it ends in a public dashboard where anyone can look up a parcel and see its current assessment, its history, and an independent model's estimate side by side.</p>
+
+      <h2>What we are releasing</h2>
+
+      <p>The release has three parts, a pipeline, a model, and a reviewer.</p>
+
+      <p><strong>The pipeline</strong> runs on Google Cloud Platform. It extracts property data from OpenDataPhilly, transforms it into a warehouse schema, loads it into BigQuery, and produces the map tiles and chart configurations the dashboard consumes. There are ten discrete task deployments, each independently redeployable, orchestrated through Cloud Functions across Cloud Storage, BigQuery, and Cloud Run.</p>
+
+      <p><strong>The model</strong> is a BigQuery ML linear regression that predicts sale price from five parcel attributes. It trains on sales recorded from 1 January 2024 onward, then scores every parcel in the dataset and rounds the result to the nearest hundred dollars.</p>
+
+      <div class="table-scroll">
+        <table class="data-table data-table--text">
+          <thead>
+            <tr><th scope="col">Predictor</th><th scope="col">Definition</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>total_livable_area</code></td><td>OPA floor area</td></tr>
+            <tr><td><code>zoning</code></td><td>OPA zoning code</td></tr>
+            <tr><td><code>age</code></td><td>2026 minus year built</td></tr>
+            <tr><td><code>census_tract</code></td><td>Tract identifier, carrying location</td></tr>
+            <tr><td><code>septa_dist</code></td><td>Mean straight-line distance to the three nearest SEPTA stops</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tabcap"><span class="tabcap-k">Table 1 /</span>The whole feature set. Five predictors and a sale price label, which is a deliberately small model and the main constraint on what the estimates can be used for.</p>
+
+      <p><strong>The reviewer</strong> is a public dashboard. A user can search any property by address or OPA/BRT number and see its current and prior assessed values next to the model's prediction. The map renders every parcel as a choropleth of assessed value on a Leaflet basemap, served from the pipeline's own vector tiles rather than from a third-party service. Analytics panels chart the tax-year assessment distribution and the current model assessments citywide.</p>
+
+      <h2>How we built it</h2>
+
+      <p>The input data is deliberately narrow and entirely public. It covers OPA property assessments and the full assessment history from the Philadelphia Properties and Assessment History dataset, PWD stormwater billing parcels, which carry the parcel geometry, SEPTA stops, which supply the transit distance feature, real estate transfers, which give a sales history back to 1999, and building and zoning permits, which show when a property was renovated.</p>
+
+      <p>Storage is tiered into four buckets, and the part worth copying is the separation rather than the specific names. Raw data holds source files exactly as downloaded. Prepared data holds one file per dataset, normalised to the schema BigQuery external tables expect. Temp data is scratch with a short retention. Public holds only what the dashboard is allowed to read.</p>
+
+      <p>Keeping the public bucket as an explicit, separately governed tier means an accidental exposure requires a deliberate copy rather than a permissions mistake.</p>
+
+      <p>The pipeline stages are:</p>
+
+      <ol class="body-list">
+        <li>Extract. Download source datasets to raw.</li>
+        <li>Prepare. Transform to JSONL or Parquet in the prepared bucket.</li>
+        <li>Load. Create BigQuery external tables over prepared data, then core tables.</li>
+        <li>Model. Build the parcel table, train the regression on recent sales, and score every parcel.</li>
+        <li>Tile. Generate property map tiles and a GeoJSON tile info layer.</li>
+        <li>Chart. Generate assessment bin transformations and chart configurations.</li>
+        <li>Publish. Push dashboard assets to the public bucket.</li>
+      </ol>
+
+      <p>Each stage is a separate deployment with its own documentation, so a failed stage re-runs without touching the others.</p>
+
+      <h2>How our estimates compare with others</h2>
+
+      <p>The natural benchmark is the city's own assessed value, and the reviewer puts the two beside each other for any parcel a user looks up. The pipeline stops there. It computes no correlation, no mean difference, and no error metric of any kind, so this page cannot report how far the model's estimates sit from the city's across the tax base.</p>
+
+      <p>The comparison a reader most wants is a ratio study, the standard method in mass appraisal. It computes assessment-to-sale ratios against actual arms-length sales and summarises them as a median ratio, a coefficient of dispersion for uniformity, and a price-related differential for regressivity. A price-related differential above 1.03 is the conventional threshold for regressive assessment.</p>
+
+      <p>The transfer data needed to run one is already in the pipeline.</p>
+
+      <h2>Limitations</h2>
+
+      <p><strong>No accuracy has been measured.</strong> The pipeline trains a model and scores every parcel with it, and there is no train and test split and no evaluation step anywhere between those two operations. Nothing in the repository states how close the predictions come to observed sale prices, so the estimates the reviewer displays are untested rather than tested and found adequate.</p>
+
+      <p><strong>Five features is a small model.</strong> Floor area, zoning, age, census tract, and transit distance leave out bedroom and bathroom counts, lot size, exterior condition, and sale type. Without sale type the training set cannot separate an arms-length sale from a transfer between relatives, and both are learned from equally.</p>
+
+      <p><strong>Training uses a narrow window.</strong> The training table keeps only rows with a sale date on or after 1 January 2024. The model learns from a recent slice of the market and then scores the whole city, including the large majority of parcels that have not sold in that window.</p>
+
+      <p><strong>A second opinion is not ground truth.</strong> A model that disagrees with the city's assessment is not thereby correct, because both are estimates. The reviewer earns its keep by surfacing disagreement for a human to investigate rather than by settling it.</p>
+
+      <p><strong>Sales data is thin where it matters most.</strong> Mass appraisal accuracy depends on arms-length sales in the neighbourhood, and the neighbourhoods with the fewest recent market-rate sales are often the ones where over-assessment is most consequential.</p>
+
+      <p><strong>Parcel geometry comes from stormwater billing.</strong> The PWD parcel layer is maintained for a different purpose than assessment, and edge cases including condominiums and split parcels do not always align with OPA records. The parcel table is built as an inner join, so any OPA record without a matching stormwater parcel is absent from both the training data and the scored output.</p>
+
+      <h2>What is next</h2>
+
+      <p>An evaluation step comes first. Holding out a share of the 2024 sales and reporting median absolute percentage error would turn the predictions from untested numbers into a defensible second opinion, and it is a small amount of SQL against tables the pipeline already builds.</p>
+
+      <p>The ratio study is next, because it turns the reviewer from a lookup tool into an accountability tool. Publishing a coefficient of dispersion and a price-related differential by neighbourhood would say something about the assessment system that no individual parcel lookup can.</p>
+
+      <p>Beyond that, the pipeline is built for scheduled refresh but the public artifact is a snapshot. Wiring the workflow to a schedule and versioning the outputs would let a reader see how a parcel's assessment moved across cycles.</p>
+
+      <div class="backmatter">
+        <h2>Credits</h2>
+        <p>Built by Team 3 for MUSA 5090, University of Pennsylvania, Spring 2026, across seven contributors. Jason Fan wrote two of the pipeline's task deployments, <code>generate-assessment-chart-configs</code> and <code>transform-current-assessment-bins</code>, and the deployment configuration for <code>transform-tax-year-assessment-bins</code>, which together produce every chart the reviewer displays. He moved the current-assessment bins from market value onto the model's predicted values, rebuilt the reviewer's second chart as the assessed-against-predicted overlay, and configured the CORS policy that lets the dashboard read from the public bucket.</p>
+
+        <h2>Terms</h2>
+        <p>Data from OpenDataPhilly. Please cite as Team 3, MUSA 5090 (2026) "Rebuilding mass appraisal on open data."</p>
+      </div>
+
+      <div class="btn-row">
+        <a class="btn primary" href="https://weitzman-musa-geocloud.github.io/s26-team3-cama/reviewer/" target="_blank" rel="noopener">Open the reviewer <span aria-hidden="true">↗</span></a>
+        <a class="btn" href="https://github.com/weitzman-musa-geocloud/s26-team3-cama" target="_blank" rel="noopener">Repository <span aria-hidden="true">↗</span></a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span>Jason Tianchi Fan · Philadelphia</span>
+    <span><a href="mailto:jason.tc.fan@gmail.com">jason.tc.fan@gmail.com</a></span>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finding the vacant homes the city misses &mdash; Jason Tianchi Fan</title>
+<meta name="description" content="A calibrated vacancy model for 520,000 Philadelphia residential parcels, with its spatial validation, its equity audit, and a direct comparison against the city's own Vacant Property Indicator.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Barlow+Condensed:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../page.css?v=20260809a">
+</head>
+<body>
+
+<header class="topbar">
+  <a class="home" href="../index.html">Jason T. Fan</a>
+  <nav aria-label="Primary">
+    <a href="../index.html">All work</a>
+    <a href="../explore.html">Explore in 3D</a>
+    <a href="../Jason_Fan_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+    <a href="mailto:jason.tc.fan@gmail.com">Email</a>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <div class="page-head">
+    <div class="eyebrow">Article · May 2026</div>
+    <h1>Finding the vacant homes the city misses</h1>
+    <p class="role">By Jason Fan, Xiaoqing Chen, Zhe Fang, Lingxuan Gao</p>
+    <nav class="article-nav" aria-label="This project">
+      <a href="./index.html">Case study</a>
+      <a href="./explainer.html" aria-current="page">Explainer</a>
+      <a href="https://jasonfan28.github.io/Philly_vacant_property_indicator/Vacancy%20Risk%20Landing%20Page.html" target="_blank" rel="noopener">Dashboard <span aria-hidden="true">↗</span></a>
+      <a href="https://github.com/Jasonfan28/Philly_vacant_property_indicator" target="_blank" rel="noopener">Repository <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div>
+
+  <div class="article-body">
+
+    <p class="quicklook"><span class="quicklook-k">Quick look</span>Calibrated vacancy probabilities for 520,000 Philadelphia residential parcels.</p>
+
+    <div class="measure">
+
+      <div class="skillset">
+        <span class="skillset-k">Skills demonstrated</span>
+        <p>Ensemble machine learning, probability calibration, spatial and grouped cross-validation, multi-source administrative data integration, leakage-aware feature engineering, model equity auditing, benchmarking against an incumbent public model, TreeSHAP attribution, MapLibre and PMTiles deployment.</p>
+      </div>
+
+      <p class="standfirst">Philadelphia has to decide which houses are empty without visiting most of them. The judgement has to hold for a specific address on the day an inspector is sent out, and there are 520,000 residential parcels to make it for.</p>
+
+      <p>The city has been working on this longer than most. Its Vacant Property Indicator launched in November 2016, when the Office of Innovation and Technology combined administrative data from Licenses and Inspections, the Office of Property Assessment, the Land Bank, and the Water Department into a public reliability score. That framework still holds up. What has changed in the decade since is the data underneath it, the operational questions being asked of it, and the standard for what counts as defensible methodology when a public agency makes a flagging decision about private property.</p>
+
+      <p>Vacancy was quantified as a $3.6 billion drag on Philadelphia property values in the 2010 Penn IUR and Econsult study, and vacant structures carry fire risk and injury risk for the inspectors who enter them.</p>
+
+      <p>No vacancy indicator has a ground truth behind it, including the city's and including ours, because nobody has walked all 520,000 parcels. What exists instead are administrative traces: a boarding order, an open violation, a self-declared vacant licence. Each of those traces comes from a process that visits some neighbourhoods more often than others, so a model trained on them can end up predicting the city's own inspection history rather than vacancy.</p>
+
+      <p>This article covers what we built, how it performs, where it improves on the existing indicator, and the three limitations that should shape any decision to deploy it.</p>
+
+      <h2>What we are releasing</h2>
+
+      <p>The model assigns a calibrated probability of vacancy to each of Philadelphia's 520,000 residential parcels.</p>
+
+      <p>The release has three parts. The model outputs a per-parcel probability, a 0 to 100 risk score, a binary flag for the top one percent, and a five-tier rank bucket. The application surface is a static landing page, a methodology writeup, and an interactive parcel dashboard built on MapLibre and PMTiles with per-parcel TreeSHAP attribution and ward-level summaries. The pipeline behind both is fifteen documented R Markdown stages running from data inventory through tiling.</p>
+
+      <div class="table-scroll">
+        <table class="data-table">
+          <tbody>
+            <tr><td>Parcels scored</td><td>520,000</td></tr>
+            <tr><td>Observed vacancy rate</td><td>1.1%</td></tr>
+            <tr><td>Features</td><td>34</td></tr>
+            <tr><td>Source systems</td><td>7 across 3 agencies</td></tr>
+            <tr><td>Pipeline stages</td><td>15</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tabcap"><span class="tabcap-k">Table 1 /</span>The residential universe and the model built on it. Every stage is inspectable in the repository.</p>
+
+      <p>Everything runs static. The public dashboard is served from GitHub Pages with no backend, and a local Flask tile server handles workstation use when database-wide search is needed.</p>
+
+      <h2>How we built it</h2>
+
+      <p><strong>The label.</strong> A parcel is marked vacant if it meets any of three conditions: a Clean and Seal action within two years of the training cutoff with no subsequent demolition or new-construction permit, an open code violation matching one of eleven vacancy codes, or an active business licence with a vacant revenue code. The label is constructed once and carried unchanged through every downstream step.</p>
+
+      <p>Triangulating three independent administrative systems is more reliable than reading any one of them alone. Clean and Seal catches the severe cases the city has already physically intervened on. The violation codes catch what inspectors flag during routine or complaint-driven work. Vacant licences catch owners who declare the vacancy themselves, usually for tax reasons.</p>
+
+      <p>The three sources do not contribute equally, and that shapes how the output should be read. Clean and Seal accounts for 88.4 percent of labelled vacants, violations alone for 3.6 percent, and licences alone for 1.9 percent. The model therefore learns mostly to predict which houses the city has already boarded up, together with earlier signals for houses that have not reached that point yet.</p>
+
+      <p>Validating the label against independent OPA fields suggests it tracks something physical rather than purely administrative. Labelled parcels skew toward the worst exterior condition ratings, are older, and carry a median market value near $145,000 against $222,000 for occupied parcels.</p>
+
+      <p><strong>The features.</strong> The feature set is thirty-four predictors from seven sources, each constructed strictly before a global training cutoff of 2025-10-01 so that no feature can see the future. Each is built in four windows: six months for acute activity, two years for recent trend, three years for mid-term history, and five years for trajectory. Five violations in six months means something different from five spread over ten years.</p>
+
+      <p><strong>The model.</strong> Four base learners were tested through tidymodels: regularised logistic regression, a 500-tree random forest, XGBoost, and LightGBM. Class imbalance is handled with ROSE oversampling applied only inside the training fold of each split, so the resampling never leaks.</p>
+
+      <p>The boosted models came out behind. Logistic regression scored 0.932 test AUC and random forest 0.920, while LightGBM fell to 0.831 and XGBoost to 0.810. Once the leakage-prone features were removed, the boosters over-committed to a handful of the remaining ones and lost the long tail. The production score is a 50/50 average of the two survivors, calibrated with isotonic regression.</p>
+
+      <p>Calibration changes what the score means. A raw random forest score of 0.7 might correspond to an empirical vacancy rate of 30 percent, whereas after isotonic mapping a parcel scored 0.4 behaves like a 40 percent chance. Because vacancy is rare, even the top one percent of parcels is only about 59 percent truly vacant, so the highest calibrated probability is around 0.6 and nothing crosses 0.5. A default 0.5 cutoff applied to this score flags nothing at all, which is why the operational outputs are the top-one-percent flag and the five-tier bucket.</p>
+
+      <div class="table-scroll">
+        <table class="data-table">
+          <tbody>
+            <tr><td>ROC-AUC</td><td>0.940</td></tr>
+            <tr><td>PR-AUC</td><td>0.546</td></tr>
+            <tr><td>Baseline PR-AUC</td><td>0.011</td></tr>
+            <tr><td>Brier</td><td>0.0068</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tabcap"><span class="tabcap-k">Table 2 /</span>Test-set performance on a stratified 30 percent split. At 1.1 percent prevalence PR-AUC is the informative measure, and it sits roughly fifty times above baseline.</p>
+
+      <h2>Does it generalise</h2>
+
+      <p>A single test AUC is not evidence of generalisation when several features are spatially smooth. Neighbourhood vacancy counts and ZIP aggregations mean a random split can put neighbours on opposite sides of the train and test boundary, which lets the model read its own training answer.</p>
+
+      <p>We bounded it four ways. Ten-fold cross-validation grouped by ZIP gives a mean AUC of 0.888, grouping by census tract block gives 0.968, and leaving each ZIP out in turn gives 0.885. The conservative figure of 0.885 is the one we report.</p>
+
+      <p>Performance also holds across subgroups. Per-ZIP AUC has a median of 0.973 across the 41 ZIPs meeting a minimum-N filter, with no ZIP below 0.70. Across OPA building categories it ranges from 0.942 for large apartment buildings to 0.980 for single family.</p>
+
+      <p>The equity audit bins census tracts into income quintiles using ACS five-year median household income. Per-quintile AUC ranges from 0.968 to 0.978, and predicted rate tracks observed rate in every band, at 2.60 percent observed against 2.93 percent predicted in the lowest quintile and 0.31 against 0.28 in the highest.</p>
+
+      <p>The model concentrates absolute flag counts in lower-income areas because vacancy is genuinely concentrated there, and it does so without losing ranking quality in any ZIP or any income band. An oversight function reviewing this should be separating disparate impact that reflects a real distribution from disparate impact that reflects model bias.</p>
+
+      <h2>How our estimates compare with others</h2>
+
+      <p>The city publishes its Vacant Property Indicator on OpenDataPhilly as a binary flag. Of the 8,048 buildings it flags, 6,418 fall inside our residential universe, so the comparison runs against that subset.</p>
+
+      <p>At matched flag volume, the ensemble flags 6,400 parcels at 54.7 percent precision and 78.3 percent recall, and the city indicator flags roughly the same number at 53.3 percent precision and 57.6 percent recall. The inspector workload is the same and the ensemble returns about twenty more points of recall.</p>
+
+      <p>Read as continuous scores rather than as flags, the gap widens. Ensemble AUC against the label is 0.979 and average precision is 0.754, while the binary indicator read as a thresholded classifier scores 0.785 and 0.312.</p>
+
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr><th scope="col">Bucket</th><th scope="col">Parcels</th><th scope="col">Observed vacancy</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Both flag</td><td>3,199</td><td>83.3%</td></tr>
+            <tr><td>Model only</td><td>5,300</td><td>37.4%</td></tr>
+            <tr><td>City VPI only</td><td>3,211</td><td>23.4%</td></tr>
+            <tr><td>Neither</td><td>508,486</td><td>0.1%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tabcap"><span class="tabcap-k">Table 3 /</span>Where the two indicators disagree. The model's exclusive flags carry nearly twice the observed vacancy of the city's exclusive flags, which is the strongest evidence that the disagreement is informative rather than noise.</p>
+
+      <p>The disagreement also produced something usable. We isolated the 339 parcels with the highest model probability that the label calls not-vacant. Twenty-seven of them appear in the city indicator, which is independent corroboration that they are genuinely vacant and the label missed them. The remaining 312 were exported with addresses for inspector review. Those are parcels no single administrative source captured, which is the reason for doing the work in the first place.</p>
+
+      <p>None of this makes the model a clean replacement, because there are parcels the city indicator catches that the model misses. The realistic choice is between running the model alone and running the union of both, and it turns on whether the priority is precision per inspector visit or coverage of the vacancy footprint. At a policy of inspecting the top one percent of each ward's residential stock per cycle, the model alone gives 5,232 parcels at 57.0 percent precision, and the union gives 9,874 at 47.9 percent precision and 79.7 percent recall. Which one to run is a question about inspection budget rather than about the model.</p>
+
+      <h2>Limitations</h2>
+
+      <p><strong>Label-side bias is unaudited, and the equity audit cannot detect it.</strong> The label comes from inspection workflows that visit some neighbourhoods more than others. If a real vacancy in a low-poverty tract is never inspected, the model learns to under-flag there, and both the predictions and the observed rate inherit the same selection bias, so the audit comes back clean. Detecting this needs an independent ground truth such as street-view imagery, utility shutoff records, USPS vacancy data, or a stratified field-truthed sample. The 339-parcel review list is a small step in that direction rather than a substitute for it.</p>
+
+      <p><strong>Residential is half the picture.</strong> Vacant land is a large problem in Philadelphia and is nearly invisible to a three-source definition built on buildings, and commercial property is out of scope entirely. Both would need their own labels and their own models. The pipeline supports running models in parallel, but neither has been built.</p>
+
+      <p><strong>The calibration is slightly optimistic.</strong> The isotonic mapping was fit on the full test set, which is a deliberate shortcut for an initial release. Refitting on a held-out half and evaluating on the other half gives AUC 0.938 against 0.940 and a mean-predicted to observed ratio of 1.04. The effect is small, and it runs in the direction of the released numbers being slightly generous.</p>
+
+      <p><strong>There is no inspector feedback loop.</strong> Field outcomes from visits to flagged parcels are the data that would close the loop between prediction and truth. Building that channel is an institutional question rather than a technical one, and it would do more for the model's accuracy over time than further modelling work would.</p>
+
+      <h2>What is next</h2>
+
+      <p>The three limitations above are listed in the order we would address them. Ground-truthing the label comes first, because until that is done nobody can say whether the equity audit means anything. A vacant-land model is second, because it addresses a problem of comparable size that this model structurally cannot see. The inspector feedback channel is third, only because it depends on a workflow the project does not control.</p>
+
+      <p>Within its current scope the model works. It reaches 0.94 AUC, it is calibrated, it holds up across income quintiles, and it beats the existing indicator at matched volume on both precision and recall. It is not a replacement for that indicator yet.</p>
+
+      <div class="backmatter">
+        <h2>Credits</h2>
+        <p>Jason Fan, Xiaoqing Chen, Zhe Fang, and Lingxuan Gao built the model as the MUSA Smart Cities Practicum, May 2026, for the City of Philadelphia. Jason Fan contributed to label construction and validation, feature engineering, model validation, the city indicator comparison, and the dashboard.</p>
+
+        <h2>Terms</h2>
+        <p>Please cite as J Fan et al. (2026) "Finding the vacant homes the city misses."</p>
+      </div>
+
+      <div class="btn-row">
+        <a class="btn primary" href="https://jasonfan28.github.io/Philly_vacant_property_indicator/Vacancy%20Risk%20Landing%20Page.html" target="_blank" rel="noopener">Open the live dashboard <span aria-hidden="true">↗</span></a>
+        <a class="btn" href="./index.html">Read the case study <span aria-hidden="true">→</span></a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span>Jason Tianchi Fan · Philadelphia</span>
+    <span><a href="mailto:jason.tc.fan@gmail.com">jason.tc.fan@gmail.com</a></span>
+  </div>
+
+</div>
+
+</body>
+</html>
