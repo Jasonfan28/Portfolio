@@ -273,8 +273,6 @@ hr.rule { border: none; border-top: 1px solid var(--rule-1); margin: 3rem 0; }
   border-bottom: 1px solid var(--rule-2);
 }
 .idx-stats .stat:last-child { border-bottom: none; }
-.idx-stats .stat-n { font-size: 1.3rem; }
-.idx-stats .stat-l { margin-top: 0; font-size: 0.68rem; letter-spacing: 0.13em; line-height: 1.4; }
 
 /* Capability variant of the key. Same frame, dividers, and corner tick, but the
    cell stacks a category over a list instead of setting a numeral beside a
@@ -619,11 +617,11 @@ hr.rule { border: none; border-top: 1px solid var(--rule-1); margin: 3rem 0; }
   .sec-head { letter-spacing: 0.24em; }
 }
 
-/* === article layer: explainer + methods pages ===
-   Two new interior page types sit on top of the case-study sheet: an explainer,
-   which is an argument with figures, and a methods page, which is a reference
-   document. Everything below is built from the tokens already declared at the
-   top of this file. No new colour, face, or size enters here. */
+/* === article layer ===
+   One interior page type on top of the case-study sheet: the project explainer,
+   an argument carrying figures and tables. Everything below is built from the
+   tokens already declared at the top of this file. No new colour, face, or size
+   enters here. */
 
 /* ─── Article nav ───
    A row of hairline-separated links under the page head, pointing at the other

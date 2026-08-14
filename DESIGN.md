@@ -293,7 +293,9 @@ The scale runs in five tiers. Serif carries display, figure, title, and body; co
 
 ### Scope note
 
-`page.css` is shared between the work index and the long-form case study. The `meta-strip`, `stat-row`, `callout`, and `body-list` patterns belong to the case study and are documented here because they are part of the same system, not because they appear on the index.
+`page.css` is shared between the work index, the long-form case study, and the three project explainers. The `meta-strip`, `stat-row`, `callout`, and `body-list` patterns belong to the case study and are documented here because they are part of the same system, not because they appear on the index.
+
+The explainers add one marked block to the stylesheet, running from `/* === article layer === */` to `/* === end article layer === */`. It holds `article-nav`, `article-body` with its margin rail for the `quicklook`, `data-table` inside a `table-scroll` container, the `tabcap` run-in caption, `skillset`, and `backmatter`. Every value in it comes from the tokens above and no new colour, face, or size enters there.
 
 ### Named Rules
 

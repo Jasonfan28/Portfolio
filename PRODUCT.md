@@ -38,7 +38,7 @@ A planner who ships working tools. The models end as dashboards, maps, and pipel
 
 - Hand-written static HTML, CSS, and JavaScript. No npm, no bundler, no framework, no build step. Files are edited and committed directly.
 - Two surfaces, and the split is durable. `index.html` is the front door and the URL to share. `explore.html` is the scroll-driven three.js city, credited on the index as entry eleven rather than treated as decoration. `work.html` is a redirect stub kept for old links.
-- `page.css` styles the index. `style.css` and `main.js` drive the 3D scene. Cache busting is done with a `?v=` query string on the stylesheet links.
+- `page.css` styles every flat reading page: the index, the long-form case study, and the three project explainers. `style.css` and `main.js` drive the 3D scene. Cache busting is done with a `?v=` query string on the stylesheet links.
 - External runtime dependencies are Google Fonts (Cormorant Garamond, Barlow Condensed, DM Mono) and three.js r128 from cdnjs. No analytics, no trackers, no third-party scripts that collect visitor data.
 - The site must hold up on a modest laptop, including the WebGL scene. Performance is part of the pitch, so it cannot regress. The scene is batched into merged per-material buffers, taking it from roughly 2,600 draw calls a frame to about ten.
 - Five archived project folders (`03`, `04`, `06`, `09`, `10`) are retained in the repository but deliberately not featured on the site.

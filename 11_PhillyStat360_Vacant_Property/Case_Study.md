@@ -13,7 +13,7 @@ Philadelphia's official vacancy count relies on enforcement history rather than 
 
 ## The model
 
-The project scores Philadelphia's 520,000+ residential parcels for vacancy risk. Four base learners were trained and evaluated: logistic regression, random forest, XGBoost, and LightGBM. The final model blends calibrated logistic regression and random forest into a 50/50 ensemble, validated with ZIP- and tract-grouped spatial cross-validation so performance holds across neighborhoods rather than leaking from them.
+The project scores Philadelphia's 520,000 residential parcels for vacancy risk. Four base learners were trained and evaluated: logistic regression, random forest, XGBoost, and LightGBM. The final model blends calibrated logistic regression and random forest into a 50/50 ensemble, validated with ZIP- and tract-grouped spatial cross-validation so performance holds across neighborhoods rather than leaking from them.
 
 The feature set draws 34 predictors from six city data systems: Licenses and Inspections violations, real estate transfers, OPA property records, spatial lag measures, clean and seal actions, and business licenses, with a five-year lookback on utility, permit, and complaint data.
 

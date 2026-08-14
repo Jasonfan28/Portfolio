@@ -1,9 +1,9 @@
 # Jason Fan Portfolio Assets
 
 Master of City Planning, University of Pennsylvania
-Updated: July 2026
+Updated: August 2026
 
-Source for [the portfolio site](https://jasonfan28.github.io/portfolio/). Ten selected works plus the site itself, each with a case-study write-up and its deliverable.
+Source for [the portfolio site](https://jasonfan28.github.io/portfolio/). Eleven selected works, the last of which is the site itself, each with a case-study write-up and its deliverable.
 
 The published URL is lowercase. The repository was renamed and GitHub Pages
 paths are case-sensitive, so the old capitalised `/Portfolio/` address returns
@@ -14,13 +14,15 @@ Pages:
 - `index.html` — the illustrated work index, and the URL to share
 - `explore.html` — the 3D scroll portfolio, listed on the index as entry 11
 - `11_PhillyStat360_Vacant_Property/index.html` — a long-form case study
+- `explainer.html` in folders 11, 13, and 15 — long-form articles for the vacancy,
+  CAMA, and Missoula projects, sharing `page.css`
 - `work.html` — a redirect stub left behind when the index moved to root
 
 The index is the front door because it puts every project in front of a reader
 immediately, which matters more for hiring than the 3D scene does. The 3D scene
 is credited on it as its own piece of work rather than treated as decoration.
 
-## The ten pieces
+## The eleven pieces
 
 Numbered strongest first. The site groups them into the four sections below and
 the numbering runs across all of them, so a section holds a non-contiguous set.
