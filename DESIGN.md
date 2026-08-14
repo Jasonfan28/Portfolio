@@ -309,13 +309,15 @@ A single centred column capped at 1180px with 2.4rem gutters, dropping to 1.2rem
 
 The page is a stack of named sections, each opening with a register row and closing with its content block. Three grid families do all the work. Featured entries are a two-column grid at `1.15fr 1fr` with a 3rem gutter, alternating side by side by flipping the media to `order: 2`. Card grids are `repeat(auto-fit, minmax(290px, 1fr))` at a 2.4rem by 2rem gutter, and cards are flex columns whose link rows pin to the bottom so they align across a row regardless of description length. Plates are `repeat(auto-fit, minmax(400px, 1fr))`, two up at desktop and one up below 880px.
 
-The masthead is a title block: the headline spans the full width, then the standfirst and a stacked figure key sit side by side at `minmax(0, 1.55fr) minmax(250px, 1fr)`. Below 880px it collapses to one column and the key drops beneath the standfirst.
+The masthead is a title block: the headline spans the full width, then the bio and a stacked capability strip sit side by side at `minmax(0, 1.55fr) minmax(250px, 1fr)`. Below 880px it collapses to one column and the strip drops beneath the bio. The right track measures 414px at a 1280px viewport and does not grow beyond it, because the wrap caps at 1180px. That width is what decides how many lines each capability cell takes.
 
 Vertical rhythm runs on a small set of steps: 0.5rem inside a group, 0.9rem to 1rem between a title and its body, 1.8rem to 2rem below a section register, and 3.4rem above one. The first section register on a page is tightened to 1.9rem so the work starts inside the fold.
 
 Breakpoints are 880px, where every two-column grid collapses, and 820px, where gutters and the top bar tighten. There is no third breakpoint and none is needed.
 
-**The Fold Rule.** The first entry's image and title both sit above 800px at a 1280px viewport. Any masthead addition that pushes them below it has to earn the space or be cut.
+**The Fold Rule.** The first entry's image sits above 800px at a 1280px viewport, and its title sits as close to that line as the masthead allows. Any masthead addition has to earn the space or be cut.
+
+The rule was written when the masthead held four cells of content-free metadata, and it was there to evict them. The masthead now carries a bio and a capability strip, which is what a hiring reader is looking for, so the two are measured rather than assumed. As of August 2026 the first thumbnail sits at y=753 and the first title at y=813. The title is 13px past the line and that is a deliberate, recorded trade rather than drift. Anything that pushes it further is a regression.
 
 ## Elevation & Depth
 
@@ -373,8 +375,12 @@ The signature component. A flex row of a mono sheet number (`§ 01`), a condense
 ### Author Line
 Sits directly under the display name and closes with a full-width hairline, which makes the masthead read as a drawing's title block: sheet title, author, then the scope below the rule. Condensed uppercase at 0.72rem and `0.28em` in the reading ink, with a diamond in the same ink separating role from location. It carries what the headline deliberately does not claim.
 
-### Figure Key
-A stacked list of four number and label pairs on hairline dividers, each with a 4px terra corner tick. Set beside the standfirst it reads as a drawing's title block. The numbers are always evidence from the work, never metadata about the page.
+### Capability Strip
+A stacked list of five cells on hairline dividers, each with a 4px terra corner tick, set beside the bio so the pair reads as a drawing's title block. Each cell is a category in the condensed label voice over a list in the serif at 0.94rem. The list stays mixed case, because ArcGIS Pro, PostGIS, and PMTiles carry meaning in their capitals that tracked uppercase would flatten, and it is the one place on the site where a label-adjacent line is not set in caps.
+
+It replaced a figure key of four number and label pairs. The numbers were already stated by the entries below, so repeating them at the top bought nothing, and a category with a list says more about capability than a count does. The frame, the dividers, and the corner tick are unchanged, and `.stat` still carries them. The cell interior is the only thing that differs, through `.idx-stats--caps`.
+
+Nothing in this component takes a numeral. If a number belongs on the masthead again it goes back to being evidence from the work, never metadata about the page.
 
 ## Do's and Don'ts
 
@@ -400,4 +406,6 @@ A stacked list of four number and label pairs on hairline dividers, each with a 
 - **Don't** renumber entries so a section reads contiguously. The numeral is the ranking, and a non-contiguous section is the correct result.
 - **Don't** introduce a second accent hue. One iron oxide, rationed, is the whole colour argument.
 - **Don't** fill a large area with terra. It draws lines and marks corners, and fills exactly one button.
-- **Don't** let a stat, badge, or metadata strip take first-viewport space unless its numbers are evidence from the work.
+- **Don't** let a stat, badge, or metadata strip take first-viewport space unless it earns it. A capability list earns it, a count the entries below already state does not.
+- **Don't** set a tool or product name in tracked uppercase. PostGIS and PMTiles lose information that way.
+- **Don't** use skill bars, percentage ratings, star ratings, or proficiency adjectives. The capability strip names what the work used and lets the entries below carry the proof.
