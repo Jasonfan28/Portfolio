@@ -424,7 +424,7 @@ hr.rule { border: none; border-top: 1px solid var(--rule-1); margin: 3rem 0; }
 .item-links a.lead { border-color: var(--terra); color: var(--terra-text); }
 .item-links a.lead:hover { background: var(--terra-deep); border-color: var(--terra-deep); color: #fdf7ec; }
 
-/* Eleven works, most opening in a new tab. Without this a reader who comes
+/* Fourteen works, most opening in a new tab. Without this a reader who comes
    back after four of them has no way to tell where they left off. */
 .item-title a:visited { color: var(--ink-3); }
 .item-links a:visited { color: var(--ink-3); border-style: dashed; }
@@ -467,7 +467,12 @@ hr.rule { border: none; border-top: 1px solid var(--rule-1); margin: 3rem 0; }
 .card:hover .media::before, .card:hover .media::after { opacity: 1; }
 .card:hover .item-title a { color: var(--terra-text); }
 .card:hover .num { color: var(--terra); }
-.card-head { display: flex; align-items: baseline; gap: 0.75rem; margin-bottom: 0.4rem; }
+/* The head row carries a numeral, a kicker, and a tag. Every org name through
+   entry eleven left room for all three on one line, but a long one squeezes the
+   kicker into a stacked column and drops that card's title below its neighbours'.
+   Wrapping sends the tag to its own line instead, and only engages on a row that
+   genuinely does not fit, so the shorter heads are untouched. */
+.card-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.75rem; row-gap: 0.4rem; margin-bottom: 0.4rem; }
 .card .num { font-size: 1.5rem; }
 .card .item-title { font-size: 1.22rem; }
 .card .item-desc { font-size: 0.94rem; }
